@@ -18,8 +18,7 @@ func _on_Timer_timeout() -> void:
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	if body.is_in_group("Enemies"):
-		var enemy_id = int(body.get_name())
-		get_node("/root/Server/Map").EnemyMeleeHit(enemy_id, 150) #150 is damage to change later
+		body.take_damage(150, player_id)
 	elif body.is_in_group("Ores"):
 		if ServerData.mining_data[body.name][sd.ACTIVE] == 1:
 			if ServerData.mining_data[body.name][sd.CURRENT_HITS] == ServerData.mining_data[body.name][sd.HITS_HP] - 1:
