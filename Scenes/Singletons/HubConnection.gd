@@ -38,3 +38,5 @@ func _OnConnectionSucceeded():
 remote func ReceiveLoginToken(token):
 	gameserver.expected_tokens.append(token)
 	
+func SendClientSessionToken(session_token, player_id):
+	rpc_id(1, "ReceivePlayerSessionToken", session_token, player_id)

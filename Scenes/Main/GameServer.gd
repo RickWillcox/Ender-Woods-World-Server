@@ -52,7 +52,7 @@ func _Peer_Disconnected(player_id):
 		rpc_id(0, "DespawnPlayer", player_id)
 
 func SendClientSessionToken(session_token, player_id):
-	rpc_id(player_id, "ReceivePlayerToken", session_token)
+	rpc_id(player_id, "ReceivePlayerSessionToken", session_token)
 
 remote func AskForSessionToken():
 	var player_id = get_tree().get_rpc_sender_id()

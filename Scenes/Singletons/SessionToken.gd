@@ -9,3 +9,4 @@ func GenerateSessionToken(player_id):
 	print("Player_id: ", player_id)
 	print("Session Token: ", session_token)
 	get_node("/root/Server").SendClientSessionToken(session_token, player_id)
+	HubConnection.SendClientSessionToken(session_token, player_id)
