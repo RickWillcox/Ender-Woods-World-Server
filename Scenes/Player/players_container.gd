@@ -9,7 +9,6 @@ func create_new_player(player_id, world, initial_state):
 	player.register(world)
 	storage[player_id] = player
 	
-	
 func remove_player(player_id):
 	(storage[player_id] as Player).remove()
 	storage.erase(player_id)

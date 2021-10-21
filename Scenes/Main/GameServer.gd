@@ -105,7 +105,6 @@ remote func ReceivePlayerState(player_state):
 			players_container.update_player(player_id, player_state)
 	#Check for leet hacks
 	else:
-		var player = Player.new()
 		players_container.create_new_player(player_id, players_node, player_state)
 		player_state_collection[player_id] = player_state #add player state to the collection
 
