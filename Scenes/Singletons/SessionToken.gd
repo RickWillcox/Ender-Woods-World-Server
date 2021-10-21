@@ -4,9 +4,8 @@ extends Node
 #authentication database, then when a player makes an action that needs to be verified like adding an item to the inventory
 #make sure the session tokens match.
 
-func GenerateSessionToken(username, player_id):
-	var session_token = str(OS.get_system_time_msecs() + int(username)).sha256_text()
-	print("Player_id: ", username)
+func GenerateSessionToken(player_id):
+	var session_token = str(OS.get_system_time_msecs() + int(player_id)).sha256_text()
+	print("Player_id: ", player_id)
 	print("Session Token: ", session_token)
-	HubConnection.SendSessionToken(username, session_token, player_id)
-#	GamerServer.
+	get_node("/root/Server").SendClientSessionToken(session_token, player_id)
