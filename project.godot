@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Scenes/Player/player.gd"
+}, {
+"base": "Node",
+"class": "PlayersContainer",
+"language": "GDScript",
+"path": "res://Scenes/Player/players_container.gd"
+} ]
+_global_script_class_icons={
+"Player": "",
+"PlayersContainer": ""
+}
+
 [application]
 
 config/name="World Server"

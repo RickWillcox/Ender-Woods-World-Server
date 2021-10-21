@@ -83,6 +83,7 @@ func _physics_process(delta):
 				if player != null:
 					if global_position.distance_to(player.global_position) <= 25 and attack_timer.is_stopped():
 						state = STATES.ATTACK
+						velocity = Vector2.ZERO
 					animation_state.travel("Run")
 					var direction = global_position.direction_to(player.global_position)
 					velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
