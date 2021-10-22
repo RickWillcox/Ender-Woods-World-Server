@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "PlayersContainer",
 "language": "GDScript",
 "path": "res://Scenes/Player/players_container.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://Scenes/Enemies/Enemy.gd"
 } ]
 _global_script_class_icons={
 "Player": "",
-"PlayersContainer": ""
+"PlayersContainer": "",
+"Enemy": ""
 }
 
 [application]

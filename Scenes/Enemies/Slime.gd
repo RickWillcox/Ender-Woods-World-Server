@@ -1,3 +1,3 @@
-extends KinematicBody2D
+extends Enemy
 
 

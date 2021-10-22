@@ -37,7 +37,7 @@ func SpawnEnemy():
 		 sd.ENEMY_MAX_HEALTH: EnemyData.enemies[type]["MaxHealth"], #EnemyMaxHealth
 		 sd.ENEMY_STATE: "ATTACK", #EnemyState
 		 sd.ENEMY_TIME_OUT: 1} #EAttackType
-		get_parent().get_node("ServerMap").SpawnEnemy(enemy_id_counter, location, type)
+		get_parent().get_node("ServerMap").SpawnEnemy(enemy_id_counter, location, type, enemy_list[enemy_id_counter])
 		enemy_id_counter += 1
 	for enemy in enemy_list.keys():
 		if enemy_list[enemy][sd.ENEMY_STATE] == "DEAD":
@@ -49,16 +49,8 @@ func SpawnEnemy():
 func UpdateEnemyPosition(name):
 	pass
 				
-func EnemyMeleeHit(enemy_id, damage):
-	if enemy_list[enemy_id][sd.ENEMY_CURRENT_HEALTH] <= 0:
-		pass
-	else:
-		enemy_list[enemy_id][sd.ENEMY_CURRENT_HEALTH] = enemy_list[enemy_id][sd.ENEMY_CURRENT_HEALTH] - damage
-		if enemy_list[enemy_id][sd.ENEMY_CURRENT_HEALTH] <= 0:
-			get_node("/root/Server/ServerMap/YSort/Enemies/" + str(enemy_id)).queue_free()
-			enemy_list[enemy_id][sd.ENEMY_STATE] = "DEAD"
-			open_locations.append(occupied_locations[enemy_id])
-			occupied_locations.erase(enemy_id)
-	
+func release_occupied_location(enemy_id):
+	open_locations.append(occupied_locations[enemy_id])
+	occupied_locations.erase(enemy_id)
 			
 
