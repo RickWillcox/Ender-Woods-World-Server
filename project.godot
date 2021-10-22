@@ -13,9 +13,21 @@ _global_script_classes=[ {
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://Scenes/Enemies/Enemy.gd"
+}, {
+"base": "Node",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Scenes/Player/player.gd"
+}, {
+"base": "Node",
+"class": "PlayersContainer",
+"language": "GDScript",
+"path": "res://Scenes/Player/players_container.gd"
 } ]
 _global_script_class_icons={
-"Enemy": ""
+"Enemy": "",
+"Player": "",
+"PlayersContainer": ""
 }
 
 [application]
