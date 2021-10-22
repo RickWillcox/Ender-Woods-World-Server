@@ -18,7 +18,9 @@ func _on_Timer_timeout() -> void:
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	if body.is_in_group("Enemies"):
-		body.take_damage(150, player_id)
+		# TODO: damage calculation based on player stats and items
+		var damage = 150
+		body.take_damage(damage, player_id)
 	elif body.is_in_group("Ores"):
 		if ServerData.mining_data[body.name][sd.ACTIVE] == 1:
 			if ServerData.mining_data[body.name][sd.CURRENT_HITS] == ServerData.mining_data[body.name][sd.HITS_HP] - 1:

@@ -1,13 +1,17 @@
 extends KinematicBody2D
 class_name Enemy
 
-onready var map = get_node("../../../../Map")
+onready var map = get_node("/root/Server/Map")
 
 var status_dict : Dictionary
 func set_status_dict(dict):
 	status_dict = dict
 
-func take_damage(value, _attacker):
+func take_damage(value : float, _attacker):
+	if status_dict == null:
+		# something went wrong, the enemy is not registered in the server
+		return
+
 	var id = int(get_name())
 	if status_dict[ServerData.ENEMY_CURRENT_HEALTH] <= 0:
 		pass
