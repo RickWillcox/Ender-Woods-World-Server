@@ -55,6 +55,7 @@ func _Peer_Disconnected(player_id):
 		players_container.remove_player(player_id)
 		rpc_id(0, "DespawnPlayer", player_id)
 	
+
 #Attacking
 remote func cw_MeleeAttack(blend_position):
 	var player_id = get_tree().get_rpc_sender_id()
@@ -113,7 +114,11 @@ func SendWorldState(world_state): #in case of maps or chunks you will want to tr
 
 func EnemyAttack(enemy_id, attack_type):
 	rpc_id(0, "ReceiveEnemyAttack", enemy_id, attack_type)
-  
 
+func SendClientSessionToken(session_token, player_id):
+	rpc_id(player_id, "ReceivePlayerSessionToken", session_token)
 
-  
+remote func AskForSessionToken():
+	var player_id = get_tree().get_rpc_sender_id()
+	SessionToken.GenerateSessionToken(player_id)
+
