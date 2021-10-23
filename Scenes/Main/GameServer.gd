@@ -20,13 +20,16 @@ var max_players = 100
 var expected_tokens = []
 var player_state_collection = {}
 
+onready var players_node = $ServerMap/YSort/Players
+var players_container = PlayersContainer.new()
+
 func _ready():
 	OS.set_window_position(Vector2(0,0))
 	print("Ready function called")
 	StartServer()
 	print("finished Client>World Server function")
-	
-	
+
+
 func StartServer():
 	print("Start server called")
 	network.create_server(port, max_players)
@@ -38,24 +41,27 @@ func StartServer():
 
 func _process(delta: float) -> void:
 	pass
-	
+  
 func _Peer_Connected(player_id):
 	print("User: " + str(player_id) + " connected")
 	player_verification_process.start(player_id)
-	
+  
 func _Peer_Disconnected(player_id):
 	print("User: " + str(player_id) + " disconnected")
 	if get_node("ServerMap/YSort/Players").has_node(str(player_id)):
 		get_node("ServerMap/YSort/Players/" + str(player_id)).queue_free()
 		print(player_id)
 		player_state_collection.erase(player_id)
+		players_container.remove_player(player_id)
 		rpc_id(0, "DespawnPlayer", player_id)
 	
+
+#Attacking
 remote func cw_MeleeAttack(blend_position):
 	var player_id = get_tree().get_rpc_sender_id()
 	var player_position = state_processing.world_state()[player_id]["P"]
 	server_map.SpawnMelee(player_id, blend_position, player_position)
-		
+	
 remote func FetchServerTime(client_time):
 	var player_id = get_tree().get_rpc_sender_id()
 	rpc_id(player_id, "ReturnServerTime", OS.get_system_time_msecs(), client_time)	
@@ -66,7 +72,7 @@ remote func DetermineLatency(client_time):
 
 func Fetch_Token(player_id):
 	rpc_id(player_id, "FetchToken")
-	
+  
 remote func ReturnToken(token):
 	var player_id = get_tree().get_rpc_sender_id()
 	player_verification_process.Verify(player_id, token)
@@ -97,10 +103,12 @@ remote func ReceivePlayerState(player_state):
 	if player_state_collection.has(player_id): #check if player is in current collection
 		if player_state_collection[player_id][sd.PLAYER_TIMESTAMP] < player_state[sd.PLAYER_TIMESTAMP]: #check if player state is the latest one
 			player_state_collection[player_id] = player_state #replace the player state in collection
-		#Check for leet hacks
+			players_container.update_player(player_id, player_state)
+	#Check for leet hacks
 	else:
+		players_container.create_new_player(player_id, players_node, player_state)
 		player_state_collection[player_id] = player_state #add player state to the collection
-	
+
 func SendWorldState(world_state): #in case of maps or chunks you will want to track player collection and send accordingly
 	rpc_unreliable_id(0, "ReceiveWorldState", world_state)
 
@@ -113,3 +121,4 @@ func SendClientSessionToken(session_token, player_id):
 remote func AskForSessionToken():
 	var player_id = get_tree().get_rpc_sender_id()
 	SessionToken.GenerateSessionToken(player_id)
+

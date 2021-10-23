@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Enemy
 
 var sd = ServerData
 export var ACCELERATION = 300
@@ -10,7 +10,6 @@ onready var animation_tree = $MinoAnimationTree
 onready var animation_state = $MinoAnimationTree.get("parameters/playback")
 onready var wander_controller = $WanderController
 onready var player_detection_zone = $PlayerDetectionZone
-onready var map_enemy_list = get_node("../../../../Map")
 onready var game_server_script = get_node("../../../../../Server")
 onready var attack_timer = $AttackTimer
 
@@ -52,11 +51,10 @@ func _ready():
 	animation_tree.active = true
 	
 func _physics_process(delta):
-	var enemy = map_enemy_list.enemy_list[int(name)]
-	if enemy[sd.ENEMY_STATE] == STATES.keys()[STATES.DEAD]:
+	if status_dict[sd.ENEMY_STATE] == STATES.keys()[STATES.DEAD]:
 		pass
 	else:
-		enemy[sd.ENEMY_LOCATION] = Vector2(int(position.x),int(position.y))  #update enemy position in world state
+		status_dict[sd.ENEMY_LOCATION] = Vector2(int(position.x),int(position.y))  #update enemy position in world state
 		blend_position()
 #		print(STATES.keys()[state])
 
@@ -83,6 +81,7 @@ func _physics_process(delta):
 				if player != null:
 					if global_position.distance_to(player.global_position) <= 25 and attack_timer.is_stopped():
 						state = STATES.ATTACK
+						velocity = Vector2.ZERO
 					animation_state.travel("Run")
 					var direction = global_position.direction_to(player.global_position)
 					velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)

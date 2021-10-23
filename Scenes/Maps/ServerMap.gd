@@ -7,7 +7,7 @@ var melee_attack = preload("res://Scenes/Player/Melee_Attack.tscn")
 
 # warning-ignore:unused_argument
 
-func SpawnEnemy(enemy_id, location, type):
+func SpawnEnemy(enemy_id, location, type, status_dict):
 	var enemy_spawn
 	if type == "Slime":
 		enemy_spawn = slime
@@ -16,6 +16,7 @@ func SpawnEnemy(enemy_id, location, type):
 	var enemy_spawn_instance = enemy_spawn.instance()
 	enemy_spawn_instance.name = str(enemy_id)
 	enemy_spawn_instance.position = location
+	enemy_spawn_instance.set_status_dict(status_dict)
 	get_node("YSort/Enemies/").add_child(enemy_spawn_instance, true)
 	
 func SpawnMelee(player_id, blend_position, player_position):
