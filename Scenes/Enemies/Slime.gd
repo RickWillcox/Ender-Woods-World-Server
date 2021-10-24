@@ -12,7 +12,7 @@ onready var map_enemy_list = get_node("../../../../Map")
 onready var game_server_script = get_node("../../../../../Server")
 
 enum STATES{
-	IDLE, 
+	IDLE,
 	WANDER,
 	CHASE,
 	DEAD
@@ -52,21 +52,21 @@ func enter_state(new_state, extra_data = null):
 	elif new_state == STATES.CHASE:
 		target = extra_data
 	state = new_state
-		
-	
+
+
 func _physics_process(delta):
 	if status_dict[ServerData.ENEMY_STATE] == STATES.keys()[STATES.DEAD]:
 		pass
 	else:
 		status_dict[ServerData.ENEMY_LOCATION] = position
-		
+
 		match state:
 			STATES.IDLE:
 				if idle_timer.is_timed_out():
 					enter_state(STATES.WANDER)
 				else:
 					idle_timer.advance(delta)
-				
+
 			STATES.WANDER:
 				if wander_timer.is_timed_out():
 					enter_state(STATES.IDLE)
@@ -76,7 +76,7 @@ func _physics_process(delta):
 						enter_state(STATES.IDLE)
 					else:
 						velocity = diff.normalized() * WANDER_SPEED * delta
-				wander_timer.advance(delta)	
+				wander_timer.advance(delta)
 			STATES.CHASE:
 				if (position - spawn_point).length() > 100:
 					# moved too far from spawn point, return to spawn
@@ -92,12 +92,12 @@ func _physics_process(delta):
 							# TODO: Perform attack on player
 						else:
 							velocity = (destination - position).normalized() * CHASE_SPEED * delta
-					
+
 		velocity = move_and_slide(velocity)
 
 func select_wander_target():
 	wander_target = spawn_point + (Vector2.ONE * WANDER_TARGET_RANGE).rotated(deg2rad(randi() % 360))
-	
+
 func take_damage(value : float, attacker):
 	.take_damage(value, attacker)
 	enter_state(STATES.CHASE, attacker)
