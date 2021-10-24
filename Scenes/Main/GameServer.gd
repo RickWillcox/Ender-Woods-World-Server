@@ -18,10 +18,8 @@ var port = 1909
 var max_players = 100
 
 var expected_tokens = []
-var player_state_collection = {}
 
 onready var players_node = $ServerMap/YSort/Players
-var players_container = PlayersContainer.new()
 
 func _ready():
 	OS.set_window_position(Vector2(0,0))
@@ -48,12 +46,8 @@ func _Peer_Connected(player_id):
   
 func _Peer_Disconnected(player_id):
 	print("User: " + str(player_id) + " disconnected")
-	if get_node("ServerMap/YSort/Players").has_node(str(player_id)):
-		get_node("ServerMap/YSort/Players/" + str(player_id)).queue_free()
-		print(player_id)
-		player_state_collection.erase(player_id)
-		players_container.remove_player(player_id)
-		rpc_id(0, "DespawnPlayer", player_id)
+	Players.remove_player(player_id)
+	rpc_id(0, "DespawnPlayer", player_id)
 	
 
 #Attacking
@@ -98,16 +92,9 @@ func _on_TokenExpiration_timeout():
 			if current_time - token_time >= 30:
 				expected_tokens.remove(i)
 
-remote func ReceivePlayerState(player_state): 
+remote func ReceivePlayerState(player_state):
 	var player_id = get_tree().get_rpc_sender_id()
-	if player_state_collection.has(player_id): #check if player is in current collection
-		if player_state_collection[player_id][sd.PLAYER_TIMESTAMP] < player_state[sd.PLAYER_TIMESTAMP]: #check if player state is the latest one
-			player_state_collection[player_id] = player_state #replace the player state in collection
-			players_container.update_player(player_id, player_state)
-	#Check for leet hacks
-	else:
-		players_container.create_new_player(player_id, players_node, player_state)
-		player_state_collection[player_id] = player_state #add player state to the collection
+	Players.update_or_create_player(player_id, players_node, player_state)
 
 func SendWorldState(world_state): #in case of maps or chunks you will want to track player collection and send accordingly
 	rpc_unreliable_id(0, "ReceiveWorldState", world_state)
