@@ -15,3 +15,9 @@ func remove_player(player_id):
 
 func update_player(player_id, state):
 	(storage[player_id] as Player).update(state)
+
+func get_player_position(player_id):
+	if storage.has(player_id):
+		return (storage[player_id] as Player).get_position()
+	else:
+		return null
