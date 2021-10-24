@@ -1,8 +1,9 @@
 extends Enemy
 
-const MAX_SPEED = 300
+const WANDER_SPEED = 300
+const CHASE_SPEED = 700
 const WANDER_TARGET_RANGE = 50
-const ATTACK_RANGE = 15
+const ATTACK_RANGE = 30
 const IDLE_TIMEOUT = 5
 const WANDER_TIMEOUT = 5
 const TIMEOUT_VARIANCE = 2
@@ -13,6 +14,7 @@ onready var game_server_script = get_node("../../../../../Server")
 enum STATES{
 	IDLE, 
 	WANDER,
+	CHASE,
 	DEAD
 }
 
@@ -39,22 +41,24 @@ func _ready():
 	spawn_point = position
 	enter_state(STATES.IDLE)
 
-func enter_state(new_state):
+func enter_state(new_state, extra_data = null):
 	if new_state == STATES.IDLE:
 		velocity = Vector2.ZERO
 		idle_timer.start(IDLE_TIMEOUT + randf() * TIMEOUT_VARIANCE - TIMEOUT_VARIANCE / 2)
 	elif new_state == STATES.WANDER:
+		velocity = Vector2.ZERO
 		select_wander_target()
 		wander_timer.start(WANDER_TIMEOUT + randf() * TIMEOUT_VARIANCE - TIMEOUT_VARIANCE / 2)
+	elif new_state == STATES.CHASE:
+		target = extra_data
 	state = new_state
 		
 	
 func _physics_process(delta):
-	var enemy = map_enemy_list.enemy_list[int(name)]
-	if enemy[ServerData.ENEMY_STATE] == STATES.keys()[STATES.DEAD]:
+	if status_dict[ServerData.ENEMY_STATE] == STATES.keys()[STATES.DEAD]:
 		pass
 	else:
-		enemy[ServerData.ENEMY_LOCATION] = position
+		status_dict[ServerData.ENEMY_LOCATION] = position
 		
 		match state:
 			STATES.IDLE:
@@ -71,10 +75,29 @@ func _physics_process(delta):
 					if diff.length_squared() < 4:
 						enter_state(STATES.IDLE)
 					else:
-						velocity = diff.normalized() * MAX_SPEED * delta
+						velocity = diff.normalized() * WANDER_SPEED * delta
 				wander_timer.advance(delta)	
+			STATES.CHASE:
+				if (position - spawn_point).length() > 100:
+					# moved too far from spawn point, return to spawn
+					enter_state(STATES.WANDER)
+				else:
+					var destination = game_server_script.players_container.get_player_position(target)
+					if destination == null:
+						enter_state(STATES.WANDER)
+					else:
+						var diff : Vector2 = destination - position
+						if diff.length_squared() < ATTACK_RANGE * ATTACK_RANGE:
+							velocity = Vector2.ZERO
+							# TODO: Perform attack on player
+						else:
+							velocity = (destination - position).normalized() * CHASE_SPEED * delta
+					
 		velocity = move_and_slide(velocity)
 
 func select_wander_target():
 	wander_target = spawn_point + (Vector2.ONE * WANDER_TARGET_RANGE).rotated(deg2rad(randi() % 360))
 	
+func take_damage(value : float, attacker):
+	.take_damage(value, attacker)
+	enter_state(STATES.CHASE, attacker)
