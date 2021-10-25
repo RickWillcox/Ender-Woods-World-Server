@@ -43,6 +43,7 @@ ServerData="*res://Scenes/Singletons/ServerData.gd"
 HubConnection="*res://Scenes/Singletons/HubConnection.gd"
 EnemyData="*res://Scenes/Singletons/EnemyData.gd"
 SessionToken="*res://Scenes/Singletons/SessionToken.gd"
+Players="*res://Scenes/Singletons/Players.gd"
 
 [display]
 
@@ -50,6 +51,10 @@ window/size/width=852
 window/size/height=480
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/gut/plugin.cfg" )
 
 [global]
 
