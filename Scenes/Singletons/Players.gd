@@ -28,8 +28,9 @@ func initialize_player(player_id, world, initial_state):
 func remove_player(player_id):
 	if storage.has(player_id):
 		(storage[player_id] as Player).remove()
-	if player_state_collection.has(player_id):
 		storage.erase(player_id)
+	if player_state_collection.has(player_id):
+		player_state_collection.erase(player_id)
 
 func update_player(player_id, state):
 	(storage[player_id] as Player).update(state)

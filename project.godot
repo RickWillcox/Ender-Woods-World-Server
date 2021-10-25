@@ -18,16 +18,10 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://Scenes/Player/player.gd"
-}, {
-"base": "Node",
-"class": "PlayersContainer",
-"language": "GDScript",
-"path": "res://Scenes/Player/players_container.gd"
 } ]
 _global_script_class_icons={
 "Enemy": "",
-"Player": "",
-"PlayersContainer": ""
+"Player": ""
 }
 
 [application]
