@@ -115,10 +115,6 @@ func SendWorldState(world_state): #in case of maps or chunks you will want to tr
 func EnemyAttack(enemy_id, attack_type):
 	rpc_id(0, "ReceiveEnemyAttack", enemy_id, attack_type)
 
-func SendClientSessionToken(session_token, player_id):
-	rpc_id(player_id, "ReceivePlayerSessionToken", session_token)
-
-remote func AskForSessionToken():
+remote func TestAuthUsingPlayerID(test_data):
 	var player_id = get_tree().get_rpc_sender_id()
-	SessionToken.GenerateSessionToken(player_id)
-
+	HubConnection.TestAuthUsingPlayerID(player_id, test_data)
