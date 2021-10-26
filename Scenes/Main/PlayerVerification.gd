@@ -3,8 +3,6 @@ extends Node
 var awaiting_verification = {}
 
 onready var main_interface = get_parent()
-onready var player_container_scene = preload("res://Scenes/Instances/PlayerContainer.tscn")
-onready var ysort_players = get_parent().get_node("ServerMap/YSort/Players")
 
 func start(player_id):
 	#16:13 #6
@@ -16,7 +14,7 @@ func Verify(player_id, token):
 	while OS.get_unix_time() - int(token.right(64)) <= 30:
 		if main_interface.expected_tokens.has(token):
 			token_verification = true
-			CreatePlayerContainer(player_id)
+			Players.prepare_new_player(player_id)
 			awaiting_verification.erase(player_id)
 			HubConnection.SendPlayerTokenToAuthDatabase(player_id, token)
 			main_interface.expected_tokens.erase(token)
@@ -26,19 +24,7 @@ func Verify(player_id, token):
 	main_interface.ReturnTokenVerificationResults(player_id, token_verification)
 	if token_verification == false:
 		awaiting_verification.erase(player_id)
-		main_interface.network.disconnect_peer(player_id)	
-
-	
-func CreatePlayerContainer(player_id):
-	var new_player_container = player_container_scene.instance()
-	new_player_container.name = str(player_id)
-	ysort_players.add_child(new_player_container, true)
-#	var player_container = get_node(str(ysort_players) + "/" + str(player_id))
-#	FillPlayerContainer(player_container)
-
-func FillPlayerContainer(player_container):
-#	player_container.player_stats = ServerData.test_data.Stats
-	pass
+		main_interface.network.disconnect_peer(player_id)
 
 func _on_VerificationExpiration_timeout():
 	var current_time = OS.get_unix_time()
