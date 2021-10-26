@@ -10,8 +10,8 @@ func prepare_new_player(player_id):
 
 func update_or_create_player(player_id, players_node, new_state):
 	if player_state_collection.has(player_id): #check if player is in current collection
-		if player_state_collection[player_id][ServerData.PLAYER_TIMESTAMP] \
-				< new_state[ServerData.PLAYER_TIMESTAMP]: #check if player state is the latest one
+		if player_state_collection[player_id][ServerInterface.PLAYER_TIMESTAMP] \
+				< new_state[ServerInterface.PLAYER_TIMESTAMP]: #check if player state is the latest one
 			player_state_collection[player_id] = new_state #replace the player state in collection
 			update_player(player_id, new_state)
 			#Check for leet hacks

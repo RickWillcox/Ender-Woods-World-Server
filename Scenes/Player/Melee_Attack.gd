@@ -1,6 +1,5 @@
 extends Node2D
 
-var sd = ServerData
 var player_id
 var blend_position
 onready var animation_player = get_node("AnimationPlayer")

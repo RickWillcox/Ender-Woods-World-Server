@@ -1,6 +1,8 @@
 extends KinematicBody2D
 class_name Enemy
 
+var si = ServerInterface
+
 onready var map = get_node("/root/Server/Map")
 
 var status_dict : Dictionary
@@ -13,11 +15,11 @@ func take_damage(value : float, _attacker):
 		return
 
 	var id = int(get_name())
-	if status_dict[ServerData.ENEMY_CURRENT_HEALTH] <= 0:
+	if status_dict[si.ENEMY_CURRENT_HEALTH] <= 0:
 		pass
 	else:
-		status_dict[ServerData.ENEMY_CURRENT_HEALTH] = status_dict[ServerData.ENEMY_CURRENT_HEALTH] - value
-		if status_dict[ServerData.ENEMY_CURRENT_HEALTH] <= 0:
+		status_dict[si.ENEMY_CURRENT_HEALTH] = status_dict[si.ENEMY_CURRENT_HEALTH] - value
+		if status_dict[si.ENEMY_CURRENT_HEALTH] <= 0:
 			queue_free()
-			status_dict[ServerData.ENEMY_STATE] = "DEAD"
+			status_dict[si.ENEMY_STATE] = "DEAD"
 			map.release_occupied_location(id)

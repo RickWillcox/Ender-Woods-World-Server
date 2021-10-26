@@ -1,6 +1,6 @@
 extends Node
 
-var sd = ServerData
+var si = ServerInterface
 var enemy_id_counter = 1 
 var enemy_maximum = 3
 var enemy_types = ["Slime" ,"Mino"] #list of enemies that spawn
@@ -10,7 +10,7 @@ var occupied_locations = {}
 var enemy_list = {}
 
 var ore_list = ServerData.mining_data
-var ore_types = [sd.GOLD_ORE]
+var ore_types = [si.GOLD_ORE]
 
 
 func _ready(): 
@@ -31,20 +31,20 @@ func SpawnEnemy():
 		occupied_locations[enemy_id_counter] = open_locations[rng_location_index]
 		open_locations.remove(rng_location_index)
 		enemy_list[enemy_id_counter] = {
-		 sd.ENEMY_TYPE: type, #EnemyType
-		 sd.ENEMY_LOCATION : location, #EnemyLocation
-		 sd.ENEMY_CURRENT_HEALTH : EnemyData.enemies[type]["MaxHealth"], #EnemyCurrentHealth
-		 sd.ENEMY_MAX_HEALTH: EnemyData.enemies[type]["MaxHealth"], #EnemyMaxHealth
-		 sd.ENEMY_STATE: "ATTACK", #EnemyState
-		 sd.ENEMY_TIME_OUT: 1} #EAttackType
+		 si.ENEMY_TYPE: type, #EnemyType
+		 si.ENEMY_LOCATION : location, #EnemyLocation
+		 si.ENEMY_CURRENT_HEALTH : EnemyData.enemies[type]["MaxHealth"], #EnemyCurrentHealth
+		 si.ENEMY_MAX_HEALTH: EnemyData.enemies[type]["MaxHealth"], #EnemyMaxHealth
+		 si.ENEMY_STATE: "ATTACK", #EnemyState
+		 si.ENEMY_TIME_OUT: 1} #EAttackType
 		get_parent().get_node("ServerMap").SpawnEnemy(enemy_id_counter, location, type, enemy_list[enemy_id_counter])
 		enemy_id_counter += 1
 	for enemy in enemy_list.keys():
-		if enemy_list[enemy][sd.ENEMY_STATE] == "DEAD":
-			if enemy_list[enemy][sd.ENEMY_TIME_OUT] == 0:
+		if enemy_list[enemy][si.ENEMY_STATE] == "DEAD":
+			if enemy_list[enemy][si.ENEMY_TIME_OUT] == 0:
 				enemy_list.erase(enemy)
 			else:
-				enemy_list[enemy][sd.ENEMY_TIME_OUT] = enemy_list[enemy][sd.ENEMY_TIME_OUT] -1
+				enemy_list[enemy][si.ENEMY_TIME_OUT] = enemy_list[enemy][si.ENEMY_TIME_OUT] -1
 
 func UpdateEnemyPosition(name):
 	pass
