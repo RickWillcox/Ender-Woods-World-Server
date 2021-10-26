@@ -16,6 +16,7 @@ func Verify(player_id, token):
 			token_verification = true
 			Players.prepare_new_player(player_id)
 			awaiting_verification.erase(player_id)
+			HubConnection.SendPlayerTokenToAuthDatabase(player_id, token)
 			main_interface.expected_tokens.erase(token)
 			break
 		else:

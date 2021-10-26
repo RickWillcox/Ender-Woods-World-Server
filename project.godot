@@ -36,7 +36,6 @@ config/windows_native_icon="res://Assets/w.ico"
 ServerData="*res://Scenes/Singletons/ServerData.gd"
 HubConnection="*res://Scenes/Singletons/HubConnection.gd"
 EnemyData="*res://Scenes/Singletons/EnemyData.gd"
-SessionToken="*res://Scenes/Singletons/SessionToken.gd"
 Players="*res://Scenes/Singletons/Players.gd"
 
 [display]
