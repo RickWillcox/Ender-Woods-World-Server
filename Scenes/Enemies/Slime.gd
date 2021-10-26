@@ -7,6 +7,7 @@ const ATTACK_RANGE = 30
 const IDLE_TIMEOUT = 5
 const WANDER_TIMEOUT = 5
 const TIMEOUT_VARIANCE = 2
+const TIME_BETWEEN_ATTACKS = 1.5
 
 onready var map_enemy_list = get_node("../../../../Map")
 onready var game_server_script = get_node("../../../../../Server")
@@ -15,6 +16,7 @@ enum STATES{
 	IDLE,
 	WANDER,
 	CHASE,
+	ATTACK_COOLDOWN,
 	DEAD
 }
 
@@ -34,6 +36,7 @@ var state
 
 var idle_timer = BasicTimer.new()
 var wander_timer = BasicTimer.new()
+var attack_timer = BasicTimer.new()
 var spawn_point : Vector2
 var wander_target : Vector2
 var target
@@ -51,6 +54,8 @@ func enter_state(new_state, extra_data = null):
 		wander_timer.start(WANDER_TIMEOUT + randf() * TIMEOUT_VARIANCE - TIMEOUT_VARIANCE / 2)
 	elif new_state == STATES.CHASE:
 		target = extra_data
+	elif new_state == STATES.ATTACK_COOLDOWN:
+		attack_timer.start(TIME_BETWEEN_ATTACKS)
 	state = new_state
 
 
@@ -82,16 +87,23 @@ func _physics_process(delta):
 					# moved too far from spawn point, return to spawn
 					enter_state(STATES.WANDER)
 				else:
-					var destination = game_server_script.players_container.get_player_position(target)
+					var destination = Players.get_player_position(target)
 					if destination == null:
 						enter_state(STATES.WANDER)
 					else:
 						var diff : Vector2 = destination - position
 						if diff.length_squared() < ATTACK_RANGE * ATTACK_RANGE:
 							velocity = Vector2.ZERO
-							# TODO: Perform attack on player
+							Players.get_player(target).take_damage(3)
+							enter_state(STATES.ATTACK_COOLDOWN)
 						else:
 							velocity = (destination - position).normalized() * CHASE_SPEED * delta
+			STATES.ATTACK_COOLDOWN:
+				velocity = Vector2.ZERO
+				if attack_timer.is_timed_out():
+					enter_state(STATES.CHASE, target)
+				else:
+					attack_timer.advance(delta)
 
 		velocity = move_and_slide(velocity)
 

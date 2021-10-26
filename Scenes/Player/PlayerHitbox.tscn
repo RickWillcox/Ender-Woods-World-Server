@@ -1,11 +1,23 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Player/PlayerHitbox.gd" type="Script" id=1]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
 [node name="PlayerHitbox" type="StaticBody2D"]
 collision_layer = 2
 collision_mask = 0
+script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -19.377
+margin_top = -39.8677
+margin_right = 20.623
+margin_bottom = -25.8677
+__meta__ = {
+"_edit_use_anchors_": false
+}
