@@ -1,6 +1,5 @@
 extends Enemy
 
-var sd = ServerData
 export var ACCELERATION = 300
 export var MAX_SPEED = 250
 export var FRICTION = 200
@@ -51,10 +50,10 @@ func _ready():
 	animation_tree.active = true
 	
 func _physics_process(delta):
-	if status_dict[sd.ENEMY_STATE] == STATES.keys()[STATES.DEAD]:
+	if status_dict[si.ENEMY_STATE] == STATES.keys()[STATES.DEAD]:
 		pass
 	else:
-		status_dict[sd.ENEMY_LOCATION] = Vector2(int(position.x),int(position.y))  #update enemy position in world state
+		status_dict[si.ENEMY_LOCATION] = Vector2(int(position.x),int(position.y))  #update enemy position in world state
 		blend_position()
 #		print(STATES.keys()[state])
 
