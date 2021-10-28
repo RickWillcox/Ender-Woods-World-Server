@@ -3,6 +3,17 @@ class_name Enemy
 
 var si = ServerInterface
 
+enum State {
+	IDLE,
+	WANDER,
+	CHASE,
+	ATTACK,
+	ATTACK_COOLDOWN,
+	EVADE,
+	DEAD,
+	DESPAWN
+}
+
 onready var map = get_node("/root/Server/Map")
 
 var status_dict : Dictionary
@@ -14,12 +25,13 @@ func take_damage(value : float, _attacker):
 		# something went wrong, the enemy is not registered in the server
 		return
 
-	var id = int(get_name())
 	if status_dict[si.ENEMY_CURRENT_HEALTH] <= 0:
 		pass
 	else:
-		status_dict[si.ENEMY_CURRENT_HEALTH] = status_dict[si.ENEMY_CURRENT_HEALTH] - value
+		status_dict[si.ENEMY_CURRENT_HEALTH] -= value
 		if status_dict[si.ENEMY_CURRENT_HEALTH] <= 0:
-			queue_free()
-			status_dict[si.ENEMY_STATE] = "DEAD"
-			map.release_occupied_location(id)
+			enter_state(State.DEAD)
+
+func enter_state(new_state, extra_data = null):
+	# Implement in subclasses
+	assert(false)

@@ -35,16 +35,16 @@ func SpawnEnemy():
 		 si.ENEMY_LOCATION : location, #EnemyLocation
 		 si.ENEMY_CURRENT_HEALTH : EnemyData.enemies[type]["MaxHealth"], #EnemyCurrentHealth
 		 si.ENEMY_MAX_HEALTH: EnemyData.enemies[type]["MaxHealth"], #EnemyMaxHealth
-		 si.ENEMY_STATE: "ATTACK", #EnemyState
+		 si.ENEMY_STATE: Enemy.State.IDLE,
 		 si.ENEMY_TIME_OUT: 1} #EAttackType
 		get_parent().get_node("ServerMap").SpawnEnemy(enemy_id_counter, location, type, enemy_list[enemy_id_counter])
 		enemy_id_counter += 1
 	for enemy in enemy_list.keys():
-		if enemy_list[enemy][si.ENEMY_STATE] == "DEAD":
+		if enemy_list[enemy][si.ENEMY_STATE] == Enemy.State.DESPAWN:
 			if enemy_list[enemy][si.ENEMY_TIME_OUT] == 0:
 				enemy_list.erase(enemy)
 			else:
-				enemy_list[enemy][si.ENEMY_TIME_OUT] = enemy_list[enemy][si.ENEMY_TIME_OUT] -1
+				enemy_list[enemy][si.ENEMY_TIME_OUT] -= 1
 
 func UpdateEnemyPosition(name):
 	pass

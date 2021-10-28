@@ -12,14 +12,6 @@ onready var player_detection_zone = $PlayerDetectionZone
 onready var game_server_script = get_node("../../../../../Server")
 onready var attack_timer = $AttackTimer
 
-enum STATES{
-	IDLE, 
-	WANDER, 
-	CHASE, 
-	ATTACK, 
-	DEAD
-}
-
 enum{
 	LEFT, 
 	RIGHT
@@ -36,7 +28,7 @@ var blend_position = Vector2.ZERO
 var facing_blend_position = Vector2.ZERO
 var state 
 var attack = ATTACK_TYPES.NOTATTACKING
-var previous_state = STATES.IDLE
+var previous_state = Enemy.State.IDLE
 var rng
 var facing = RIGHT
 
@@ -45,26 +37,25 @@ var facing = RIGHT
 func _ready():
 	randomize()
 	rng = RandomNumberGenerator.new()
-	state = pick_random_state([STATES.IDLE, STATES.WANDER, STATES.ATTACK])
+	state = pick_random_state([Enemy.State.IDLE, Enemy.State.WANDER, Enemy.State.ATTACK])
 
 	animation_tree.active = true
 	
 func _physics_process(delta):
-	if status_dict[si.ENEMY_STATE] == STATES.keys()[STATES.DEAD]:
+	if status_dict[si.ENEMY_STATE] == Enemy.State.DEAD:
 		pass
 	else:
 		status_dict[si.ENEMY_LOCATION] = Vector2(int(position.x),int(position.y))  #update enemy position in world state
 		blend_position()
-#		print(STATES.keys()[state])
 
 		match state:
-			STATES.IDLE:
+			Enemy.State.IDLE:
 				animation_state.travel("Idle")
 				velocity = velocity.move_toward(Vector2.ZERO, FRICTION)
 				seek_player()
 				time_left_wander_controller()
 				
-			STATES.WANDER:
+			Enemy.State.WANDER:
 				animation_state.travel("Run")
 				seek_player()
 				time_left_wander_controller()
@@ -72,22 +63,22 @@ func _physics_process(delta):
 				velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
 				
 				if global_position.distance_to(wander_controller.target_position) <= WANDER_TARGET_RANGE:
-					state = pick_random_state([STATES.IDLE, STATES.WANDER, STATES.ATTACK])
+					state = pick_random_state([Enemy.State.IDLE, Enemy.State.WANDER, Enemy.State.ATTACK])
 					wander_controller.start_wander_timer(rand_range(1,3))
 					
-			STATES.CHASE:
+			Enemy.State.CHASE:
 				var player = player_detection_zone.player
 				if player != null:
 					if global_position.distance_to(player.global_position) <= 25 and attack_timer.is_stopped():
-						state = STATES.ATTACK
+						state = Enemy.State.ATTACK
 						velocity = Vector2.ZERO
 					animation_state.travel("Run")
 					var direction = global_position.direction_to(player.global_position)
 					velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
 				else:
-					state = STATES.IDLE
+					state = Enemy.State.IDLE
 				
-			STATES.ATTACK:
+			Enemy.State.ATTACK:
 				#set attack type here
 				if attack_timer.is_stopped(): #is the timer running? if yes it means an attack is being played.
 					rng.randomize()
@@ -111,7 +102,7 @@ func pick_random_state(state_list):
 	
 func seek_player():
 	if player_detection_zone.can_see_player():
-		state = STATES.CHASE
+		state = Enemy.State.CHASE
 		
 func blend_position():
 	var old_blend_position = blend_position
@@ -131,13 +122,22 @@ func blend_position():
 
 func time_left_wander_controller():
 	if wander_controller.get_time_left() == 0:
-		state = pick_random_state([STATES.IDLE, STATES.WANDER, STATES.ATTACK])
+		state = pick_random_state([Enemy.State.IDLE, Enemy.State.WANDER, Enemy.State.ATTACK])
 		wander_controller.start_wander_timer(rand_range(1,3))
 
 func attack(attack_type):
 	game_server_script.EnemyAttack(name, attack_type)
 
 func _on_AttackTimer_timeout() -> void:
-	state = STATES.IDLE
+	state = Enemy.State.IDLE
 
-	
+func enter_state(new_state, extra_data = null):
+	if new_state == Enemy.State.DEAD:
+		status_dict[si.ENEMY_STATE] = Enemy.State.DEAD
+		yield(get_tree().create_timer(5), "timeout")
+		enter_state(Enemy.State.DESPAWN)
+	elif new_state == Enemy.State.DESPAWN:
+		status_dict[si.ENEMY_STATE] = Enemy.State.DESPAWN
+		var id = int(name)
+		map.release_occupied_location(id)
+		queue_free()
