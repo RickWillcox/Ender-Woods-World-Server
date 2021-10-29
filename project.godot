@@ -48,7 +48,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/gut/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/gut/plugin.cfg", "res://addons/port/plugin.cfg" )
 
 [global]
 
