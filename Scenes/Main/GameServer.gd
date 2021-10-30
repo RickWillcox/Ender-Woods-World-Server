@@ -49,7 +49,6 @@ func _Peer_Disconnected(player_id):
 	Players.remove_player(player_id)
 	rpc_id(0, "DespawnPlayer", player_id)
 	
-
 #Attacking
 remote func cw_MeleeAttack(blend_position):
 	var player_id = get_tree().get_rpc_sender_id()
@@ -102,6 +101,6 @@ func SendWorldState(world_state): #in case of maps or chunks you will want to tr
 func EnemyAttack(enemy_id, attack_type):
 	rpc_id(0, "ReceiveEnemyAttack", enemy_id, attack_type)
 
-remote func TestAuthUsingPlayerID(test_data):
-	var player_id = get_tree().get_rpc_sender_id()
-	HubConnection.TestAuthUsingPlayerID(player_id, test_data)
+remote func ReceivePlayerInventory(inventory_data, session_token):
+	rpc_id(session_token, "ReceivePlayerInventory", inventory_data)
+	

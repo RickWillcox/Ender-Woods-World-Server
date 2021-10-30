@@ -52,6 +52,6 @@ remote func ReceiveLoginToken(token):
 	
 func SendPlayerTokenToAuthDatabase(player_id, token):
 	rpc_id(1, "ReceivePlayerTokenForDatabase", player_id, token)
+	
 
-func TestAuthUsingPlayerID(player_id, test_data):
-	rpc_id(1, "TestAuthUsingPlayerID", player_id, test_data)
+
