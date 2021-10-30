@@ -69,7 +69,7 @@ remote func ReturnToken(token):
 	player_verification_process.Verify(player_id, token)
 
 func ReturnTokenVerificationResults(player_id, result):
-	rpc_id(player_id, "ReturnTokenVerificationResults", result)
+	rpc_id(player_id, "ReturnTokenVerificationResults", result, ItemDatabase.all_item_data)
 	if result == true:
 		rpc_id(0, "SpawnNewPlayer", player_id, Vector2(450, 220))
 

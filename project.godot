@@ -38,6 +38,7 @@ ServerData="*res://Scenes/Singletons/ServerData.gd"
 HubConnection="*res://Scenes/Singletons/HubConnection.gd"
 EnemyData="*res://Scenes/Singletons/EnemyData.gd"
 Players="*res://Scenes/Singletons/Players.gd"
+ItemDatabase="*res://Scenes/Singletons/ItemDatabase.gd"
 
 [display]
 
