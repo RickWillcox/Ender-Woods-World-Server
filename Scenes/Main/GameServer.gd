@@ -11,8 +11,6 @@ onready var player_verification_process = get_node("PlayerVerification")
 onready var server_map = get_node("ServerMap")
 onready var state_processing = get_node("StateProcessing")
 
-var sd = ServerData
-
 var network = NetworkedMultiplayerENet.new()
 var port = 1909
 var max_players = 100

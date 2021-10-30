@@ -1,16 +1,16 @@
 extends Node
 
-var sd = ServerData
+var si = ServerInterface
 var world_state = {}
 
 func _physics_process(delta):
 	if not Players.player_state_collection.empty():
 		world_state = Players.player_state_collection.duplicate(true)
 		for player in world_state.keys():
-			world_state[player].erase(sd.TIMESTAMP) #player time stamp not important save bytes
-		world_state[sd.TIMESTAMP] = OS.get_system_time_msecs()
-		world_state[sd.ENEMIES] = get_node("../Map").enemy_list #E: Enemies
-		world_state[sd.ORES] = get_node("../Map").ore_list #O: Ores
+			world_state[player].erase(si.TIMESTAMP) #player time stamp not important save bytes
+		world_state[si.TIMESTAMP] = OS.get_system_time_msecs()
+		world_state[si.ENEMIES] = get_node("../Map").enemy_list #E: Enemies
+		world_state[si.ORES] = get_node("../Map").ore_list #O: Ores
 		#Verification
 		#anti cheat
 		#cuts

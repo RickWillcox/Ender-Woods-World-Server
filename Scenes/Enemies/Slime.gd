@@ -60,10 +60,10 @@ func enter_state(new_state, extra_data = null):
 
 
 func _physics_process(delta):
-	if status_dict[ServerData.ENEMY_STATE] == STATES.keys()[STATES.DEAD]:
+	if status_dict[si.ENEMY_STATE] == STATES.keys()[STATES.DEAD]:
 		pass
 	else:
-		status_dict[ServerData.ENEMY_LOCATION] = position
+		status_dict[si.ENEMY_LOCATION] = position
 
 		match state:
 			STATES.IDLE:

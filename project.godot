@@ -33,6 +33,7 @@ config/windows_native_icon="res://Assets/w.ico"
 
 [autoload]
 
+ServerInterface="*res://Ender-Woods-Common/ServerInterface.gd"
 ServerData="*res://Scenes/Singletons/ServerData.gd"
 HubConnection="*res://Scenes/Singletons/HubConnection.gd"
 EnemyData="*res://Scenes/Singletons/EnemyData.gd"
@@ -47,7 +48,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/gut/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/gut/plugin.cfg", "res://addons/port/plugin.cfg" )
 
 [global]
 
