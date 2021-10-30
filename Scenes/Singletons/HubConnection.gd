@@ -15,7 +15,7 @@ func _ready():
 	network.connect("connection_succeeded", self, "_OnConnectionSucceeded")	
 	network.connect("server_disconnected", self, "_server_disconnected")
 	
-func _process(delta):
+func _process(_delta):
 	if get_custom_multiplayer() == null:
 		return
 	if not custom_multiplayer.has_network_peer():
@@ -53,5 +53,6 @@ remote func ReceiveLoginToken(token):
 func SendPlayerTokenToAuthDatabase(player_id, token):
 	rpc_id(1, "ReceivePlayerTokenForDatabase", player_id, token)
 	
-
+remote func ReceivePlayerInventory(inventory_data, session_token):
+	gameserver.SendPlayerInventory(inventory_data, session_token)
 

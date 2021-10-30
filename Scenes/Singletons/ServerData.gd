@@ -44,30 +44,3 @@ var mining_data = {
 }
 
 
-func _ready():
-	pass
-		
-func RefreshPlayers():
-	db = SQLite.new()
-	db.path = DB_PATH
-	db.open_db()
-	db.query("select * from Players")
-	Players = db.query_result
-	print(Players)
-
-func RefreshPlayerInventories():
-	db = SQLite.new()
-	db.path = DB_PATH
-	db.open_db()
-	db.query("select * from PlayerInventories")
-	PlayerInventories = db.query_result 
-	
-func query():
-	db = SQLite.new()
-	db.path = DB_PATH
-	db.open_db()
-#	db.query("select * from Players left join PlayerInventories on Players.id = PlayerInventories.player_id where Players.player_name = 'rick'")
-	db.query("select player_name from Players")
-	query = db.query_result
-
-

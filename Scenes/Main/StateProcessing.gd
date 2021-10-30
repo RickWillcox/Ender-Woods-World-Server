@@ -3,7 +3,7 @@ extends Node
 var si = ServerInterface
 var world_state = {}
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not Players.player_state_collection.empty():
 		world_state = Players.player_state_collection.duplicate(true)
 		for player in world_state.keys():
@@ -17,5 +17,6 @@ func _physics_process(delta):
 		#physics checks
 		get_parent().SendWorldState(world_state)
 
+# warning-ignore:function_conflicts_variable
 func world_state():
 	return world_state

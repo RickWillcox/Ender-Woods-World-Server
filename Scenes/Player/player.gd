@@ -7,7 +7,7 @@ var si = ServerInterface
 
 var stats = {}
 
-func initialize(init_state):
+func initialize(_init_state):
 	hitbox = hitbox_scene.instance()
 	hitbox.display("Current health: " + str(stats["current_health"]))
 

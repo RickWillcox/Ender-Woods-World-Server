@@ -47,10 +47,12 @@ func _ready():
 func enter_state(new_state, extra_data = null):
 	if new_state == STATES.IDLE:
 		velocity = Vector2.ZERO
+# warning-ignore:integer_division
 		idle_timer.start(IDLE_TIMEOUT + randf() * TIMEOUT_VARIANCE - TIMEOUT_VARIANCE / 2)
 	elif new_state == STATES.WANDER:
 		velocity = Vector2.ZERO
 		select_wander_target()
+# warning-ignore:integer_division
 		wander_timer.start(WANDER_TIMEOUT + randf() * TIMEOUT_VARIANCE - TIMEOUT_VARIANCE / 2)
 	elif new_state == STATES.CHASE:
 		target = extra_data

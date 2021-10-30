@@ -35,7 +35,7 @@ func StartServer():
 	network.connect("peer_connected", self, "_Peer_Connected")
 	network.connect("peer_disconnected", self, "_Peer_Disconnected")	
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
   
 func _Peer_Connected(player_id):
@@ -99,6 +99,7 @@ func SendWorldState(world_state): #in case of maps or chunks you will want to tr
 func EnemyAttack(enemy_id, attack_type):
 	rpc_id(0, "ReceiveEnemyAttack", enemy_id, attack_type)
 
-remote func ReceivePlayerInventory(inventory_data, session_token):
+func SendPlayerInventory(inventory_data, session_token):
 	rpc_id(session_token, "ReceivePlayerInventory", inventory_data)
-	
+
+
