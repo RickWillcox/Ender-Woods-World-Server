@@ -60,6 +60,7 @@ remote func ReceivePlayerInventory(inventory_data, session_token):
 func GetAllItemsFromDatabase():
 	rpc_id(1, "GetAllItemsFromDatabase")
 	
-remote func ReceiveItemData(all_item_data, item_categories):
+remote func ReceiveItemData(all_item_data, item_categories_data, equip_slots_data):
 	ItemDatabase.all_item_data = all_item_data
-	ItemDatabase.item_categories = item_categories
+	ItemDatabase.item_categories = item_categories_data
+	ItemDatabase.equip_slots = equip_slots_data
