@@ -36,7 +36,7 @@ func SpawnEnemy():
 		 si.ENEMY_CURRENT_HEALTH : EnemyData.enemies[type]["MaxHealth"], #EnemyCurrentHealth
 		 si.ENEMY_MAX_HEALTH: EnemyData.enemies[type]["MaxHealth"], #EnemyMaxHealth
 		 si.ENEMY_STATE: Enemy.State.IDLE,
-		 si.ENEMY_TIME_OUT: 1} #EAttackType
+		 si.ENEMY_TIME_OUT: 1}
 		get_parent().get_node("ServerMap").SpawnEnemy(enemy_id_counter, location, type, enemy_list[enemy_id_counter])
 		enemy_id_counter += 1
 	for enemy in enemy_list.keys():
