@@ -5,7 +5,9 @@ func _ready():
 	enter_state(Enemy.State.IDLE)
 
 func enter_state(new_state, extra_data = null):
+
 	if new_state == Enemy.State.CHASE:
+
 		target = extra_data
 	.enter_state(new_state)
 

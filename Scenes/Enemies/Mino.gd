@@ -57,6 +57,7 @@ func seek_player():
 	if player_detection_zone.can_see_player():
 		enter_state(Enemy.State.CHASE, player_detection_zone.player.id)
 		
+# warning-ignore:function_conflicts_variable
 func blend_position():
 	var old_blend_position = blend_position
 	blend_position = wander_controller.target_position
@@ -74,6 +75,7 @@ func blend_position():
 	animation_tree.set("parameters/AttackSpin/blend_position", facing_blend_position)
 
 
+# warning-ignore:function_conflicts_variable
 func attack(attack_type):
 	game_server_script.EnemyAttack(name, attack_type)
 

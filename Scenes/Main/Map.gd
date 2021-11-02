@@ -46,7 +46,7 @@ func SpawnEnemy():
 			else:
 				enemy_list[enemy][si.ENEMY_TIME_OUT] -= 1
 
-func UpdateEnemyPosition(name):
+func UpdateEnemyPosition(_name):
 	pass
 				
 func release_occupied_location(enemy_id):

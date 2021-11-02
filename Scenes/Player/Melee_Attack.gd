@@ -6,6 +6,7 @@ onready var animation_player = get_node("AnimationPlayer")
 onready var melee_hitbox = get_node("Pivot/Area2D/MeleeHitbox")
 onready var melee_attack_scene
 
+# warning-ignore:shadowed_variable
 func change_rotation(blend_position):
 	var animation_tree = get_node("AnimationTree")
 	animation_tree.set("parameters/Hitbox_Rotation/blend_position", blend_position)
