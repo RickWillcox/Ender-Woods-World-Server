@@ -26,10 +26,10 @@ func SpawnMelee(player_id, blend_position, player_position):
 	melee_attack_instance.change_rotation(blend_position)
 	get_node("PlayerAttacks").add_child(melee_attack_instance)
 	
-func SpawnOre(ore_id, location):
+func SpawnOre(_ore_id, _location):
 	print("ore spawned")
 	
-func SpawnPlayer(player_id, _location):
+func SpawnPlayer(_player_id, _location):
 	pass
 	
 	

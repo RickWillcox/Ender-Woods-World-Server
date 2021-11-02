@@ -35,7 +35,7 @@ func StartServer():
 	network.connect("peer_connected", self, "_Peer_Connected")
 	network.connect("peer_disconnected", self, "_Peer_Disconnected")	
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
   
 func _Peer_Connected(player_id):
@@ -47,7 +47,6 @@ func _Peer_Disconnected(player_id):
 	Players.remove_player(player_id)
 	rpc_id(0, "DespawnPlayer", player_id)
 	
-
 #Attacking
 remote func cw_MeleeAttack(blend_position):
 	var player_id = get_tree().get_rpc_sender_id()
@@ -70,7 +69,7 @@ remote func ReturnToken(token):
 	player_verification_process.Verify(player_id, token)
 
 func ReturnTokenVerificationResults(player_id, result):
-	rpc_id(player_id, "ReturnTokenVerificationResults", result)
+	rpc_id(player_id, "ReturnTokenVerificationResults", result, ItemDatabase.all_item_data, ItemDatabase.item_categories, ItemDatabase.equip_slots)
 	if result == true:
 		rpc_id(0, "SpawnNewPlayer", player_id, Vector2(450, 220))
 
@@ -100,6 +99,7 @@ func SendWorldState(world_state): #in case of maps or chunks you will want to tr
 func EnemyAttack(enemy_id, attack_type):
 	rpc_id(0, "ReceiveEnemyAttack", enemy_id, attack_type)
 
-remote func TestAuthUsingPlayerID(test_data):
-	var player_id = get_tree().get_rpc_sender_id()
-	HubConnection.TestAuthUsingPlayerID(player_id, test_data)
+func SendPlayerInventory(inventory_data, session_token):
+	rpc_id(session_token, "ReceivePlayerInventory", inventory_data)
+
+

@@ -113,6 +113,7 @@ func seek_player():
 	if player_detection_zone.can_see_player():
 		state = STATES.CHASE
 		
+# warning-ignore:function_conflicts_variable
 func blend_position():
 	var old_blend_position = blend_position
 	blend_position = wander_controller.target_position
@@ -134,6 +135,7 @@ func time_left_wander_controller():
 		state = pick_random_state([STATES.IDLE, STATES.WANDER, STATES.ATTACK])
 		wander_controller.start_wander_timer(rand_range(1,3))
 
+# warning-ignore:function_conflicts_variable
 func attack(attack_type):
 	game_server_script.EnemyAttack(name, attack_type)
 
