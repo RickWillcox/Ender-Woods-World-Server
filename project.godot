@@ -9,10 +9,20 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "BasicTimer",
+"language": "GDScript",
+"path": "res://Scenes/Enemies/BasicTimer.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://Scenes/Enemies/Enemy.gd"
+}, {
+"base": "Node",
+"class": "EnemyParameters",
+"language": "GDScript",
+"path": "res://Scenes/Enemies/EnemyParameters.gd"
 }, {
 "base": "Node",
 "class": "Player",
@@ -20,7 +30,9 @@ _global_script_classes=[ {
 "path": "res://Scenes/Player/player.gd"
 } ]
 _global_script_class_icons={
+"BasicTimer": "",
 "Enemy": "",
+"EnemyParameters": "",
 "Player": ""
 }
 

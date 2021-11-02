@@ -4,6 +4,7 @@ var storage = {}
 var player_state_collection = {}
 
 func prepare_new_player(player_id):
+	print(["Player prepared", player_id])
 	storage[player_id] = Player.new()
 	storage[player_id].mock_stats()
 	#TODO: Fetch player stats, items, data from auth server
@@ -21,7 +22,7 @@ func update_or_create_player(player_id, players_node, new_state):
 
 func initialize_player(player_id, world, initial_state):
 	var player = storage[player_id]
-	player.initialize(initial_state)
+	player.initialize(player_id, initial_state)
 	player.register(world)
 	storage[player_id] = player
 	

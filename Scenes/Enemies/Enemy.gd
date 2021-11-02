@@ -1,25 +1,157 @@
 extends KinematicBody2D
 class_name Enemy
 
+const TIMEOUT_VARIANCE = 2
+const DESPAWN_TIME = 5
+
 var si = ServerInterface
 
+var pars = EnemyParameters.new()
+
+enum State {
+	IDLE,
+	WANDER,
+	CHASE,
+	ATTACK,
+	ATTACK_COOLDOWN,
+	EVADE,
+	DEAD,
+	DESPAWN
+}
+
+var state
 onready var map = get_node("/root/Server/Map")
+
+
+var idle_timer : BasicTimer = BasicTimer.new()
+var wander_timer : BasicTimer = BasicTimer.new()
+var attack_timer : BasicTimer = BasicTimer.new()
+var attack_delay : BasicTimer = BasicTimer.new()
+var despawn_timer : BasicTimer = BasicTimer.new()
+var wander_target
+var spawn_point
+var target
 
 var status_dict : Dictionary
 func set_status_dict(dict):
 	status_dict = dict
+	
+func _ready():
+	spawn_point = position
+	enter_state(State.IDLE)
 
 func take_damage(value : float, _attacker):
 	if status_dict == null:
 		# something went wrong, the enemy is not registered in the server
 		return
 
-	var id = int(get_name())
 	if status_dict[si.ENEMY_CURRENT_HEALTH] <= 0:
 		pass
 	else:
-		status_dict[si.ENEMY_CURRENT_HEALTH] = status_dict[si.ENEMY_CURRENT_HEALTH] - value
+		status_dict[si.ENEMY_CURRENT_HEALTH] -= value
 		if status_dict[si.ENEMY_CURRENT_HEALTH] <= 0:
-			queue_free()
-			status_dict[si.ENEMY_STATE] = "DEAD"
+			enter_state(State.DEAD)
+
+var velocity : Vector2 = Vector2()
+
+func process_state(delta):
+	match state:
+		State.DESPAWN:
+			return
+		State.DEAD:
+			despawn_timer.advance(delta)
+			if despawn_timer.is_timed_out():
+				enter_state(State.DESPAWN)
+			
+		State.IDLE:
+			idle_timer.advance(delta)
+			if idle_timer.is_timed_out():
+				enter_state(State.WANDER)
+
+		State.WANDER:
+			wander_timer.advance(delta)
+			if wander_timer.is_timed_out():
+				enter_state(State.IDLE)
+			else:
+				var diff = (wander_target - position)
+				if diff.length_squared() < 4:
+					enter_state(State.IDLE)
+				else:
+					velocity = diff.normalized() * pars.get(EnemyParameters.WANDER_SPEED) * delta
+		State.CHASE:
+			var destination = Players.get_player_position(target)
+			if destination == null:
+				print("Chase ended, player disconnected")
+				enter_state(State.EVADE)
+			else:
+				if (destination - spawn_point).length() > pars.get(EnemyParameters.CHASE_RANGE):
+					print("Chase ended: too far from spawn")
+					# moved too far from spawn point, return to spawn
+					enter_state(State.EVADE)
+				else:
+					var diff : Vector2 = destination - position
+					if diff.length_squared() < pow(pars.get(EnemyParameters.ATTACK_RANGE), 2):
+						velocity = Vector2.ZERO
+						enter_state(State.ATTACK)
+					else:
+						velocity = (destination - position).normalized() * pars.get(EnemyParameters.CHASE_SPEED) * delta
+		State.ATTACK:
+			velocity = Vector2.ZERO
+			attack_delay.advance(delta)
+			if attack_delay.is_timed_out():
+				perform_attack()
+				enter_state(State.ATTACK_COOLDOWN)
+		State.ATTACK_COOLDOWN:
+			velocity = Vector2.ZERO
+			attack_timer.advance(delta)
+			if attack_timer.is_timed_out():
+				enter_state(State.CHASE, target)
+		State.EVADE:
+			velocity = (spawn_point - position).normalized() * pars.get(EnemyParameters.WANDER_SPEED) * delta
+			# When evading, enemies avoid collision and are untargetable
+			collision_layer = 0x0
+			if (position - spawn_point).length() < 2:
+				enter_state(State.IDLE)
+
+func enter_state(new_state, extra_data = null):
+	print(name + " entering new state: " + State.keys()[new_state])
+	
+	# Currently client is informed of all states. Maybe change in the future?
+	
+	match new_state:
+		State.IDLE:
+			velocity = Vector2.ZERO
+			collision_layer = 0x4
+			idle_timer.start(pars.get(EnemyParameters.IDLE_TIMEOUT) + randf() * TIMEOUT_VARIANCE - TIMEOUT_VARIANCE / 2)
+		State.WANDER:
+			velocity = Vector2.ZERO
+			select_wander_target()
+			wander_timer.start(pars.get(EnemyParameters.WANDER_TIMEOUT) + randf() * TIMEOUT_VARIANCE - TIMEOUT_VARIANCE / 2)
+		State.CHASE:
+			if extra_data != null:
+				target = extra_data
+		State.ATTACK_COOLDOWN:
+			attack_timer.start(pars.get(EnemyParameters.TIME_BETWEEN_ATTACKS))
+		State.ATTACK:
+			attack_delay.start(0.5)
+		State.DEAD:
+			despawn_timer.start(DESPAWN_TIME)
+		State.DESPAWN:
+			var id = int(name)
 			map.release_occupied_location(id)
+			queue_free()
+		State.EVADE:
+			pass
+		_:
+			# Handling of other states should be implemented in subclasses
+			assert(false)
+	
+	status_dict[si.ENEMY_STATE] = new_state
+	state = new_state
+
+
+func select_wander_target():
+	wander_target = spawn_point + (Vector2.ONE * pars.get(EnemyParameters.WANDER_TARGET_RANGE)).rotated(deg2rad(randi() % 360))
+
+func perform_attack():
+	Players.get_player(target).take_damage(3)
