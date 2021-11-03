@@ -102,4 +102,9 @@ func EnemyAttack(enemy_id, attack_type):
 func SendPlayerInventory(inventory_data, session_token):
 	rpc_id(session_token, "ReceivePlayerInventory", inventory_data)
 
-
+# swap two locations in inventory
+remote func swap_items(from, to):
+	var player_id = get_tree().get_rpc_sender_id()
+	Players.get_player(player_id).swap_items(from, to)
+	rpc_id(player_id, "item_swap_ok")
+	

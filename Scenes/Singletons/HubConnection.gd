@@ -55,6 +55,8 @@ func SendPlayerTokenToAuthDatabase(player_id, token):
 	rpc_id(1, "ReceivePlayerTokenForDatabase", player_id, token)
 	
 remote func ReceivePlayerInventory(inventory_data, session_token):
+	# Session token == player_id
+	Players.get_player(session_token).set_inventory(inventory_data)
 	gameserver.SendPlayerInventory(inventory_data, session_token)
 
 func GetAllItemsFromDatabase():
@@ -63,3 +65,6 @@ func GetAllItemsFromDatabase():
 remote func ReceiveItemData(all_item_data):
 	print(all_item_data)
 	ItemDatabase.all_item_data = all_item_data
+
+func save_inventory(session_token, new_inventory):
+	rpc_id(1, "update_inventory", session_token, new_inventory)
