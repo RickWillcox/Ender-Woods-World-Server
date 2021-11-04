@@ -51,6 +51,8 @@ HubConnection="*res://Scenes/Singletons/HubConnection.gd"
 EnemyData="*res://Scenes/Singletons/EnemyData.gd"
 Players="*res://Scenes/Singletons/Players.gd"
 ItemDatabase="*res://Scenes/Singletons/ItemDatabase.gd"
+Logger="*res://godot-logger/logger.gd"
+LoggerConfig="*res://Scenes/Singletons/LoggerConfig.gd"
 
 [display]
 

@@ -10,7 +10,6 @@ var inventory : Dictionary
 
 
 func initialize(player_id, init_state):
-
 	hitbox = hitbox_scene.instance()
 	hitbox.id = player_id
 	hitbox.display("Current health: " + str(stats["current_health"]))
@@ -44,7 +43,7 @@ func set_inventory(new_inventory):
 	inventory = new_inventory
 	
 func swap_items(from, to):
-	print(inventory)
+	Logger.info("Player: Player %d attempting to swap item %d to %d in inventory %s" % [hitbox.id, from, to, str(inventory)])
 	if not from in inventory.keys():
 		# nothing to do, from needs to be an item
 		return
