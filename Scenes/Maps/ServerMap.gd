@@ -26,8 +26,8 @@ func SpawnMelee(player_id, blend_position, player_position):
 	melee_attack_instance.change_rotation(blend_position)
 	get_node("PlayerAttacks").add_child(melee_attack_instance)
 	
-func SpawnOre(_ore_id, _location):
-	print("ore spawned")
+func SpawnOre(_ore_id, _location : Vector2):
+	Logger.info("%s: ore spawned %d, location=[%f,%f]" % [filename, _ore_id, _location.x, _location.y])
 	
 func SpawnPlayer(_player_id, _location):
 	pass

@@ -81,11 +81,11 @@ func process_state(delta):
 		State.CHASE:
 			var destination = Players.get_player_position(target)
 			if destination == null:
-				print("Chase ended, player disconnected")
+				Logger.info("%s: Enemy %s - chase ended, player disconnected" % [filename, name])
 				enter_state(State.EVADE)
 			else:
 				if (destination - spawn_point).length() > pars.get(EnemyParameters.CHASE_RANGE):
-					print("Chase ended: too far from spawn")
+					Logger.info("%s: Enemy %s - chase ended: too far from spawn" % [filename, name])
 					# moved too far from spawn point, return to spawn
 					enter_state(State.EVADE)
 				else:
@@ -114,8 +114,8 @@ func process_state(delta):
 				enter_state(State.IDLE)
 
 func enter_state(new_state, extra_data = null):
-	print(name + " entering new state: " + State.keys()[new_state])
-	
+	Logger.info("%s: Enemy %s (%s) entered new state: %s" % [filename, name, status_dict[si.ENEMY_TYPE], State.keys()[new_state]])
+		
 	# Currently client is informed of all states. Maybe change in the future?
 	
 	match new_state:

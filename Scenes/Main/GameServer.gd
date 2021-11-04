@@ -21,16 +21,16 @@ onready var players_node = $ServerMap/YSort/Players
 
 func _ready():
 	OS.set_window_position(Vector2(0,0))
-	print("Ready function called")
+	Logger.info("%s: Ready function called" % filename)
 	StartServer()
-	print("finished Client>World Server function")
+	Logger.info("%s: finished Client>World Server function" % filename)
 
 
 func StartServer():
-	print("Start server called")
+	Logger.info("%s: Start server called" % filename)
 	network.create_server(port, max_players)
 	get_tree().set_network_peer(network)
-	print("World Server Starting")
+	Logger.info("%s: World Server Starting" % filename)
 
 	network.connect("peer_connected", self, "_Peer_Connected")
 	network.connect("peer_disconnected", self, "_Peer_Disconnected")	
@@ -39,11 +39,11 @@ func _process(_delta: float) -> void:
 	pass
   
 func _Peer_Connected(player_id):
-	print("User: " + str(player_id) + " connected")
+	Logger.info("%s: User %d connected" % [filename, player_id])
 	player_verification_process.start(player_id)
   
 func _Peer_Disconnected(player_id):
-	print("User: " + str(player_id) + " disconnected")
+	Logger.info("%s: User %d disconnected" % [filename, player_id])
 	Players.remove_player(player_id)
 	rpc_id(0, "DespawnPlayer", player_id)
 	
@@ -105,6 +105,8 @@ func SendPlayerInventory(inventory_data, session_token):
 # swap two locations in inventory
 remote func swap_items(from, to):
 	var player_id = get_tree().get_rpc_sender_id()
-	Players.get_player(player_id).swap_items(from, to)
+	var player : Player = Players.get_player(player_id)
+	if player:
+		player.swap_items(from, to)
 	rpc_id(player_id, "item_swap_ok")
 	

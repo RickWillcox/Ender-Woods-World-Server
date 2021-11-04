@@ -4,7 +4,7 @@ var storage = {}
 var player_state_collection = {}
 
 func prepare_new_player(player_id):
-	print(["Player prepared", player_id])
+	Logger.info("%s: Prepared player %d" % [name, player_id])
 	storage[player_id] = Player.new()
 	storage[player_id].mock_stats()
 	#TODO: Fetch player stats, items, data from auth server
@@ -34,13 +34,18 @@ func remove_player(player_id):
 		player_state_collection.erase(player_id)
 
 func update_player(player_id, state):
-	(storage[player_id] as Player).update(state)
+	var player : Player = get_player(player_id)
+	if player:
+		player.update(state)
 
 func get_player_position(player_id):
-	if storage.has(player_id):
-		return (storage[player_id] as Player).get_position()
-	else:
-		return null
+	var player : Player = get_player(player_id)	
+	if player:
+		return player.get_position()
+	return null
 
 func get_player(player_id):
-	return storage[player_id]
+	if storage.has(player_id):
+		return storage[player_id]
+	Logger.warn("%s: Attempt to get a non-existing player %d" % [name, player_id])
+	return null
