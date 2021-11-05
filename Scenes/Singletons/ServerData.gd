@@ -1,11 +1,4 @@
 extends Node
-
-const SQLite  = preload("res://addons/godot-sqlite/bin/gdsqlite.gdns")
-var db
-const DB_PATH = "user://PlayerData"
-var Players
-var PlayerInventories
-var query
 var si = ServerInterface
 
 
