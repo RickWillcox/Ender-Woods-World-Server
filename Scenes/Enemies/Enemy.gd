@@ -7,6 +7,7 @@ const DESPAWN_TIME = 5
 var si = ServerInterface
 
 var pars = EnemyParameters.new()
+var item_drop_pool : Array
 
 enum State {
 	IDLE,
@@ -65,8 +66,9 @@ func process_state(delta):
 			if despawn_timer.is_timed_out():
 				enter_state(State.DESPAWN)
 			if not dropped_items:
+				var pick_random_item = randi() % 3 
 				#add drop table to the potential item ids here, with weighting eg boots drop more than epic sword
-				server_map.SpawnItemDrop(position, 5)
+				server_map.SpawnItemDrop  (position, item_drop_pool[pick_random_item])
 				dropped_items = true
 				pass
 			
