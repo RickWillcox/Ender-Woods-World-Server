@@ -26,6 +26,7 @@ func SpawnMelee(player_id, blend_position, player_position):
 	melee_attack_instance.position = player_position
 	melee_attack_instance.change_rotation(blend_position)
 	get_node("PlayerAttacks").add_child(melee_attack_instance)
+	print(GetItemsOnGround())
 	
 func SpawnOre(_ore_id, _location : Vector2):
 	Logger.info("%s: ore spawned %d, location=[%f,%f]" % [filename, _ore_id, _location.x, _location.y])
@@ -39,4 +40,15 @@ func SpawnItemDrop(drop_position, item_id):
 	new_item_drop.position = drop_position
 	new_item_drop.item_id = item_id
 	get_node("YSort/Items").add_child(new_item_drop)
+	
+func GetItemsOnGround() -> Array:
+#	var item_nodes : Array = get_node("YSort/Items").get_children()
+	var item_node_names : Array
+	for item in get_node("YSort/Items").get_children():
+		item_node_names.append([item.item_id, item.name, item.position])	
+	return item_node_names
+	
+	
+	
+		
 	

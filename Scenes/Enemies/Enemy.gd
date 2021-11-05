@@ -123,7 +123,7 @@ func process_state(delta):
 				enter_state(State.IDLE)
 
 func enter_state(new_state, extra_data = null):
-	Logger.info("%s: Enemy %s (%s) entered new state: %s" % [filename, name, status_dict[si.ENEMY_TYPE], State.keys()[new_state]])
+#	Logger.info("%s: Enemy %s (%s) entered new state: %s" % [filename, name, status_dict[si.ENEMY_TYPE], State.keys()[new_state]])
 		
 	# Currently client is informed of all states. Maybe change in the future?
 	

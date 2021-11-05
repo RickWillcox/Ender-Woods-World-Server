@@ -72,6 +72,7 @@ func ReturnTokenVerificationResults(player_id, result):
 	rpc_id(player_id, "ReturnTokenVerificationResults", result, ItemDatabase.all_item_data)
 	if result == true:
 		rpc_id(0, "SpawnNewPlayer", player_id, Vector2(450, 220))
+		rpc_id(player_id, "GetItemsOnGround", get_node("ServerMap").GetItemsOnGround())
 
 remote func FetchPlayerStats():
 	var player_id = get_tree().get_rpc_sender_id()
