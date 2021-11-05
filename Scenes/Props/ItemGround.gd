@@ -6,14 +6,14 @@ var player_id : int
 var anyone_pick_up : bool = true
 
 func _ready():
-	$PickupPlayer.start()
-	$RemoveItem.start()
+	name = str(randi () % 10000000+1)
 	gameserver.AddItemDropToClient(item_id, name, position)
-
+	print(name)
 
 func _on_RemoveItem_timeout():
 	#Remove the item from the world server
 	print("Removing item")
+	gameserver.RemoveItemDropFromClient(name)
 	queue_free()
 	pass
 

@@ -38,5 +38,5 @@ func SpawnItemDrop(drop_position, item_id):
 	var new_item_drop = item_drop.instance()
 	new_item_drop.position = drop_position
 	new_item_drop.item_id = item_id
-	add_child(new_item_drop)
+	get_node("YSort/Items").add_child(new_item_drop)
 	
