@@ -68,10 +68,12 @@ remote func ReturnToken(token):
 	var player_id = get_tree().get_rpc_sender_id()
 	player_verification_process.Verify(player_id, token)
 
-func ReturnTokenVerificationResults(player_id, result):
+func ReturnTokenVerificationResults(player_id : int, result : bool):
 	rpc_id(player_id, "ReturnTokenVerificationResults", result, ItemDatabase.all_item_data)
 	if result == true:
 		rpc_id(0, "SpawnNewPlayer", player_id, Vector2(450, 220))
+		rpc_id(player_id, "GetItemsOnGround", get_node("ServerMap").GetItemsOnGround())
+		rpc_id(player_id, "StorePlayerID", player_id)
 
 remote func FetchPlayerStats():
 	var player_id = get_tree().get_rpc_sender_id()
@@ -110,6 +112,7 @@ remote func swap_items(from, to):
 		player.swap_items(from, to)
 	rpc_id(player_id, "item_swap_ok")
 	
+
 remote func move_items(from, to):
 	var player_id = get_tree().get_rpc_sender_id()
 	var player : Player = Players.get_player(player_id)
@@ -118,9 +121,10 @@ remote func move_items(from, to):
 			rpc_id(player_id, "item_swap_ok")
 			return
 	rpc_id(player_id, "item_swap_nok")
-	
-func AddItemDropToClient(item_id, item_name, item_position):
-	rpc_id(0, "AddItemDropToClient", item_id, item_name, item_position)
+
+func AddItemDropToClient(item_id : int, item_name : String, item_position : Vector2, tagged_by_player : int):
+	rpc_id(0, "AddItemDropToClient", item_id, item_name, item_position,tagged_by_player)
+
 	
 func RemoveItemDropFromClient(item_name):
 	rpc_id(0, "RemoveItemDropFromClient", item_name)
