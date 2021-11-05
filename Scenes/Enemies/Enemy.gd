@@ -21,6 +21,7 @@ enum State {
 
 var state
 onready var map = get_node("/root/Server/Map")
+onready var server_map = get_node("/root/Server/ServerMap")
 
 
 var idle_timer : BasicTimer = BasicTimer.new()
@@ -31,6 +32,7 @@ var despawn_timer : BasicTimer = BasicTimer.new()
 var wander_target
 var spawn_point
 var target
+var dropped_items : bool = false
 
 var status_dict : Dictionary
 func set_status_dict(dict):
@@ -62,6 +64,11 @@ func process_state(delta):
 			despawn_timer.advance(delta)
 			if despawn_timer.is_timed_out():
 				enter_state(State.DESPAWN)
+			if not dropped_items:
+				#add drop table to the potential item ids here, with weighting eg boots drop more than epic sword
+				server_map.SpawnItemDrop(position, 5)
+				dropped_items = true
+				pass
 			
 		State.IDLE:
 			idle_timer.advance(delta)
@@ -155,3 +162,4 @@ func select_wander_target():
 
 func perform_attack():
 	Players.get_player(target).take_damage(3)
+
