@@ -2,12 +2,12 @@ extends StaticBody2D
 
 onready var gameserver = get_node("/root/Server")
 var item_id : int
-var player_id : int
+var tagged_by_player : int
 var anyone_pick_up : bool = true
 
 func _ready():
 	name = str(randi () % 10000000+1)
-	gameserver.AddItemDropToClient(item_id, name, position)
+	gameserver.AddItemDropToClient(item_id, name, position, tagged_by_player)
 	print(name)
 
 func _on_RemoveItem_timeout():

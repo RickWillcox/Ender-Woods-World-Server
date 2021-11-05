@@ -8,6 +8,9 @@ var si = ServerInterface
 
 var pars = EnemyParameters.new()
 var item_drop_pool : Array
+var tagged_by_player : int = 0
+
+
 
 enum State {
 	IDLE,
@@ -30,6 +33,7 @@ var wander_timer : BasicTimer = BasicTimer.new()
 var attack_timer : BasicTimer = BasicTimer.new()
 var attack_delay : BasicTimer = BasicTimer.new()
 var despawn_timer : BasicTimer = BasicTimer.new()
+var tagged_timer : BasicTimer = BasicTimer.new()
 var wander_target
 var spawn_point
 var target
@@ -43,7 +47,10 @@ func _ready():
 	spawn_point = position
 	enter_state(State.IDLE)
 
-func take_damage(value : float, _attacker):
+func take_damage(value : float, attacker : int):
+	#either the monster is not tagger or check if its the same player, if so reset timer for tagged
+	if tagged_by_player == 0 or attacker == tagged_by_player:
+		PlayerTagEnemy(attacker)
 	if status_dict == null:
 		# something went wrong, the enemy is not registered in the server
 		return
@@ -55,6 +62,12 @@ func take_damage(value : float, _attacker):
 		if status_dict[si.ENEMY_CURRENT_HEALTH] <= 0:
 			enter_state(State.DEAD)
 
+func PlayerTagEnemy(attacker: int):
+	tagged_by_player = attacker
+	print("Tagged by playerID: ", attacker)
+	tagged_timer.start(5)
+	
+	
 var velocity : Vector2 = Vector2()
 
 func process_state(delta):
@@ -68,7 +81,7 @@ func process_state(delta):
 			if not dropped_items:
 				var pick_random_item = randi() % 3 
 				#add drop table to the potential item ids here, with weighting eg boots drop more than epic sword
-				server_map.SpawnItemDrop  (position, item_drop_pool[pick_random_item])
+				server_map.SpawnItemDrop(tagged_by_player, position, item_drop_pool[pick_random_item])
 				dropped_items = true
 				pass
 			
@@ -121,7 +134,13 @@ func process_state(delta):
 			collision_layer = 0x0
 			if (position - spawn_point).length() < 2:
 				enter_state(State.IDLE)
-
+	
+	if tagged_by_player != 0:
+		tagged_timer.advance(delta)
+		if tagged_timer.is_timed_out():
+			tagged_by_player = 0
+			print("TIMER IS TIMED OUT!!!!")
+		
 func enter_state(new_state, extra_data = null):
 #	Logger.info("%s: Enemy %s (%s) entered new state: %s" % [filename, name, status_dict[si.ENEMY_TYPE], State.keys()[new_state]])
 		
