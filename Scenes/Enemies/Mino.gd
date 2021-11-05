@@ -7,6 +7,7 @@ onready var player_detection_zone = $PlayerDetectionZone
 onready var game_server_script = get_node("../../../../../Server")
 
 
+
 enum{
 	LEFT, 
 	RIGHT
@@ -29,6 +30,7 @@ var facing = RIGHT
 
 func _ready():
 	randomize()
+	item_drop_pool = [1,2,3]
 	rng = RandomNumberGenerator.new()
 	animation_tree.active = true
 	

@@ -110,3 +110,8 @@ remote func swap_items(from, to):
 		player.swap_items(from, to)
 	rpc_id(player_id, "item_swap_ok")
 	
+func AddItemDropToClient(item_id, item_name, item_position):
+	rpc_id(0, "AddItemDropToClient", item_id, item_name, item_position)
+	
+func RemoveItemDropFromClient(item_name):
+	rpc_id(0, "RemoveItemDropFromClient", item_name)

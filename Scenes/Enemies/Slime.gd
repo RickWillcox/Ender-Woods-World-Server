@@ -2,6 +2,7 @@ extends Enemy
 
 func _ready():
 	._ready()
+	item_drop_pool = [5,6,7]
 	enter_state(Enemy.State.IDLE)
 
 func enter_state(new_state, extra_data = null):
