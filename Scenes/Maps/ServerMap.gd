@@ -35,10 +35,11 @@ func SpawnPlayer(_player_id, _location):
 	pass
 	
 	
-func SpawnItemDrop(drop_position, item_id):
+func SpawnItemDrop(tagged_by_player : int, drop_position : Vector2, item_id : int):
 	var new_item_drop = item_drop.instance()
 	new_item_drop.position = drop_position
 	new_item_drop.item_id = item_id
+	new_item_drop.tagged_by_player = tagged_by_player
 	get_node("YSort/Items").add_child(new_item_drop)
 	
 func GetItemsOnGround() -> Array:
