@@ -112,8 +112,19 @@ remote func swap_items(from, to):
 		player.swap_items(from, to)
 	rpc_id(player_id, "item_swap_ok")
 	
+
+remote func move_items(from, to):
+	var player_id = get_tree().get_rpc_sender_id()
+	var player : Player = Players.get_player(player_id)
+	if player:
+		if player.move_items(from, to):
+			rpc_id(player_id, "item_swap_ok")
+			return
+	rpc_id(player_id, "item_swap_nok")
+
 func AddItemDropToClient(item_id : int, item_name : String, item_position : Vector2, tagged_by_player : int):
 	rpc_id(0, "AddItemDropToClient", item_id, item_name, item_position,tagged_by_player)
+
 	
 func RemoveItemDropFromClient(item_name):
 	rpc_id(0, "RemoveItemDropFromClient", item_name)
