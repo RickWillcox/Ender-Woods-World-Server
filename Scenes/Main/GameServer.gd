@@ -128,3 +128,29 @@ func AddItemDropToClient(item_id : int, item_name : String, item_position : Vect
 	
 func RemoveItemDropFromClient(item_name):
 	rpc_id(0, "RemoveItemDropFromClient", item_name)
+
+remote func add_item(action_id : String, slot : int):
+	var player_id = get_tree().get_rpc_sender_id()
+	Logger.info("Add item %s to player %d, slot %d" % [action_id, player_id, slot])
+	var player : Player = Players.get_player(player_id)
+	if player:
+		
+		# Find item on server
+		var target_item = null
+		for item in server_map.get_node("YSort/Items").get_children():
+			if item.name == action_id:
+				target_item = item
+				break
+		
+		# Check if player can pickup item		
+		if not target_item.anyone_pick_up and player_id != target_item.tagged_by_player:
+			# attempt to take item that doesnt belong to player
+			rpc_id(player_id, "item_add_nok")
+			return
+		
+		# add item to player inventory
+		if player.add_item(target_item.item_id, slot):
+			rpc_id(player_id, "item_swap_ok")
+			target_item.queue_free()
+			return
+	rpc_id(player_id, "item_swap_nok")

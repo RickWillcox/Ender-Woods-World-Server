@@ -15,7 +15,6 @@ func _on_RemoveItem_timeout():
 	print("Removing item")
 	gameserver.RemoveItemDropFromClient(name)
 	queue_free()
-	pass
 
 
 func _on_PickupPlayer_timeout():

@@ -98,3 +98,11 @@ func move_items(from : int, to : int) -> bool:
 		inventory[from]["amount"] = leftover
 		
 	return true
+
+
+func add_item(item_id : int, slot : int, amount : int = 1) -> bool:
+	# only works on empty slots
+	if inventory.has(slot):
+		return false
+	inventory[slot] = { "item_id" : item_id, "amount" : amount }
+	return true
