@@ -46,7 +46,7 @@ func GetItemsOnGround() -> Array:
 #	var item_nodes : Array = get_node("YSort/Items").get_children()
 	var item_node_names : Array
 	for item in get_node("YSort/Items").get_children():
-		item_node_names.append([item.item_id, item.name, item.position])	
+		item_node_names.append([item.item_id, item.name, item.position, item.tagged_by_player])	
 	return item_node_names
 	
 	
