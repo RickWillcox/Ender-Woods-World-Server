@@ -15,7 +15,8 @@ func _physics_process(_delta):
 		#anti cheat
 		#cuts
 		#physics checks
-		get_parent().SendWorldState(world_state)
+		get_parent().send_world_state(world_state)
+
 
 # warning-ignore:function_conflicts_variable
 func world_state():

@@ -10,9 +10,9 @@ var connected = false
 onready var gameserver = get_node("/root/Server")
 
 func _ready():
-	ConnectToServer()
-	network.connect("connection_failed", self, "_OnConnectionFailed")
-	network.connect("connection_succeeded", self, "_OnConnectionSucceeded")	
+	connect_to_server()
+	network.connect("connection_failed", self, "_on_connection_failed")
+	network.connect("connection_succeeded", self, "_on_connection_succeeded")	
 	network.connect("server_disconnected", self, "_server_disconnected")
 	
 func _process(_delta):
@@ -22,7 +22,7 @@ func _process(_delta):
 		return;
 	custom_multiplayer.poll();
 		
-func ConnectToServer():
+func connect_to_server():
 	network.create_client(ip, port)
 	set_custom_multiplayer(gateway_api)
 	custom_multiplayer.set_root_node(self)
@@ -35,31 +35,31 @@ func _server_disconnected():
 	print("Attempting to reconnect to the Authentication Server")
 	while not connected:
 		yield(get_tree().create_timer(5), "timeout")
-		ConnectToServer()
+		connect_to_server()
 	
 
-func _OnConnectionFailed():	
+func _on_connection_failed():	
 	connected = false
 	print("Failed to connect to the Game Hub server")
 	
-func _OnConnectionSucceeded():
+func _on_connection_succeeded():
 	connected = true
 	GetAllItemsFromDatabase()
 	print("Successfully connected to Game Hub server")
-#	gameserver.StartServer()
+#	gameserver.start_server()
 
-remote func ReceiveLoginToken(token):
+remote func receive_login_token(token):
 	gameserver.expected_tokens.append(token)
 	
 func SendPlayerTokenToAuthDatabase(player_id, token):
 	rpc_id(1, "ReceivePlayerTokenForDatabase", player_id, token)
 	
-remote func ReceivePlayerInventory(inventory_data, session_token):
+remote func receive_player_inventory(inventory_data, session_token):
 	# Session token == player_id
 	var player : Player = Players.get_player(session_token)
 	if player:
 		player.set_inventory(inventory_data)
-	gameserver.SendPlayerInventory(inventory_data, session_token)
+	gameserver.send_player_inventory(inventory_data, session_token)
 
 func GetAllItemsFromDatabase():
 	rpc_id(1, "GetAllItemsFromDatabase")

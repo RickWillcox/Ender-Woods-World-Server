@@ -7,13 +7,13 @@ var anyone_pick_up : bool = true
 
 func _ready():
 	name = str(randi () % 10000000+1)
-	gameserver.AddItemDropToClient(item_id, name, position, tagged_by_player)
+	gameserver.add_item_drop_to_client(item_id, name, position, tagged_by_player)
 	print(name)
 
 func _on_RemoveItem_timeout():
 	#Remove the item from the world server
 	print("Removing item")
-	gameserver.RemoveItemDropFromClient(name)
+	gameserver.remove_item_drop_from_client(name)
 	queue_free()
 
 

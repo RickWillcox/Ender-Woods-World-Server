@@ -5,7 +5,6 @@ const TIMEOUT_VARIANCE = 2
 const DESPAWN_TIME = 5
 
 var si = ServerInterface
-
 var pars = EnemyParameters.new()
 var item_drop_pool : Array
 var tagged_by_player : int = 0
@@ -50,7 +49,7 @@ func _ready():
 func take_damage(value : float, attacker : int):
 	#either the monster is not tagger or check if its the same player, if so reset timer for tagged
 	if tagged_by_player == 0 or attacker == tagged_by_player:
-		PlayerTagEnemy(attacker)
+		player_tag_enemy(attacker)
 	if status_dict == null:
 		# something went wrong, the enemy is not registered in the server
 		return
@@ -62,7 +61,7 @@ func take_damage(value : float, attacker : int):
 		if status_dict[si.ENEMY_CURRENT_HEALTH] <= 0:
 			enter_state(State.DEAD)
 
-func PlayerTagEnemy(attacker: int):
+func player_tag_enemy(attacker: int):
 	tagged_by_player = attacker
 	print("Tagged by playerID: ", attacker)
 	tagged_timer.start(5)
@@ -81,7 +80,7 @@ func process_state(delta):
 			if not dropped_items:
 				var pick_random_item = randi() % 3 
 				#add drop table to the potential item ids here, with weighting eg boots drop more than epic sword
-				server_map.SpawnItemDrop(tagged_by_player, position, item_drop_pool[pick_random_item])
+				server_map.spawn_item_drop(tagged_by_player, position, item_drop_pool[pick_random_item])
 				dropped_items = true
 				pass
 			

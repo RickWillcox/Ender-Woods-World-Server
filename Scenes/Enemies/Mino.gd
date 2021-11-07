@@ -79,14 +79,14 @@ func blend_position():
 
 # warning-ignore:function_conflicts_variable
 func attack(attack_type):
-	game_server_script.EnemyAttack(name, attack_type)
+	game_server_script.enemy_attack(name, attack_type)
 
 func perform_attack():
 	rng.randomize()
 	var num = rng.randi_range(0,1)
 	if num == 0:
 		animation_state.travel("AttackSwing") #attack swing
-		game_server_script.EnemyAttack(name, ATTACK_TYPES.ATTACKSWING)
+		game_server_script.enemy_attack(name, ATTACK_TYPES.ATTACKSWING)
 	elif num == 1:
 		animation_state.travel("AttackSpin") #attack spin
-		game_server_script.EnemyAttack(name, ATTACK_TYPES.ATTACKSPIN)
+		game_server_script.enemy_attack(name, ATTACK_TYPES.ATTACKSPIN)
