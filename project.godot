@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://Scenes/Enemies/EnemyParameters.gd"
 }, {
 "base": "Node",
+"class": "Inventory",
+"language": "GDScript",
+"path": "res://common/Inventory.gd"
+}, {
+"base": "Node",
 "class": "Player",
 "language": "GDScript",
 "path": "res://Scenes/Player/player.gd"
@@ -33,6 +38,7 @@ _global_script_class_icons={
 "BasicTimer": "",
 "Enemy": "",
 "EnemyParameters": "",
+"Inventory": "",
 "Player": ""
 }
 
@@ -45,14 +51,14 @@ config/windows_native_icon="res://Assets/w.ico"
 
 [autoload]
 
-ServerInterface="*res://Ender-Woods-Common/ServerInterface.gd"
+Logger="*res://common/logger/logger.gd"
+LoggerConfig="*res://Scenes/Singletons/LoggerConfig.gd"
+ServerInterface="*res://common/ServerInterface.gd"
 ServerData="*res://Scenes/Singletons/ServerData.gd"
 HubConnection="*res://Scenes/Singletons/HubConnection.gd"
 EnemyData="*res://Scenes/Singletons/EnemyData.gd"
 Players="*res://Scenes/Singletons/Players.gd"
-ItemDatabase="*res://Scenes/Singletons/ItemDatabase.gd"
-Logger="*res://godot-logger/logger.gd"
-LoggerConfig="*res://Scenes/Singletons/LoggerConfig.gd"
+ItemDatabase="*res://common/ItemDatabase.gd"
 
 [display]
 
