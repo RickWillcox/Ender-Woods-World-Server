@@ -24,7 +24,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Enemies/EnemyParameters.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "Inventory",
 "language": "GDScript",
 "path": "res://common/Inventory.gd"
