@@ -8,7 +8,7 @@ var item_drop = preload("res://Scenes/Props/ItemGround.tscn")
 
 # warning-ignore:unused_argument
 
-func SpawnEnemy(enemy_id, location, type, status_dict):
+func spawn_enemy(enemy_id, location, type, status_dict):
 	var enemy_spawn
 	if type == "Slime":
 		enemy_spawn = slime
@@ -20,29 +20,22 @@ func SpawnEnemy(enemy_id, location, type, status_dict):
 	enemy_spawn_instance.set_status_dict(status_dict)
 	get_node("YSort/Enemies/").add_child(enemy_spawn_instance, true)
 	
-func SpawnMelee(player_id, blend_position, player_position):
+func use_melee_attack(player_id, blend_position, player_position):
 	var melee_attack_instance = melee_attack.instance()
 	melee_attack_instance.player_id = player_id
 	melee_attack_instance.position = player_position
 	melee_attack_instance.change_rotation(blend_position)
 	get_node("PlayerAttacks").add_child(melee_attack_instance)
-	print(GetItemsOnGround())
+	print(get_items_on_ground())
 	
-func SpawnOre(_ore_id, _location : Vector2):
-	Logger.info("%s: ore spawned %d, location=[%f,%f]" % [filename, _ore_id, _location.x, _location.y])
-	
-func SpawnPlayer(_player_id, _location):
-	pass
-	
-	
-func SpawnItemDrop(tagged_by_player : int, drop_position : Vector2, item_id : int):
+func spawn_item_drop(tagged_by_player : int, drop_position : Vector2, item_id : int):
 	var new_item_drop = item_drop.instance()
 	new_item_drop.position = drop_position
 	new_item_drop.item_id = item_id
 	new_item_drop.tagged_by_player = tagged_by_player
 	get_node("YSort/Items").add_child(new_item_drop)
 	
-func GetItemsOnGround() -> Array:
+func get_items_on_ground() -> Array:
 #	var item_nodes : Array = get_node("YSort/Items").get_children()
 	var item_node_names : Array
 	for item in get_node("YSort/Items").get_children():

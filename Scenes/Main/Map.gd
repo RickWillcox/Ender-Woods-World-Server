@@ -17,10 +17,10 @@ func _ready():
 	var timer = Timer.new() 
 	timer.wait_time = 1
 	timer.autostart = true
-	timer.connect("timeout", self, "SpawnEnemy")
+	timer.connect("timeout", self, "spawn_enemy")
 	self.add_child(timer)
 	
-func SpawnEnemy():
+func spawn_enemy():
 	if enemy_list.size() >= enemy_maximum:
 		pass #maximum enemies already on the map
 	else:
@@ -37,7 +37,7 @@ func SpawnEnemy():
 		 si.ENEMY_MAX_HEALTH: EnemyData.enemies[type]["MaxHealth"], #EnemyMaxHealth
 		 si.ENEMY_STATE: Enemy.State.IDLE,
 		 si.ENEMY_TIME_OUT: 1}
-		get_parent().get_node("ServerMap").SpawnEnemy(enemy_id_counter, location, type, enemy_list[enemy_id_counter])
+		get_parent().get_node("ServerMap").spawn_enemy(enemy_id_counter, location, type, enemy_list[enemy_id_counter])
 		enemy_id_counter += 1
 	for enemy in enemy_list.keys():
 		if enemy_list[enemy][si.ENEMY_STATE] == Enemy.State.DESPAWN:
@@ -46,9 +46,7 @@ func SpawnEnemy():
 			else:
 				enemy_list[enemy][si.ENEMY_TIME_OUT] -= 1
 
-func UpdateEnemyPosition(_name):
-	pass
-				
+	
 func release_occupied_location(enemy_id):
 	open_locations.append(occupied_locations[enemy_id])
 	occupied_locations.erase(enemy_id)
