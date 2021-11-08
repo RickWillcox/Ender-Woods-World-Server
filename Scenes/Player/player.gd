@@ -1,5 +1,8 @@
 extends Node
 class_name Player
+var game_server_script
+
+
 
 var hitbox_scene = preload("res://Scenes/Player/PlayerHitbox.tscn")
 var hitbox : StaticBody2D
@@ -15,7 +18,8 @@ func initialize(player_id, init_state):
 	hitbox.display("Current health: " + str(stats["current_health"]))
 
 func register(world):
-  world.add_child(hitbox)
+	world.add_child(hitbox)
+	game_server_script = hitbox.get_node("/root/Server")
 
 func update(new_state):
   hitbox.position = new_state[si.PLAYER_POSITION]
@@ -33,11 +37,12 @@ func mock_stats():
 	stats["max_health"] = 100
 	stats["attack"] = 150
 
-func take_damage(value):
+func take_damage(value, attacker):
 	var current_health =  stats["current_health"]
 	current_health = max(0, current_health - value)
 	stats["current_health"] = current_health
 	hitbox.display("Current health: " + str(current_health))
+	game_server_script.send_packet(hitbox.id, {"op_code": si.Opcodes.TAKE_DAMAGE, "damage": value, "attacker" : attacker})
 
 func set_inventory(new_inventory):
 	inventory = new_inventory

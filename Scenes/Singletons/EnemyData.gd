@@ -2,7 +2,7 @@ extends Node
 
 onready var enemies = {
 	"Slime":{
-		"MaxHealth": 10
+		"MaxHealth": 400
 	},
 	"Mino":{
 		"MaxHealth": 10

@@ -19,6 +19,8 @@ var expected_tokens = []
 
 onready var players_node = $ServerMap/YSort/Players
 
+var si = ServerInterface
+
 func _ready():
 	OS.set_window_position(Vector2(0,0))
 	Logger.info("%s: Ready function called" % filename)
@@ -36,8 +38,9 @@ func start_server():
 	network.connect("peer_disconnected", self, "_peer_disconnected")	
 
 func _process(_delta: float) -> void:
-	pass
-  
+	yield(get_tree(), "idle_frame")
+	send_all_packets()
+
 func _peer_connected(player_id):
 	Logger.info("%s: User %d connected" % [filename, player_id])
 	player_verification_process.start(player_id)
@@ -104,30 +107,20 @@ func enemy_attack(enemy_id, attack_type):
 func send_player_inventory(inventory_data, session_token):
 	rpc_id(session_token, "receive_player_inventory", inventory_data)
 
-# swap two locations in inventory
-remote func swap_items(from, to):
-	var player_id = get_tree().get_rpc_sender_id()
-	var player : Player = Players.get_player(player_id)
-	if player:
-		player.swap_items(from, to)
-	rpc_id(player_id, "item_swap_ok")
-	
-
 remote func move_items(from, to):
 	var player_id = get_tree().get_rpc_sender_id()
 	var player : Player = Players.get_player(player_id)
 	if player:
 		if player.move_items(from, to):
-			rpc_id(player_id, "item_swap_ok")
+			send_packet(player_id, { "op_code" : si.Opcodes.INVENTORY_OK })
 			return
-	rpc_id(player_id, "item_swap_nok")
+	send_packet(player_id, { "op_code" : si.Opcodes.INVENTORY_NOK })
 
 func add_item_drop_to_client(item_id : int, item_name : String, item_position : Vector2, tagged_by_player : int):
 	rpc_id(0, "add_item_drop_to_client", item_id, item_name, item_position,tagged_by_player)
-
 	
 func remove_item_drop_from_client(item_name):
-	rpc_id(0, "remove_item_drop_from_client", item_name)
+	send_packet(0, {"op_code" : si.Opcodes.REMOVE_ITEM, "item_name" : item_name})
 
 remote func add_item(action_id : String, slot : int):
 	var player_id = get_tree().get_rpc_sender_id()
@@ -146,12 +139,31 @@ remote func add_item(action_id : String, slot : int):
 			# Check if player can pickup item	
 			if not target_item.anyone_pick_up and player_id != target_item.tagged_by_player:
 				# attempt to take item that doesnt belong to player
-				rpc_id(player_id, "item_add_nok")
+				send_packet(player_id, { "op_code" : si.Opcodes.INVENTORY_NOK })
 				return
 			
 			# add item to player inventory
 			if player.add_item(target_item.item_id, slot):
-				rpc_id(player_id, "item_swap_ok")
+				send_packet(player_id, { "op_code" : si.Opcodes.INVENTORY_OK })
 				target_item.queue_free()
 				return
-	rpc_id(player_id, "item_swap_nok")
+	send_packet(player_id, { "op_code" : si.Opcodes.INVENTORY_NOK })
+
+var packets_to_send = {}
+func send_packet(player_id, data):
+	if player_id == 0:
+		for player_id in Players.player_state_collection.keys():
+			enqueue_packet(player_id, data)
+	else:
+		enqueue_packet(player_id, data)	
+
+func enqueue_packet(player_id, data):
+	if packets_to_send.has(player_id):
+		packets_to_send[player_id].append(data)
+	else:
+		packets_to_send[player_id] = [data]
+		
+func send_all_packets():
+	for player_id in packets_to_send:
+		rpc_id(player_id, "handle_input_packets", packets_to_send[player_id])
+	packets_to_send = {}

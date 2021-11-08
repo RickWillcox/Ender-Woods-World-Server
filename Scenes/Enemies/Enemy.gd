@@ -180,5 +180,7 @@ func select_wander_target():
 	wander_target = spawn_point + (Vector2.ONE * pars.get(EnemyParameters.WANDER_TARGET_RANGE)).rotated(deg2rad(randi() % 360))
 
 func perform_attack():
-	Players.get_player(target).take_damage(3)
+	var player = Players.get_player(target)
+	if player:
+		player.take_damage(3, target)
 
