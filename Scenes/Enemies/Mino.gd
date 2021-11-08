@@ -1,6 +1,5 @@
 extends Enemy
 
-onready var player_detection_zone = $PlayerDetectionZone
 onready var game_server_script = get_node("../../../../../Server")
 
 
@@ -35,10 +34,6 @@ func _physics_process(delta):
 
 	status_dict[si.ENEMY_LOCATION] = position
 	velocity = move_and_slide(velocity)
-
-func seek_player():
-	if player_detection_zone.can_see_player():
-		enter_state(Enemy.State.CHASE, player_detection_zone.player.id)
 
 func perform_attack():
 	rng.randomize()
