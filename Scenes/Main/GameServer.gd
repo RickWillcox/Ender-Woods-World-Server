@@ -141,16 +141,17 @@ remote func add_item(action_id : String, slot : int):
 			if item.name == action_id:
 				target_item = item
 				break
-		
-		# Check if player can pickup item		
-		if not target_item.anyone_pick_up and player_id != target_item.tagged_by_player:
-			# attempt to take item that doesnt belong to player
-			rpc_id(player_id, "item_add_nok")
-			return
-		
-		# add item to player inventory
-		if player.add_item(target_item.item_id, slot):
-			rpc_id(player_id, "item_swap_ok")
-			target_item.queue_free()
-			return
+		# Check if player is in range to pick up item
+		if target_item.player_in_range_of_item(player_id):
+			# Check if player can pickup item	
+			if not target_item.anyone_pick_up and player_id != target_item.tagged_by_player:
+				# attempt to take item that doesnt belong to player
+				rpc_id(player_id, "item_add_nok")
+				return
+			
+			# add item to player inventory
+			if player.add_item(target_item.item_id, slot):
+				rpc_id(player_id, "item_swap_ok")
+				target_item.queue_free()
+				return
 	rpc_id(player_id, "item_swap_nok")

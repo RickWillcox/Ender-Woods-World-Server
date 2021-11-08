@@ -63,7 +63,7 @@ func take_damage(value : float, attacker : int):
 
 func player_tag_enemy(attacker: int):
 	tagged_by_player = attacker
-	print("Tagged by playerID: ", attacker)
+	Logger.info("Tagged by playerID: %d" % [tagged_by_player])
 	tagged_timer.start(5)
 	
 	
@@ -138,7 +138,6 @@ func process_state(delta):
 		tagged_timer.advance(delta)
 		if tagged_timer.is_timed_out():
 			tagged_by_player = 0
-			print("TIMER IS TIMED OUT!!!!")
 		
 func enter_state(new_state, extra_data = null):
 #	Logger.info("%s: Enemy %s (%s) entered new state: %s" % [filename, name, status_dict[si.ENEMY_TYPE], State.keys()[new_state]])

@@ -26,7 +26,6 @@ func use_melee_attack(player_id, blend_position, player_position):
 	melee_attack_instance.position = player_position
 	melee_attack_instance.change_rotation(blend_position)
 	get_node("PlayerAttacks").add_child(melee_attack_instance)
-	print(get_items_on_ground())
 	
 func spawn_item_drop(tagged_by_player : int, drop_position : Vector2, item_id : int):
 	var new_item_drop = item_drop.instance()
