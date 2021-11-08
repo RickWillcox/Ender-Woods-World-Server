@@ -1,7 +1,7 @@
 extends Node
 
-var network = NetworkedMultiplayerENet.new()
-var gateway_api = MultiplayerAPI.new()
+var network : NetworkedMultiplayerENet = NetworkedMultiplayerENet.new()
+var gateway_api : MultiplayerAPI = MultiplayerAPI.new()
 var port = 1912
 #var ip = "192.99.247.42"
 var ip = "127.0.0.1"
@@ -32,7 +32,7 @@ func connect_to_server():
 
 func _server_disconnected():
 	connected = false
-	print("Attempting to reconnect to the Authentication Server")
+	Logger.info("Attempting to reconnect to the Authentication Server")
 	while not connected:
 		yield(get_tree().create_timer(5), "timeout")
 		connect_to_server()
@@ -40,13 +40,13 @@ func _server_disconnected():
 
 func _on_connection_failed():	
 	connected = false
-	print("Failed to connect to the Game Hub server")
+	Logger.warn("Failed to connect to the Game Hub server")
 	
 func _on_connection_succeeded():
 	connected = true
 	GetAllItemsFromDatabase()
-	print("Successfully connected to Game Hub server")
-#	gameserver.start_server()
+	Logger.info("Successfully connected to Game Hub server")
+
 
 remote func receive_login_token(token):
 	gameserver.expected_tokens.append(token)
@@ -65,7 +65,6 @@ func GetAllItemsFromDatabase():
 	rpc_id(1, "GetAllItemsFromDatabase")
 	
 remote func ReceiveItemData(all_item_data):
-	print(all_item_data)
 	ItemDatabase.all_item_data = all_item_data
 
 func save_inventory(session_token, new_inventory):
