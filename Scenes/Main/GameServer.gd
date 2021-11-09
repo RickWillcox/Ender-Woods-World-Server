@@ -37,8 +37,8 @@ func start_server():
 	network.connect("peer_connected", self, "_peer_connected")
 	network.connect("peer_disconnected", self, "_peer_disconnected")	
 
-func _process(_delta: float) -> void:
-	yield(get_tree(), "idle_frame")
+#This is set to 20 fps
+func _physics_process(delta: float) -> void:
 	send_all_packets()
 
 func _peer_connected(player_id):
