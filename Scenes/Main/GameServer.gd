@@ -178,7 +178,7 @@ func send_all_packets():
 	for player_id in packets_to_send:
 		# check if player is connected
 		if Players.get_player(player_id):
-    	var packet_bundle = Serializer.PacketBundle.new()
+			var packet_bundle = Serializer.PacketBundle.new()
 			packet_bundle.serialize_packets(packets_to_send[player_id])
 			var size = packet_bundle.buffer.size()
 			if size > 50:
