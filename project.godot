@@ -76,6 +76,8 @@ enabled=PoolStringArray( "res://addons/gut/plugin.cfg", "res://addons/port/plugi
 network=false
 template=false
 fps=false
+frame=false
+process=false
 
 [input]
 
