@@ -184,3 +184,16 @@ func perform_attack():
 	if player:
 		player.take_damage(3, target)
 
+func seek_player():
+	var aggro_range : CircleShape2D = CircleShape2D.new()
+	aggro_range.radius = pars.get(EnemyParameters.AGGRO_RANGE)
+	var query : Physics2DShapeQueryParameters = Physics2DShapeQueryParameters.new()
+	query.set_shape(aggro_range)
+	query.transform = Transform2D(0, position)
+	query.collision_layer = 0x2
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
+	var space = get_world_2d().direct_space_state
+	var result : Array = space.intersect_shape(query)
+	if result.size() > 0:
+		enter_state(State.CHASE, result[0]["collider"].id)

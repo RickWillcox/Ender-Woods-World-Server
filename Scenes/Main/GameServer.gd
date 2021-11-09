@@ -19,6 +19,9 @@ var expected_tokens = []
 
 onready var players_node = $ServerMap/YSort/Players
 
+# for debugging. To see if we already sent the packets for current frame
+var packets_sent = false
+
 var si = ServerInterface
 
 func _ready():
@@ -26,6 +29,9 @@ func _ready():
 	Logger.info("%s: Ready function called" % filename)
 	start_server()
 	Logger.info("%s: finished Client>World Server function" % filename)
+	
+	# to make sure we do packet sending at the end of frame
+	process_priority = 3000
 
 
 func start_server():
@@ -37,9 +43,12 @@ func start_server():
 	network.connect("peer_connected", self, "_peer_connected")
 	network.connect("peer_disconnected", self, "_peer_disconnected")	
 
-func _process(_delta: float) -> void:
-	yield(get_tree(), "idle_frame")
+#This is set to 20 fps
+func _physics_process(delta: float) -> void:
 	send_all_packets()
+	packets_sent = true
+	yield(get_tree(), "idle_frame")
+	packets_sent = false
 
 func _peer_connected(player_id):
 	Logger.info("%s: User %d connected" % [filename, player_id])
@@ -151,6 +160,8 @@ remote func add_item(action_id : String, slot : int):
 
 var packets_to_send = {}
 func send_packet(player_id, data):
+	if packets_sent:
+		Logger.warn("Packet to player %d sent too late, will be delayed by one frame: %s" % [player_id, str(data)] )
 	if player_id == 0:
 		for player_id in Players.player_state_collection.keys():
 			enqueue_packet(player_id, data)
@@ -165,13 +176,16 @@ func enqueue_packet(player_id, data):
 		
 func send_all_packets():
 	for player_id in packets_to_send:
-		var packet_bundle = Serializer.PacketBundle.new()
-		packet_bundle.serialize_packets(packets_to_send[player_id])
-		var size = packet_bundle.buffer.size()
-		if size > 50:
-			packet_bundle.compress()
-			rpc_id(player_id, "handle_compressed_input_packets", packet_bundle.buffer, size)
-		else:
-			rpc_id(player_id, "handle_uncompressed_input_packets", packet_bundle.buffer)
-		packet_bundle.free()
+		# check if player is connected
+		if Players.get_player(player_id):
+    	var packet_bundle = Serializer.PacketBundle.new()
+			packet_bundle.serialize_packets(packets_to_send[player_id])
+			var size = packet_bundle.buffer.size()
+			if size > 50:
+				packet_bundle.compress()
+				rpc_id(player_id, "handle_compressed_input_packets", packet_bundle.buffer, size)
+			else:
+				rpc_id(player_id, "handle_uncompressed_input_packets", packet_bundle.buffer)
+			packet_bundle.free()
+			rpc_id(player_id, "handle_input_packets", packets_to_send[player_id])
 	packets_to_send = {}
