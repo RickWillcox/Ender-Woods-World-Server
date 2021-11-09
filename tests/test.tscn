@@ -11,4 +11,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 _run_on_load = true
-_directory1 = "res://test/unit_tests"
+_directory1 = "res://tests/unit"
