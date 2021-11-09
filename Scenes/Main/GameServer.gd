@@ -17,6 +17,9 @@ var max_players = 100
 
 var expected_tokens = []
 
+#Testing - Set to true for testing, false for not test, better soltion later
+var is_test = true
+
 onready var players_node = $ServerMap/YSort/Players
 
 # for debugging. To see if we already sent the packets for current frame
@@ -49,6 +52,7 @@ func _physics_process(delta: float) -> void:
 	packets_sent = true
 	yield(get_tree(), "idle_frame")
 	packets_sent = false
+	print("Expected tokens: ", expected_tokens)
 
 func _peer_connected(player_id):
 	Logger.info("%s: User %d connected" % [filename, player_id])
