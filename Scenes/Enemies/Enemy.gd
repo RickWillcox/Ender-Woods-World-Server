@@ -23,7 +23,7 @@ enum State {
 }
 
 var state
-onready var map = get_node("/root/Server/Map")
+
 onready var server_map = get_node("/root/Server/ServerMap")
 
 
@@ -164,7 +164,7 @@ func enter_state(new_state, extra_data = null):
 			despawn_timer.start(DESPAWN_TIME)
 		State.DESPAWN:
 			var id = int(name)
-			map.release_occupied_location(id)
+			server_map.release_occupied_location(id)
 			queue_free()
 		State.EVADE:
 			pass

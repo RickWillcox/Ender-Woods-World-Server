@@ -9,8 +9,8 @@ func _physics_process(_delta):
 		for player in world_state.keys():
 			world_state[player].erase(si.TIMESTAMP) #player time stamp not important save bytes
 		world_state[si.TIMESTAMP] = OS.get_system_time_msecs()
-		world_state[si.ENEMIES] = get_node("../Map").enemy_list #E: Enemies
-		world_state[si.ORES] = get_node("../Map").ore_list #O: Ores
+		world_state[si.ENEMIES] = get_node("../ServerMap").enemy_list #E: Enemies
+		world_state[si.ORES] = get_node("../ServerMap").ore_list #O: Ores
 		#Verification
 		#anti cheat
 		#cuts
