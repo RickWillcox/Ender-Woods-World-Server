@@ -1,6 +1,6 @@
 extends Node
 class_name Player
-var game_server_script
+var server
 
 
 
@@ -19,7 +19,7 @@ func initialize(player_id, init_state):
 
 func register(world):
 	world.add_child(hitbox)
-	game_server_script = hitbox.get_node("/root/Server")
+	server = world.get_node("/root/Server")
 
 func update(new_state):
   hitbox.position = new_state[si.PLAYER_POSITION]
@@ -42,13 +42,14 @@ func take_damage(value, attacker):
 	current_health = max(0, current_health - value)
 	stats["current_health"] = current_health
 	hitbox.display("Current health: " + str(current_health))
-	game_server_script.send_packet(hitbox.id, si.create_player_take_damage_packet(attacker, hitbox.id, value))
+	server.broadcast_packet(Players.get_players(),
+		si.create_player_take_damage_packet(attacker, hitbox.id, value))
 
 func set_inventory(new_inventory):
 	inventory = new_inventory
-	
+
 func swap_items(from : int, to : int):
-	
+
 	# TODO: remove this once client is updated
 	if not from in inventory.keys():
 		# nothing to do, from needs to be an item
@@ -59,7 +60,7 @@ func swap_items(from : int, to : int):
 		# this slot is no longer occupied, erase it from dictionary
 		inventory.erase(from)
 		return
-	
+
 	# both items exist, swap them
 	var item = inventory[to]
 	inventory[to] = inventory[from]
@@ -68,7 +69,7 @@ func swap_items(from : int, to : int):
 
 func move_items(from : int, to : int) -> bool:
 	Logger.info("Player: Player %d is attempting to swap item %d to %d in inventory %s" % [hitbox.id, from, to, str(inventory)])
-	
+
 	if not from in inventory.keys():
 		# nothing to do, from needs to be an item
 		return false
@@ -78,19 +79,19 @@ func move_items(from : int, to : int) -> bool:
 		# this slot is no longer occupied, erase it from dictionary
 		inventory.erase(from)
 		return true
-	
+
 	# Case 1: Item id mismatch, just swap them
 	if inventory[from]["item_id"] != inventory[to]["item_id"]:
 		swap_items(from, to)
 		return true
-	
+
 	# Case 2: Items have the same IDs
 	var item_id = inventory[from]["item_id"]
 	var stack_size = int(ItemDatabase.all_item_data[item_id]["stack_size"])
 	# Case 2a: target slot is already full, cannot move
 	if stack_size <= inventory[to]["amount"]:
 		return false
-		
+
 	# Case 2b: There is some space left on the stack
 	var total_items = inventory[from]["amount"] + inventory[to]["amount"]
 	inventory[to]["amount"] = min(stack_size, total_items)
@@ -101,7 +102,7 @@ func move_items(from : int, to : int) -> bool:
 	else:
 		# Some items didn't fit. Keep the from slot occupied, modify number of items
 		inventory[from]["amount"] = leftover
-		
+
 	return true
 
 

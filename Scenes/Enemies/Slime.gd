@@ -1,14 +1,11 @@
 extends Enemy
 
-func _ready():
-	._ready()
+func ready():
+	.ready()
 	item_drop_pool = [5,6,7]
-	enter_state(Enemy.State.IDLE)
 
 func enter_state(new_state, extra_data = null):
-
-	if new_state == Enemy.State.CHASE:
-
+	if new_state == Enemy.State.ENGAGED:
 		target = extra_data
 	.enter_state(new_state)
 
@@ -27,5 +24,5 @@ func take_damage(value : float, attacker):
 		return
 	.take_damage(value, attacker)
 	if not state in [Enemy.State.DEAD]:
-		enter_state(Enemy.State.CHASE, attacker)
+		enter_state(Enemy.State.ENGAGED, attacker)
 

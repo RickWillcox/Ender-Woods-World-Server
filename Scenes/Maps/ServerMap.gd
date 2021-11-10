@@ -5,6 +5,7 @@ var slime = preload("res://Scenes/Enemies/Slime.tscn")
 var mino = preload("res://Scenes/Enemies/Mino.tscn") #change to mino
 var melee_attack = preload("res://Scenes/Player/Melee_Attack.tscn")
 var item_drop = preload("res://Scenes/Props/ItemGround.tscn")
+onready var server = get_node("/root/Server")
 
 var si = ServerInterface
 var enemy_id_counter = 1 
@@ -75,6 +76,8 @@ func use_melee_attack(player_id, blend_position, player_position):
 	melee_attack_instance.position = player_position
 	melee_attack_instance.change_rotation(blend_position)
 	get_node("PlayerAttacks").add_child(melee_attack_instance)
+	server.broadcast_packet(Players.get_players([player_id]),
+			si.create_player_attack_swing_packet(player_id, 0))
 	
 func spawn_item_drop(tagged_by_player : int, drop_position : Vector2, item_id : int):
 	var new_item_drop = item_drop.instance()
