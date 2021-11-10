@@ -49,3 +49,10 @@ func get_player(player_id):
 		return storage[player_id]
 	Logger.warn("%s: Attempt to get a non-existing player %d" % [name, player_id])
 	return null
+
+func get_players(exclude_list = []):
+	var res : Array = []
+	for player_id in storage:
+		if not player_id in exclude_list:
+			res.append(player_id)
+	return res
