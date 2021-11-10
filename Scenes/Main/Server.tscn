@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Main/GameServer.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Main/PlayerVerification.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Main/StateProcessing.gd" type="Script" id=4]
-[ext_resource path="res://Scenes/Main/Map.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/Maps/ServerMap.tscn" type="PackedScene" id=6]
 
 [node name="Server" type="Node"]
@@ -22,9 +21,6 @@ autostart = true
 
 [node name="StateProcessing" type="Node" parent="."]
 script = ExtResource( 4 )
-
-[node name="Map" type="Node" parent="."]
-script = ExtResource( 5 )
 
 [node name="ServerMap" parent="." instance=ExtResource( 6 )]
 
