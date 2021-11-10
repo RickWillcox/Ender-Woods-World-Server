@@ -11,7 +11,8 @@ enum ATTACK_TYPES {
 
 var rng
 
-func _ready():
+func ready():
+	.ready()
 	randomize()
 	item_drop_pool = [1,2,3]
 	rng = RandomNumberGenerator.new()

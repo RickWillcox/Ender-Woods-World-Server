@@ -129,7 +129,7 @@ func add_item_drop_to_client(item_id : int, item_name : String, item_position : 
 	rpc_id(0, "add_item_drop_to_client", item_id, item_name, item_position,tagged_by_player)
 	
 func remove_item_drop_from_client(item_name):
-	send_packet(0, si.create_remove_item_packet(int(item_name)))
+	broadcast_packet(Players.get_players(), si.create_remove_item_packet(int(item_name)))
 
 remote func add_item(action_id : String, slot : int):
 	var player_id = get_tree().get_rpc_sender_id()
@@ -143,6 +143,10 @@ remote func add_item(action_id : String, slot : int):
 			if item.name == action_id:
 				target_item = item
 				break
+		if target_item == null:
+			send_packet(player_id, si.create_inventory_nok_packet())
+			return
+			
 		# Check if player is in range to pick up item
 		if target_item.player_in_range_of_item(player_id):
 			# Check if player can pickup item	
@@ -162,11 +166,12 @@ var packets_to_send = {}
 func send_packet(player_id, data):
 	if packets_sent:
 		Logger.warn("Packet to player %d sent too late, will be delayed by one frame: %s" % [player_id, str(data)] )
-	if player_id == 0:
-		for player_id in Players.player_state_collection.keys():
-			enqueue_packet(player_id, data)
-	else:
-		enqueue_packet(player_id, data)	
+	enqueue_packet(player_id, data)	
+
+# Send packet to many players	
+func broadcast_packet(player_ids : Array, data):
+	for player_id in player_ids:
+		send_packet(player_id, data)
 
 func enqueue_packet(player_id, data):
 	if packets_to_send.has(player_id):
