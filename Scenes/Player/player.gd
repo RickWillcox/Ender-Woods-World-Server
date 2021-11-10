@@ -42,7 +42,7 @@ func take_damage(value, attacker):
 	current_health = max(0, current_health - value)
 	stats["current_health"] = current_health
 	hitbox.display("Current health: " + str(current_health))
-	game_server_script.send_packet(hitbox.id, {"op_code": si.Opcodes.TAKE_DAMAGE, "damage": value, "attacker" : attacker})
+	game_server_script.send_packet(hitbox.id, si.create_player_take_damage_packet(attacker, hitbox.id, value))
 
 func set_inventory(new_inventory):
 	inventory = new_inventory

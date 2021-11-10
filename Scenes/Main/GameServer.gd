@@ -121,15 +121,15 @@ remote func move_items(from, to):
 	var player : Player = Players.get_player(player_id)
 	if player:
 		if player.move_items(from, to):
-			send_packet(player_id, { "op_code" : si.Opcodes.INVENTORY_OK })
+			send_packet(player_id, si.create_inventory_ok_packet())
 			return
-	send_packet(player_id, { "op_code" : si.Opcodes.INVENTORY_NOK })
+	send_packet(player_id, si.create_inventory_nok_packet())
 
 func add_item_drop_to_client(item_id : int, item_name : String, item_position : Vector2, tagged_by_player : int):
 	rpc_id(0, "add_item_drop_to_client", item_id, item_name, item_position,tagged_by_player)
 	
 func remove_item_drop_from_client(item_name):
-	send_packet(0, {"op_code" : si.Opcodes.REMOVE_ITEM, "item_name" : item_name})
+	send_packet(0, si.create_remove_item_packet(int(item_name)))
 
 remote func add_item(action_id : String, slot : int):
 	var player_id = get_tree().get_rpc_sender_id()
@@ -148,15 +148,15 @@ remote func add_item(action_id : String, slot : int):
 			# Check if player can pickup item	
 			if not target_item.anyone_pick_up and player_id != target_item.tagged_by_player:
 				# attempt to take item that doesnt belong to player
-				send_packet(player_id, { "op_code" : si.Opcodes.INVENTORY_NOK })
+				send_packet(player_id, si.create_inventory_nok_packet())
 				return
 			
 			# add item to player inventory
 			if player.add_item(target_item.item_id, slot):
-				send_packet(player_id, { "op_code" : si.Opcodes.INVENTORY_OK })
+				send_packet(player_id, si.create_inventory_ok_packet())
 				target_item.queue_free()
 				return
-	send_packet(player_id, { "op_code" : si.Opcodes.INVENTORY_NOK })
+	send_packet(player_id, si.create_inventory_nok_packet())
 
 var packets_to_send = {}
 func send_packet(player_id, data):
