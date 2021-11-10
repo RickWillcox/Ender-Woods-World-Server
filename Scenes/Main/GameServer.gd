@@ -187,5 +187,4 @@ func send_all_packets():
 			else:
 				rpc_id(player_id, "handle_uncompressed_input_packets", packet_bundle.buffer)
 			packet_bundle.free()
-			rpc_id(player_id, "handle_input_packets", packets_to_send[player_id])
 	packets_to_send = {}
