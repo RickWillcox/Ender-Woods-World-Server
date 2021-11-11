@@ -114,7 +114,8 @@ func enemy_attack(enemy_id, attack_type):
 	rpc_id(0, "receive_enemy_attack", enemy_id, attack_type)
 
 func send_player_inventory(inventory_data, session_token):
-	rpc_id(session_token, "receive_player_inventory", inventory_data)
+	var player_id = session_token
+	rpc_id(player_id, "receive_player_inventory", inventory_data)
 
 remote func move_items(from, to):
 	var player_id = get_tree().get_rpc_sender_id()
@@ -211,3 +212,8 @@ func send_all_packets():
 				rpc_id(player_id, "handle_uncompressed_input_packets", packet_bundle.buffer)
 			packet_bundle.free()
 	packets_to_send = {}
+
+remote func request_player_inventory(player_id):
+	var requesting_player_id = get_tree().get_rpc_sender_id()
+	if Players.get_player(player_id):
+		send_packet(requesting_player_id, Players.get_initial_inventory_packet(player_id))
