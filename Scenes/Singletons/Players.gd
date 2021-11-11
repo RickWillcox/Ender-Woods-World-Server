@@ -56,3 +56,12 @@ func get_players(exclude_list = []):
 		if not player_id in exclude_list:
 			res.append(player_id)
 	return res
+
+func get_initial_inventory_packet(player_id):
+	var player = storage[player_id]
+	return ServerInterface.create_initial_inventory_packet(player_id,
+		player.get_item(ItemDatabase.Slots.HEAD_SLOT),
+		player.get_item(ItemDatabase.Slots.CHEST_SLOT),
+		player.get_item(ItemDatabase.Slots.LEGS_SLOT),
+		player.get_item(ItemDatabase.Slots.FEET_SLOT),
+		player.get_item(ItemDatabase.Slots.HANDS_SLOT))

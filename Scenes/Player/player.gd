@@ -54,3 +54,8 @@ func move_items(from : int, to : int) -> bool:
 
 func add_item(item_id : int, slot : int, amount : int = 1) -> bool:
 	return inventory.add_item_to_empty_slot(item_id, amount, slot)
+
+func get_item(slot : int):
+	if inventory.slots.has(slot):
+		return inventory.slots[slot]["item_id"]
+	return 0
