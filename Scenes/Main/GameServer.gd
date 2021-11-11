@@ -122,6 +122,24 @@ remote func move_items(from, to):
 	if player:
 		if player.move_items(from, to):
 			send_packet(player_id, si.create_inventory_ok_packet())
+			
+			# Update "to" slot for other players if needed
+			if to in [ItemDatabase.Slots.HEAD_SLOT, ItemDatabase.Slots.CHEST_SLOT, ItemDatabase.Slots.FEET_SLOT,
+					ItemDatabase.Slots.LEGS_SLOT, ItemDatabase.Slots.HANDS_SLOT]:
+				var item_id = player.inventory[to]["item_id"]
+				broadcast_packet(Players.get_players([player_id]),
+						si.create_inventory_update_packet(player_id, to, item_id))
+						
+			# Update "from" slot for other players if needed
+			if from in [ItemDatabase.Slots.HEAD_SLOT, ItemDatabase.Slots.CHEST_SLOT, ItemDatabase.Slots.FEET_SLOT,
+					ItemDatabase.Slots.LEGS_SLOT, ItemDatabase.Slots.HANDS_SLOT]:
+						
+				# from can be empty
+				var item_id = 0
+				if player.inventory.has(from):
+					item_id = player.inventory[from]["item_id"]
+				broadcast_packet(Players.get_players([player_id]),
+						si.create_inventory_update_packet(player_id, from, item_id))
 			return
 	send_packet(player_id, si.create_inventory_nok_packet())
 
