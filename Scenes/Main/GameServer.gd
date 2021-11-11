@@ -126,7 +126,7 @@ remote func move_items(from, to):
 			# Update "to" slot for other players if needed
 			if to in [ItemDatabase.Slots.HEAD_SLOT, ItemDatabase.Slots.CHEST_SLOT, ItemDatabase.Slots.FEET_SLOT,
 					ItemDatabase.Slots.LEGS_SLOT, ItemDatabase.Slots.HANDS_SLOT]:
-				var item_id = player.inventory[to]["item_id"]
+				var item_id = player.inventory.slots[to]["item_id"]
 				broadcast_packet(Players.get_players([player_id]),
 						si.create_inventory_update_packet(player_id, to, item_id))
 						
@@ -136,8 +136,8 @@ remote func move_items(from, to):
 						
 				# from can be empty
 				var item_id = 0
-				if player.inventory.has(from):
-					item_id = player.inventory[from]["item_id"]
+				if player.inventory.slots.has(from):
+					item_id = player.inventory.slot[from]["item_id"]
 				broadcast_packet(Players.get_players([player_id]),
 						si.create_inventory_update_packet(player_id, from, item_id))
 			return
