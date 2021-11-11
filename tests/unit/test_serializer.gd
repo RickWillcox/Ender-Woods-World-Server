@@ -16,11 +16,19 @@ var test_packet_list = [ si.create_inventory_nok_packet(),
 					si.create_inventory_ok_packet(),
 					si.create_inventory_nok_packet(),
 					si.create_inventory_nok_packet(),
+					si.create_player_chat_packet(231, "rick HELLO WorLD ąłęęąśłą ąłęęąśłą ąłęęąśłą HELOOOL 98347191asd98723hdjw78h239onrfd79283hfd8923fsdf"),
 					si.create_inventory_update_packet(10000, 0, 1),
 					si.create_remove_item_packet(30),
 					si.create_inventory_nok_packet(),
 					si.create_take_damage_packet(-2021, 3000, 3),
-					si.create_attack_swing_packet(-2000, 2000)]
+					si.create_attack_swing_packet(-2000, 2000),
+					si.create_player_chat_packet(231, "HELLO WorLD ąłęęąśłą ąłęęąśłą ąłęęąśłą HELOOOL 98347191083123123100097891283 3894758935dsdsfsdfsdf")]
+
+func test_serialize_string():
+	var packet_bundle = Serializer.PacketBundle.new()
+	packet_bundle.serialize_string("ąłęęąśłą")
+	_lgr.log(packet_bundle.buffer.hex_encode())
+	_lgr.log(packet_bundle.deserialize_string())
 
 func test_serialize_deserialize_int64():
 	var packet_bundle = Serializer.PacketBundle.new()
