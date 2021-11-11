@@ -27,7 +27,7 @@ func update(new_state):
 func remove():
 	hitbox.get_parent().remove_child(hitbox)
 	hitbox.queue_free()
-	HubConnection.save_inventory(hitbox.id, inventory)
+	HubConnection.save_inventory(hitbox.id, inventory.slots)
 
 func get_position():
 	return hitbox.position

@@ -59,6 +59,9 @@ func _ready():
 	ready()
 
 func take_damage(value : float, attacker : int):
+	if state in [State.EVADE, State.DEAD, State.DESPAWN]:
+		return
+	
 	#either the monster is not tagger or check if its the same player, if so reset timer for tagged
 	if tagged_by_player == 0 or attacker == tagged_by_player:
 		player_tag_enemy(attacker)
@@ -75,6 +78,9 @@ func take_damage(value : float, attacker : int):
 		status_dict[si.ENEMY_CURRENT_HEALTH] -= value
 		if status_dict[si.ENEMY_CURRENT_HEALTH] <= 0:
 			enter_state(State.DEAD)
+		
+	if not state in [State.DEAD, State.ENGAGED]:
+		enter_state(State.ENGAGED, attacker)
 
 func player_tag_enemy(attacker: int):
 	tagged_by_player = attacker
@@ -103,6 +109,8 @@ func process_state(delta):
 			idle_timer.advance(delta)
 			if idle_timer.is_timed_out():
 				enter_state(State.WANDER)
+			elif pars.get(EnemyParameters.STANCE) == EnemyParameters.Stance.AGGRESIVE:
+				seek_player()
 
 		State.WANDER:
 			wander_timer.advance(delta)
@@ -114,6 +122,8 @@ func process_state(delta):
 					enter_state(State.IDLE)
 				else:
 					velocity = diff.normalized() * pars.get(EnemyParameters.WANDER_SPEED) * delta
+					if pars.get(EnemyParameters.STANCE) == EnemyParameters.Stance.AGGRESIVE:
+						seek_player()
 		State.ENGAGED:
 			var player = Players.get_player(target)
 			if not should_evade():
@@ -139,7 +149,7 @@ func process_state(delta):
 			tagged_by_player = 0
 
 func enter_state(new_state, extra_data = null):
-#	Logger.info("%s: Enemy %s (%s) entered new state: %s" % [filename, name, status_dict[si.ENEMY_TYPE], State.keys()[new_state]])
+	Logger.info("%s: Enemy %s (%s) entered new state: %s" % [filename, name, status_dict[si.ENEMY_TYPE], State.keys()[new_state]])
 
 	# Currently client is informed of all states. Maybe change in the future?
 
@@ -229,3 +239,10 @@ func perfrom_attack():
 	if state == State.ENGAGED:
 		server.broadcast_packet(Players.get_players(),
 			si.create_player_take_damage_packet(int(name), target, 3)) # damage
+
+
+func _physics_process(delta):
+	process_state(delta)
+	
+	status_dict[si.ENEMY_LOCATION] = position
+	velocity = move_and_slide(velocity)
