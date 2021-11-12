@@ -8,7 +8,6 @@ var item_drop = preload("res://Scenes/Props/ItemGround.tscn")
 onready var server = get_node("/root/Server")
 
 var si = ServerInterface
-var enemy_id_counter = 1 
 var enemy_maximum = 3
 var enemy_types = ["Slime" ,"Mino"] #list of enemies that spawn
 var enemy_spawn_points = [Vector2 (250, 225), Vector2 (500, 150), Vector2 (570, 470)]
@@ -34,17 +33,17 @@ func respawn_enemies():
 		var type = enemy_types[randi() % enemy_types.size()] #select random enemy
 		var rng_location_index = randi() % open_locations.size()
 		var location = enemy_spawn_points[open_locations[rng_location_index]]  #select random location to spawn at
-		occupied_locations[enemy_id_counter] = open_locations[rng_location_index]
+		var enemy_id = get_next_enemy_id()
+		occupied_locations[enemy_id] = open_locations[rng_location_index]
 		open_locations.remove(rng_location_index)
-		enemy_list[enemy_id_counter] = {
+		enemy_list[enemy_id] = {
 		 si.ENEMY_TYPE: type, #EnemyType
 		 si.ENEMY_LOCATION : location, #EnemyLocation
 		 si.ENEMY_CURRENT_HEALTH : EnemyData.enemies[type]["MaxHealth"], #EnemyCurrentHealth
 		 si.ENEMY_MAX_HEALTH: EnemyData.enemies[type]["MaxHealth"], #EnemyMaxHealth
 		 si.ENEMY_STATE: Enemy.State.IDLE,
 		 si.ENEMY_TIME_OUT: 1}
-		spawn_enemy(enemy_id_counter, location, type, enemy_list[enemy_id_counter])
-		enemy_id_counter += 1
+		spawn_enemy(enemy_id, location, type, enemy_list[enemy_id])
 	for enemy in enemy_list.keys():
 		if enemy_list[enemy][si.ENEMY_STATE] == Enemy.State.DESPAWN:
 			if enemy_list[enemy][si.ENEMY_TIME_OUT] == 0:
@@ -92,3 +91,14 @@ func get_items_on_ground() -> Array:
 	for item in get_node("YSort/Items").get_children():
 		item_node_names.append([item.item_id, item.name, item.position, item.tagged_by_player])	
 	return item_node_names
+
+
+# To make sure enemy_id would never be the same as player_id we make enemy_id > player_id
+# player_id (rpc sender id) is a signed 32bit positive integer. So bit 32 is always 0 for
+# player id
+# Therefore all enemy_ids will start by setting bit 32 to 1
+var enemy_id_counter = 0
+func get_next_enemy_id() -> int:
+	enemy_id_counter += 1
+	# set the 32nd bit to 1 and limit the value to U32 range
+	return (enemy_id_counter | (1 << 31)) & 0xffffffff
