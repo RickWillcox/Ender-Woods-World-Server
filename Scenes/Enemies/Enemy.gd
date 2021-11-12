@@ -8,6 +8,7 @@ var si = ServerInterface
 var pars = EnemyParameters.new()
 var item_drop_pool : Array
 var tagged_by_player : int = 0
+var type
 
 # A set of sub-states is needed
 var is_attacking : bool = false
@@ -54,7 +55,8 @@ func ready():
 
 	damage_delay_timer.connect("timeout", self, "perform_attack")
 	damage_delay_timer.one_shot = true
-	server.broadcast_packet(Players.get_players(), get_state_packet())
+	server.broadcast_packet(Players.get_players(),
+		si.create_enemy_spawn_packet(int(name), si.EnemyState.ALIVE, type, status_dict[si.ENEMY_CURRENT_HEALTH], position))
 
 func _ready():
 	ready()
@@ -166,7 +168,11 @@ func enter_state(new_state, extra_data = null):
 				target = extra_data
 		State.DEAD:
 			despawn_timer.start(DESPAWN_TIME)
+			server.broadcast_packet(Players.get_players(),
+				si.create_enemy_died_packet(int(name)))
 		State.DESPAWN:
+			server.broadcast_packet(Players.get_players(),
+				si.create_enemy_despawn_packet(int(name)))
 			var id = int(name)
 			server_map.release_occupied_location(id)
 			queue_free()
@@ -178,11 +184,6 @@ func enter_state(new_state, extra_data = null):
 
 	status_dict[si.ENEMY_STATE] = new_state
 	state = new_state
-	
-	# Inform the players about the enemy dying/disappearing
-	if new_state == State.DEAD or new_state == State.DESPAWN:
-		server.broadcast_packet(Players.get_players(), get_state_packet())
-
 
 func select_wander_target():
 	wander_target = spawn_point + (Vector2.ONE * pars.get(EnemyParameters.WANDER_TARGET_RANGE)).rotated(deg2rad(randi() % 360))
@@ -253,10 +254,9 @@ func _physics_process(delta):
 
 # create current state packet
 func get_state_packet():
-	var si_state = si.EnemyStates.ALIVE
-	match state:
-		State.DEAD:
-			si_state = si.EnemyStates.DEAD
-		State.DESPAWN:
-			si_state = si.EnemyStates.DESPAWN
-	return si.create_enemy_state_packet(int(name), si_state)
+	var si_state = si.EnemyState.ALIVE
+	var health = status_dict[si.ENEMY_CURRENT_HEALTH]
+	if state == State.DEAD:
+		si_state = si.EnemyState.DEAD
+		health = 0
+	return si.create_enemy_spawn_packet(int(name), si_state, type, health, position)
