@@ -69,3 +69,12 @@ remote func ReceiveItemData(all_item_data):
 
 func save_inventory(session_token, new_inventory):
 	rpc_id(1, "update_inventory", session_token, new_inventory)
+
+remote func store_username(username, session_token):
+	var player = Players.get_player(session_token)
+	if player:
+		player.username = username
+		Logger.info("Username: %s added" % username)
+
+func get_username(session_token):
+	rpc_id(1, "get_username", session_token)
