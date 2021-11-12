@@ -213,7 +213,19 @@ func send_all_packets():
 			packet_bundle.free()
 	packets_to_send = {}
 
-remote func request_player_inventory(player_id):
+
+remote func request_player_inventory(player_id : int):
 	var requesting_player_id = get_tree().get_rpc_sender_id()
 	if Players.get_player(player_id):
 		send_packet(requesting_player_id, Players.get_initial_inventory_packet(player_id))
+
+remote func receive_player_chat(text : String):
+	var player_id : int = get_tree().get_rpc_sender_id()
+	var player : Player = Players.get_player(player_id)
+	if player:
+#		var username_chat : String = "%s: %s" % [player.get_username(), text]
+#		broadcast_packet(Players.get_players([player_id]), si.create_player_chat_packet(player_id, username_chat))
+		rpc_id(0, "receive_player_chat", player_id, player.get_username(), text)
+	
+
+

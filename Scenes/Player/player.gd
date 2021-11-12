@@ -1,21 +1,20 @@
 extends Node
 class_name Player
+
 var server
-
-
-
-var hitbox_scene = preload("res://Scenes/Player/PlayerHitbox.tscn")
 var hitbox : StaticBody2D
 var si = ServerInterface
-
-var stats = {}
+var stats : Dictionary = {}
 var inventory : Inventory = Inventory.new()
+var username : String
 
+var hitbox_scene = preload("res://Scenes/Player/PlayerHitbox.tscn")
 
 func initialize(player_id, init_state):
 	hitbox = hitbox_scene.instance()
 	hitbox.id = player_id
 	hitbox.display("Current health: " + str(stats["current_health"]))
+	HubConnection.get_username(player_id)
 
 func register(world):
 	world.add_child(hitbox)
@@ -59,3 +58,7 @@ func get_item(slot : int):
 	if inventory.slots.has(slot):
 		return inventory.slots[slot]["item_id"]
 	return 0
+
+func get_username():
+	return username
+	

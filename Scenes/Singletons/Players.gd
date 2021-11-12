@@ -65,3 +65,4 @@ func get_initial_inventory_packet(player_id):
 		player.get_item(ItemDatabase.Slots.LEGS_SLOT),
 		player.get_item(ItemDatabase.Slots.FEET_SLOT),
 		player.get_item(ItemDatabase.Slots.HANDS_SLOT))
+
