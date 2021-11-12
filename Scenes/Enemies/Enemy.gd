@@ -54,6 +54,7 @@ func ready():
 
 	damage_delay_timer.connect("timeout", self, "perform_attack")
 	damage_delay_timer.one_shot = true
+	server.broadcast_packet(Players.get_players(), get_state_packet())
 
 func _ready():
 	ready()
@@ -151,8 +152,6 @@ func process_state(delta):
 func enter_state(new_state, extra_data = null):
 	Logger.info("%s: Enemy %s (%s) entered new state: %s" % [filename, name, status_dict[si.ENEMY_TYPE], State.keys()[new_state]])
 
-	# Currently client is informed of all states. Maybe change in the future?
-
 	match new_state:
 		State.IDLE:
 			velocity = Vector2.ZERO
@@ -179,6 +178,10 @@ func enter_state(new_state, extra_data = null):
 
 	status_dict[si.ENEMY_STATE] = new_state
 	state = new_state
+	
+	# Inform the players about the enemy dying/disappearing
+	if new_state == State.DEAD or new_state == State.DESPAWN:
+		server.broadcast_packet(Players.get_players(), get_state_packet())
 
 
 func select_wander_target():
@@ -246,3 +249,14 @@ func _physics_process(delta):
 	
 	status_dict[si.ENEMY_LOCATION] = position
 	velocity = move_and_slide(velocity)
+
+
+# create current state packet
+func get_state_packet():
+	var si_state = si.EnemyStates.ALIVE
+	match state:
+		State.DEAD:
+			si_state = si.EnemyStates.DEAD
+		State.DESPAWN:
+			si_state = si.EnemyStates.DESPAWN
+	return si.create_enemy_state_packet(int(name), si_state)

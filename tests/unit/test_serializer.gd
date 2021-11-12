@@ -8,10 +8,12 @@ var test_packet_list = [ si.create_inventory_nok_packet(),
 					si.create_take_damage_packet(-2021, 3000, 100000000),
 					si.create_inventory_ok_packet(),
 					si.create_remove_item_packet(4),
+					si.create_enemy_state_packet(32131, 0),
 					si.create_inventory_ok_packet(),
 					si.create_inventory_update_packet(10000, 0, 1),
 					si.create_inventory_ok_packet(),
 					si.create_attack_swing_packet(-2000, 2000),
+					si.create_enemy_state_packet(32131, 2),
 					si.create_remove_item_packet(80),
 					si.create_initial_inventory_packet(1, 1, 2, 3, 4, 5),
 					si.create_inventory_ok_packet(),
@@ -28,9 +30,10 @@ var test_packet_list = [ si.create_inventory_nok_packet(),
 
 func test_serialize_string():
 	var packet_bundle = Serializer.PacketBundle.new()
-	packet_bundle.serialize_string("ąłęęąśłą")
+	var string = "ąłęęąśłą"
+	packet_bundle.serialize_string(string)
 	_lgr.log(packet_bundle.buffer.hex_encode())
-	_lgr.log(packet_bundle.deserialize_string())
+	assert_eq(packet_bundle.deserialize_string(), string)
 
 func test_serialize_deserialize_int64():
 	var packet_bundle = Serializer.PacketBundle.new()
