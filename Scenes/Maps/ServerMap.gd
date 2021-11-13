@@ -84,6 +84,7 @@ func spawn_item_drop(tagged_by_player : int, drop_position : Vector2, item_id : 
 	new_item_drop.position = drop_position
 	new_item_drop.item_id = item_id
 	new_item_drop.tagged_by_player = tagged_by_player
+	Logger.info("Item Dropped | Item ID: %d | Tagged By: %d" % [item_id, tagged_by_player])
 	get_node("YSort/Items").add_child(new_item_drop)
 	
 func get_items_on_ground() -> Array:

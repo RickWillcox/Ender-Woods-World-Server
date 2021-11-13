@@ -52,7 +52,7 @@ class DoubleInfo:
 	var _is_native = false
 	var is_valid = false
 
-	# Flexible init method.  p2 can be subpath or stategy unless p3 is
+	# Flexible init method.  p2 can be subpath or agy unless p3 is
 	# specified, then p2 must be subpath and p3 is strategy.
 	#
 	# Examples:
