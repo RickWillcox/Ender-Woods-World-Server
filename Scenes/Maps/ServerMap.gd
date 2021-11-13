@@ -92,7 +92,6 @@ func get_items_on_ground() -> Array:
 		item_node_names.append([item.item_id, item.name, item.position, item.tagged_by_player])	
 	return item_node_names
 
-
 # To make sure enemy_id would never be the same as player_id we make enemy_id > player_id
 # player_id (rpc sender id) is a signed 32bit positive integer. So bit 32 is always 0 for
 # player id
@@ -102,3 +101,11 @@ func get_next_enemy_id() -> int:
 	enemy_id_counter += 1
 	# set the 32nd bit to 1 and limit the value to U32 range
 	return (enemy_id_counter | (1 << 31)) & 0xffffffff
+
+func get_enemy_state_packets() -> Array:
+	var enemy_state_packets = []
+	for enemy in get_node("YSort/Enemies").get_children():
+		if (enemy as Enemy).state != Enemy.State.DESPAWN:
+			enemy_state_packets.append(enemy.get_state_packet())
+	return enemy_state_packets
+

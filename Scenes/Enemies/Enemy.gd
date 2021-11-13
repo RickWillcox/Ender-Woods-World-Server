@@ -8,6 +8,7 @@ var si = ServerInterface
 var pars = EnemyParameters.new()
 var item_drop_pool : Array
 var tagged_by_player : int = 0
+var type
 
 # A set of sub-states is needed
 var is_attacking : bool = false
@@ -54,6 +55,8 @@ func ready():
 
 	damage_delay_timer.connect("timeout", self, "perform_attack")
 	damage_delay_timer.one_shot = true
+	server.broadcast_packet(Players.get_players(),
+		si.create_enemy_spawn_packet(int(name), si.EnemyState.ALIVE, type, status_dict[si.ENEMY_CURRENT_HEALTH], position))
 
 func _ready():
 	ready()
@@ -151,8 +154,6 @@ func process_state(delta):
 func enter_state(new_state, extra_data = null):
 	Logger.info("%s: Enemy %s (%s) entered new state: %s" % [filename, name, status_dict[si.ENEMY_TYPE], State.keys()[new_state]])
 
-	# Currently client is informed of all states. Maybe change in the future?
-
 	match new_state:
 		State.IDLE:
 			velocity = Vector2.ZERO
@@ -167,7 +168,11 @@ func enter_state(new_state, extra_data = null):
 				target = extra_data
 		State.DEAD:
 			despawn_timer.start(DESPAWN_TIME)
+			server.broadcast_packet(Players.get_players(),
+				si.create_enemy_died_packet(int(name)))
 		State.DESPAWN:
+			server.broadcast_packet(Players.get_players(),
+				si.create_enemy_despawn_packet(int(name)))
 			var id = int(name)
 			server_map.release_occupied_location(id)
 			queue_free()
@@ -179,7 +184,6 @@ func enter_state(new_state, extra_data = null):
 
 	status_dict[si.ENEMY_STATE] = new_state
 	state = new_state
-
 
 func select_wander_target():
 	wander_target = spawn_point + (Vector2.ONE * pars.get(EnemyParameters.WANDER_TARGET_RANGE)).rotated(deg2rad(randi() % 360))
@@ -246,3 +250,13 @@ func _physics_process(delta):
 	
 	status_dict[si.ENEMY_LOCATION] = position
 	velocity = move_and_slide(velocity)
+
+
+# create current state packet
+func get_state_packet():
+	var si_state = si.EnemyState.ALIVE
+	var health = status_dict[si.ENEMY_CURRENT_HEALTH]
+	if state == State.DEAD:
+		si_state = si.EnemyState.DEAD
+		health = 0
+	return si.create_enemy_spawn_packet(int(name), si_state, type, health, position)
