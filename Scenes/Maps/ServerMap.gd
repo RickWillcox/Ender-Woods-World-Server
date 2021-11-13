@@ -2,7 +2,8 @@ extends Node2D
 
 
 var slime = preload("res://Scenes/Enemies/Slime.tscn")
-var mino = preload("res://Scenes/Enemies/Mino.tscn") #change to mino
+var mino = preload("res://Scenes/Enemies/Mino.tscn")
+var batsquito = preload("res://Scenes/Enemies/Batsquito.tscn")
 var melee_attack = preload("res://Scenes/Player/Melee_Attack.tscn")
 var item_drop = preload("res://Scenes/Props/ItemGround.tscn")
 onready var server = get_node("/root/Server")
@@ -30,7 +31,15 @@ func respawn_enemies():
 		pass #maximum enemies already on the map
 	else:
 		randomize()
-		var type = enemy_types[randi() % enemy_types.size()] #select random enemy
+		var random_enemy_type = si.EnemyType.values()[randi() % si.EnemyType.size()]
+		# TODO: remove this and only use EnemyType after cleanup of enemy spawning
+		var type = "Batsquito"
+		match random_enemy_type:
+			si.EnemyType.MINO:
+				type = "Mino"
+			si.EnemyType.SLIME:
+				type = "Slime"
+
 		var rng_location_index = randi() % open_locations.size()
 		var location = enemy_spawn_points[open_locations[rng_location_index]]  #select random location to spawn at
 		var enemy_id = get_next_enemy_id()
@@ -58,11 +67,11 @@ func release_occupied_location(enemy_id):
 
 # warning-ignore:unused_argument
 func spawn_enemy(enemy_id, location, type, status_dict):
-	var enemy_spawn
+	var enemy_spawn = batsquito
 	if type == "Slime":
 		enemy_spawn = slime
 	elif type == "Mino":
-		enemy_spawn = mino	
+		enemy_spawn = mino
 	var enemy_spawn_instance = enemy_spawn.instance()
 	enemy_spawn_instance.name = str(enemy_id)
 	enemy_spawn_instance.position = location

@@ -5,7 +5,10 @@ onready var enemies = {
 		"MaxHealth": 400
 	},
 	"Mino":{
-		"MaxHealth": 10
-	}
+		"MaxHealth": 1200
+	},
+	"Batsquito":{
+		"MaxHealth": 200
+	},
 }
 
