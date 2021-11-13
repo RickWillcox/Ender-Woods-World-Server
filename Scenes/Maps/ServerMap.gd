@@ -92,3 +92,10 @@ func get_items_on_ground() -> Array:
 	for item in get_node("YSort/Items").get_children():
 		item_node_names.append([item.item_id, item.name, item.position, item.tagged_by_player])	
 	return item_node_names
+
+func get_enemy_state_packets() -> Array:
+	var enemy_state_packets = []
+	for enemy in get_node("YSort/Enemies").get_children():
+		if (enemy as Enemy).state != Enemy.State.DESPAWN:
+			enemy_state_packets.append(enemy.get_state_packet())
+	return enemy_state_packets

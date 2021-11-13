@@ -85,6 +85,8 @@ func return_token_verification_results(player_id : int, result : bool):
 	if result == true:
 		rpc_id(0, "spawn_new_player", player_id, Vector2(450, 220))
 		rpc_id(player_id, "get_items_on_ground", get_node("ServerMap").get_items_on_ground())
+		for packet in get_node("ServerMap").get_enemy_state_packets():
+			send_packet(player_id, packet)
 		rpc_id(player_id, "store_player_id", player_id)
 
 remote func fetch_player_stats():
@@ -226,6 +228,4 @@ remote func receive_player_chat(text : String):
 #		var username_chat : String = "%s: %s" % [player.get_username(), text]
 #		broadcast_packet(Players.get_players([player_id]), si.create_player_chat_packet(player_id, username_chat))
 		rpc_id(0, "receive_player_chat", player_id, player.get_username(), text)
-	
-
 

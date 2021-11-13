@@ -1,6 +1,7 @@
 extends Enemy
 
 func ready():
+	type = si.EnemyType.MINO
 	.ready()
 	item_drop_pool = [1,2,3]
 	
