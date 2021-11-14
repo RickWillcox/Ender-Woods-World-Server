@@ -81,7 +81,7 @@ remote func return_token(token):
 	player_verification_process.verify(player_id, token)
 
 func return_token_verification_results(player_id : int, result : bool):
-	rpc_id(player_id, "return_token_verification_results", result, ItemDatabase.all_item_data)
+	rpc_id(player_id, "return_token_verification_results", result, ItemDatabase.all_item_data, ItemDatabase.all_recipe_data)
 	if result == true:
 		rpc_id(0, "spawn_new_player", player_id, Vector2(450, 220))
 		rpc_id(player_id, "get_items_on_ground", get_node("ServerMap").get_items_on_ground())
