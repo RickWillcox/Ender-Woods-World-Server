@@ -62,3 +62,14 @@ func get_item(slot : int):
 func get_username():
 	return username
 	
+
+func can_craft_recipe(recipe_id : int) -> bool:
+	var recipe = ItemDatabase.all_recipe_data[recipe_id]
+	return inventory.has_materials(recipe["materials"]) and \
+			inventory.find_empty_slot() != -1
+
+
+func craft_recipe(recipe_id : int):
+	var recipe = ItemDatabase.all_recipe_data[recipe_id]
+	inventory.remove_materials(recipe["materials"])
+	return inventory.add_item(recipe["result_item_id"], 1)

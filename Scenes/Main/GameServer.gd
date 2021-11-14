@@ -81,7 +81,7 @@ remote func return_token(token):
 	player_verification_process.verify(player_id, token)
 
 func return_token_verification_results(player_id : int, result : bool):
-	rpc_id(player_id, "return_token_verification_results", result, ItemDatabase.all_item_data)
+	rpc_id(player_id, "return_token_verification_results", result, ItemDatabase.all_item_data, ItemDatabase.all_recipe_data)
 	if result == true:
 		rpc_id(0, "spawn_new_player", player_id, Vector2(450, 220))
 		rpc_id(player_id, "get_items_on_ground", get_node("ServerMap").get_items_on_ground())
@@ -229,3 +229,13 @@ remote func receive_player_chat(text : String):
 #		broadcast_packet(Players.get_players([player_id]), si.create_player_chat_packet(player_id, username_chat))
 		rpc_id(0, "receive_player_chat", player_id, player.get_username(), text)
 
+
+remote func craft_recipe(recipe_id : int):
+	var player_id = get_tree().get_rpc_sender_id()
+	var player : Player = Players.get_player(player_id)
+	if player:
+		if  ItemDatabase.all_recipe_data.has(recipe_id) and player.can_craft_recipe(recipe_id):
+			var item_id = ItemDatabase.all_recipe_data[recipe_id]["result_item_id"]
+			var slot = player.craft_recipe(recipe_id)
+			send_packet(player_id, si.create_item_craft_ok_packet(slot, item_id))
+	send_packet(player_id, si.create_item_craft_nok_packet())
