@@ -73,3 +73,38 @@ func test_add_item_to_empty_slot():
 	slot += 1
 	assert_true(inventory.add_item_to_empty_slot(item_id, 1, slot))
 	assert_false(inventory.add_item_to_empty_slot(item_id, 1, ItemDatabase.Slots.CHEST_SLOT))
+
+
+func test_has_materials():
+	var material_item_id = 3
+	var slot = ItemDatabase.Slots.FIRST_BACKPACK_SLOT
+	var inventory = Inventory.new()
+	inventory.add_item_to_empty_slot(material_item_id, 4, slot)
+	assert_true(inventory.has_materials({material_item_id : 4}))
+	assert_false(inventory.has_materials({material_item_id : 5}))
+
+
+func test_has_materials_many_slots():
+	var material_item_id = 3
+	var slot = ItemDatabase.Slots.FIRST_BACKPACK_SLOT
+	var inventory = Inventory.new()
+	inventory.add_item_to_empty_slot(material_item_id, 1, slot)
+	inventory.add_item_to_empty_slot(material_item_id, 3, slot + 1)
+	assert_true(inventory.has_materials({material_item_id : 4}))
+	assert_false(inventory.has_materials({material_item_id : 5}))
+
+func test_remove_materials_many_slots():
+	var material_item_id = 3
+	var slot = ItemDatabase.Slots.FIRST_BACKPACK_SLOT
+	var inventory = Inventory.new()
+	inventory.add_item_to_empty_slot(material_item_id, 1, slot)
+	inventory.add_item_to_empty_slot(material_item_id, 3, slot + 1)
+	inventory.add_item_to_empty_slot(material_item_id, 3, slot + 2)
+	
+	inventory.remove_materials({material_item_id : 7})
+	
+	# all slots are emptied
+	assert_false(inventory.slots.has(slot))
+	assert_false(inventory.slots.has(slot + 1))
+	assert_false(inventory.slots.has(slot + 2))
+	

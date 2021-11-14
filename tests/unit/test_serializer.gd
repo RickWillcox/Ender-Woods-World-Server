@@ -10,10 +10,12 @@ var test_packet_list = [ si.create_inventory_nok_packet(),
 					si.create_remove_item_packet(4),
 					si.create_enemy_died_packet(-321312),
 					si.create_inventory_ok_packet(),
+					si.create_item_craft_nok_packet(),
 					si.create_inventory_update_packet(10000, 0, 1),
 					si.create_inventory_ok_packet(),
 					si.create_attack_swing_packet(-2000, 2000),
 					si.create_remove_item_packet(80),
+					si.create_item_craft_ok_packet(3, 323),
 					si.create_enemy_died_packet(31231),
 					si.create_initial_inventory_packet(1, 1, 2, 3, 4, 5),
 					si.create_inventory_ok_packet(),
@@ -28,7 +30,9 @@ var test_packet_list = [ si.create_inventory_nok_packet(),
 					si.create_attack_swing_packet(-2000, 2000),
 					si.create_enemy_died_packet(-321312),
 					si.create_enemy_died_packet(31231),
-					si.create_player_chat_packet(231, "HELLO WorLD ąłęęąśłą ąłęęąśłą ąłęęąśłą HELOOOL 98347191083123123100097891283 3894758935dsdsfsdfsdf")]
+					si.create_player_chat_packet(231, "HELLO WorLD ąłęęąśłą ąłęęąśłą ąłęęąśłą HELOOOL 98347191083123123100097891283 3894758935dsdsfsdfsdf"),
+					si.create_item_craft_nok_packet(),
+					si.create_item_craft_ok_packet(3, 323)]
 
 func test_serialize_string():
 	var packet_bundle = Serializer.PacketBundle.new()

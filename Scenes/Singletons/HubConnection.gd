@@ -45,6 +45,7 @@ func _on_connection_failed():
 func _on_connection_succeeded():
 	connected = true
 	GetAllItemsFromDatabase()
+	rpc_id(1, "get_recipe_database")
 	Logger.info("Successfully connected to Game Hub server")
 
 
@@ -80,3 +81,5 @@ func get_username(session_token : int):
 	rpc_id(1, "get_username", session_token)
 	
 
+remote func receive_recipe_database(recipe_database):
+	ItemDatabase.all_recipe_data = recipe_database

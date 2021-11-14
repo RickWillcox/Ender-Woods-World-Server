@@ -229,3 +229,10 @@ remote func receive_player_chat(text : String):
 #		broadcast_packet(Players.get_players([player_id]), si.create_player_chat_packet(player_id, username_chat))
 		rpc_id(0, "receive_player_chat", player_id, player.get_username(), text)
 
+
+remote func craft_recipe(recipe_id : int):
+	var player_id = get_tree().get_rpc_sender_id()
+	var player : Player = Players.get_player(player_id)
+	if player:
+		if player.can_craft_recipe(recipe_id):
+			var slot = player.craft_recipe(recipe_id)
