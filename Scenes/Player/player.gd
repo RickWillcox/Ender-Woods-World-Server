@@ -48,7 +48,7 @@ func set_inventory(new_inventory):
 	inventory.update(new_inventory)
 
 func move_items(from : int, to : int) -> bool:
-	Logger.info("Player: Player %d is attempting to moove item %d to %d " % [hitbox.id, from, to])
+	Logger.info("Player: Player %d is attempting to move item %d to %d " % [hitbox.id, from, to])
 	return inventory.move_items(from, to)
 
 func add_item(item_id : int, slot : int, amount : int = 1) -> bool:
