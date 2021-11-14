@@ -238,4 +238,5 @@ remote func craft_recipe(recipe_id : int):
 			var item_id = ItemDatabase.all_recipe_data[recipe_id]["result_item_id"]
 			var slot = player.craft_recipe(recipe_id)
 			send_packet(player_id, si.create_item_craft_ok_packet(slot, item_id))
+			return
 	send_packet(player_id, si.create_item_craft_nok_packet())
