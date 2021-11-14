@@ -87,7 +87,7 @@ func take_damage(value : float, attacker : int):
 
 func player_tag_enemy(attacker: int):
 	tagged_by_player = attacker
-	Logger.info("Tagged by playerID: %d" % [tagged_by_player])
+#	Logger.info("Tagged by playerID: %d" % [tagged_by_player])
 	tagged_timer.start(5)
 
 
@@ -102,7 +102,7 @@ func process_state(delta):
 			if despawn_timer.is_timed_out():
 				enter_state(State.DESPAWN)
 			if not dropped_items:
-				var pick_random_item = randi() % 3
+				var pick_random_item = randi() % item_drop_pool.size() - 1
 				#add drop table to the potential item ids here, with weighting eg boots drop more than epic sword
 				server_map.spawn_item_drop(tagged_by_player, position, item_drop_pool[pick_random_item])
 				dropped_items = true
@@ -152,7 +152,7 @@ func process_state(delta):
 			tagged_by_player = 0
 
 func enter_state(new_state, extra_data = null):
-	Logger.info("%s: Enemy %s (%s) entered new state: %s" % [filename, name, status_dict[si.ENEMY_TYPE], State.keys()[new_state]])
+#	Logger.info("%s: Enemy %s (%s) entered new state: %s" % [filename, name, status_dict[si.ENEMY_TYPE], State.keys()[new_state]])
 
 	match new_state:
 		State.IDLE:
@@ -210,12 +210,12 @@ func seek_player():
 func should_evade():
 	var destination = Players.get_player_position(target)
 	if destination == null:
-		Logger.info("%s: Enemy %s - chase ended, player disconnected" % [filename, name])
+#		Logger.info("%s: Enemy %s - chase ended, player disconnected" % [filename, name])
 		enter_state(State.EVADE)
 		return true
 	else:
 		if (destination - spawn_point).length() > pars.get(EnemyParameters.CHASE_RANGE):
-			Logger.info("%s: Enemy %s - chase ended: too far from spawn" % [filename, name])
+#			Logger.info("%s: Enemy %s - chase ended: too far from spawn" % [filename, name])
 			# moved too far from spawn point, return to spawn
 			enter_state(State.EVADE)
 			return true
