@@ -24,8 +24,11 @@ func update(new_state):
   hitbox.position = new_state[si.PLAYER_POSITION]
 
 func remove():
-	hitbox.get_parent().remove_child(hitbox)
-	hitbox.queue_free()
+	if hitbox == null:
+		Logger.warn("Player disconnected before registering")
+	else:
+		hitbox.queue_free()
+		hitbox = null
 	HubConnection.save_inventory(hitbox.id, inventory.slots)
 
 func get_position():
