@@ -3,6 +3,8 @@ class_name Enemy
 
 const TIMEOUT_VARIANCE = 2
 const DESPAWN_TIME = 5
+const ENEMY_COLLISION_MASK = 0b1001
+const ENEMY_COLLISION_LAYER = 0b100
 
 var si = ServerInterface
 var pars = EnemyParameters.new()
@@ -141,8 +143,6 @@ func process_state(delta):
 					velocity = (destination - position).normalized() * pars.get(EnemyParameters.CHASE_SPEED) * delta
 		State.EVADE:
 			velocity = (spawn_point - position).normalized() * pars.get(EnemyParameters.WANDER_SPEED) * delta
-			# When evading, enemies avoid collision and are untargetable
-			collision_layer = 0x0
 			if (position - spawn_point).length() < 2:
 				enter_state(State.IDLE)
 
@@ -157,7 +157,10 @@ func enter_state(new_state, extra_data = null):
 	match new_state:
 		State.IDLE:
 			velocity = Vector2.ZERO
-			collision_layer = 0x4
+			# if just entered idle from evade, restore collisions
+			if state == State.EVADE:
+				collision_layer = ENEMY_COLLISION_LAYER
+				collision_mask = ENEMY_COLLISION_MASK
 			idle_timer.start(pars.get(EnemyParameters.IDLE_TIMEOUT) + randf() * TIMEOUT_VARIANCE - TIMEOUT_VARIANCE / 2)
 		State.WANDER:
 			velocity = Vector2.ZERO
@@ -177,7 +180,9 @@ func enter_state(new_state, extra_data = null):
 			server_map.release_occupied_location(id)
 			queue_free()
 		State.EVADE:
-			pass
+			# When evading, enemies avoid collision and are untargetable
+			collision_layer = 0x0
+			collision_mask = 0x0
 		_:
 			# Handling of other states should be implemented in subclasses
 			assert(false)
