@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Node2D
 
 onready var gameserver = get_node("/root/Server")
 var item_id : int
