@@ -27,9 +27,10 @@ func remove():
 	if hitbox == null:
 		Logger.warn("Player disconnected before registering")
 	else:
+		var player_id = hitbox.id
 		hitbox.queue_free()
 		hitbox = null
-	HubConnection.save_inventory(hitbox.id, inventory.slots)
+		HubConnection.save_inventory(player_id, inventory.slots)
 
 func get_position():
 	return hitbox.position
