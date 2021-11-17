@@ -10,9 +10,10 @@ var username : String
 
 var hitbox_scene = preload("res://Scenes/Player/PlayerHitbox.tscn")
 
-func initialize(player_id, init_state):
+func initialize(player_id):
 	hitbox = hitbox_scene.instance()
 	hitbox.id = player_id
+	hitbox.position = Vector2(250, 250) # Spawn point
 	hitbox.display("Current health: " + str(stats["current_health"]))
 	HubConnection.get_username(player_id)
 
@@ -28,6 +29,8 @@ func remove():
 		Logger.warn("Player disconnected before registering")
 	else:
 		var player_id = hitbox.id
+		server.broadcast_packet(Players.get_players([player_id]),
+			si.create_player_despawn_packet(player_id))
 		hitbox.queue_free()
 		hitbox = null
 		HubConnection.save_inventory(player_id, inventory.slots)
@@ -77,3 +80,13 @@ func craft_recipe(recipe_id : int):
 	var recipe = ItemDatabase.all_recipe_data[recipe_id]
 	inventory.remove_materials(recipe["materials"])
 	return inventory.add_item(recipe["result_item_id"], 1)
+
+
+func get_initial_inventory_packet():
+	var player_id = hitbox.id
+	return ServerInterface.create_initial_inventory_packet(player_id,
+		get_item(ItemDatabase.Slots.HEAD_SLOT),
+		get_item(ItemDatabase.Slots.CHEST_SLOT),
+		get_item(ItemDatabase.Slots.LEGS_SLOT),
+		get_item(ItemDatabase.Slots.FEET_SLOT),
+		get_item(ItemDatabase.Slots.HANDS_SLOT))

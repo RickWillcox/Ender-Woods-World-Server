@@ -57,13 +57,14 @@ func _peer_connected(player_id):
 func _peer_disconnected(player_id):
 	Logger.info("%s: User %d disconnected" % [filename, player_id])
 	Players.remove_player(player_id)
-	rpc_id(0, "despawn_player", player_id)
 	
 #Attacking
 remote func melee_attack(blend_position):
 	var player_id = get_tree().get_rpc_sender_id()
-	var player_position = state_processing.world_state()[player_id]["P"]
-	server_map.use_melee_attack(player_id, blend_position, player_position)
+	var player = Players.get_player(player_id)
+	if player:
+		var player_position = (player as Player).get_position()
+		server_map.use_melee_attack(player_id, blend_position, player_position)
 	
 remote func fetch_server_time(client_time):
 	var player_id = get_tree().get_rpc_sender_id()
@@ -83,11 +84,23 @@ remote func return_token(token):
 func return_token_verification_results(player_id : int, result : bool):
 	rpc_id(player_id, "return_token_verification_results", result, ItemDatabase.all_item_data, ItemDatabase.all_recipe_data)
 	if result == true:
-		rpc_id(0, "spawn_new_player", player_id, Vector2(450, 220))
 		rpc_id(player_id, "get_items_on_ground", get_node("ServerMap").get_items_on_ground())
+		
+		Players.initialize_player(player_id, get_node("ServerMap/YSort/Players"))
+		
+		# Spawn all enemies for the player that just connected
 		for packet in get_node("ServerMap").get_enemy_state_packets():
 			send_packet(player_id, packet)
-		rpc_id(player_id, "store_player_id", player_id)
+			
+		for other_player_id in Players.get_players([player_id]):
+			# spawn other players for player that just connected
+			send_packet(player_id, Players.get_spawn_packet(other_player_id))
+	
+			# Send initial inventory of connected players
+			send_packet(player_id, Players.get_initial_inventory_packet(other_player_id))
+			
+			# inform other players of this new player
+			send_packet(other_player_id, Players.get_spawn_packet(player_id))
 
 remote func fetch_player_stats():
 	var player_id = get_tree().get_rpc_sender_id()
@@ -107,7 +120,7 @@ func _on_TokenExpiration_timeout():
 
 remote func receive_player_state(player_state):
 	var player_id = get_tree().get_rpc_sender_id()
-	Players.update_or_create_player(player_id, players_node, player_state)
+	Players.update_player(player_id, player_state)
 
 func send_world_state(world_state): #in case of maps or chunks you will want to track player collection and send accordingly
 	rpc_unreliable_id(0, "receive_world_state", world_state)
@@ -215,12 +228,6 @@ func send_all_packets():
 				rpc_id(player_id, "handle_uncompressed_input_packets", packet_bundle.buffer)
 			packet_bundle.free()
 	packets_to_send = {}
-
-
-remote func request_player_inventory(player_id : int):
-	var requesting_player_id = get_tree().get_rpc_sender_id()
-	if Players.get_player(player_id):
-		send_packet(requesting_player_id, Players.get_initial_inventory_packet(player_id))
 
 remote func receive_player_chat(text : String):
 	var player_id : int = get_tree().get_rpc_sender_id()

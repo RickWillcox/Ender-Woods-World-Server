@@ -9,22 +9,23 @@ func prepare_new_player(player_id):
 	storage[player_id].mock_stats()
 	#TODO: Fetch player stats, items, data from auth server
 
-func update_or_create_player(player_id, players_node, new_state):
+func update_player(player_id, new_state):
 	if player_state_collection.has(player_id): #check if player is in current collection
 		if player_state_collection[player_id][ServerInterface.PLAYER_TIMESTAMP] \
 				< new_state[ServerInterface.PLAYER_TIMESTAMP]: #check if player state is the latest one
 			player_state_collection[player_id] = new_state #replace the player state in collection
-			update_player(player_id, new_state)
+			_update_player(player_id, new_state)
 			#Check for leet hacks
-	else:
-		initialize_player(player_id, players_node, new_state)
-		player_state_collection[player_id] = new_state #add player state to the collection
-
-func initialize_player(player_id, world, initial_state):
+			
+func initialize_player(player_id, world):
 	var player = storage[player_id]
-	player.initialize(player_id, initial_state)
+	player.initialize(player_id)
 	player.register(world)
 	storage[player_id] = player
+	player_state_collection[player_id] = {
+		ServerInterface.PLAYER_ANIMATION_VECTOR : Vector2(),
+		ServerInterface.PLAYER_POSITION : player.get_position(),
+		ServerInterface.PLAYER_TIMESTAMP : 0 }
 	
 func remove_player(player_id):
 	if storage.has(player_id):
@@ -33,7 +34,7 @@ func remove_player(player_id):
 	if player_state_collection.has(player_id):
 		player_state_collection.erase(player_id)
 
-func update_player(player_id, state):
+func _update_player(player_id, state):
 	var player : Player = get_player(player_id)
 	if player:
 		player.update(state)
@@ -57,12 +58,11 @@ func get_players(exclude_list = []):
 			res.append(player_id)
 	return res
 
+func get_spawn_packet(player_id):
+	var player = storage[player_id]
+	return ServerInterface.create_player_spawn_packet(player_id,
+		player.get_position())
+
 func get_initial_inventory_packet(player_id):
 	var player = storage[player_id]
-	return ServerInterface.create_initial_inventory_packet(player_id,
-		player.get_item(ItemDatabase.Slots.HEAD_SLOT),
-		player.get_item(ItemDatabase.Slots.CHEST_SLOT),
-		player.get_item(ItemDatabase.Slots.LEGS_SLOT),
-		player.get_item(ItemDatabase.Slots.FEET_SLOT),
-		player.get_item(ItemDatabase.Slots.HANDS_SLOT))
-
+	return (player as Player).get_initial_inventory_packet()
