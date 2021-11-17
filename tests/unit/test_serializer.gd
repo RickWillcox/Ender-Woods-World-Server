@@ -13,21 +13,23 @@ var test_packet_list = [ si.create_inventory_nok_packet(),
 					si.create_inventory_ok_packet(),
 					si.create_item_craft_nok_packet(),
 					si.create_inventory_update_packet(10000, 0, 1),
+					si.create_initial_inventory_packet(1, 1, 2, 3, 4, 5),
 					si.create_inventory_ok_packet(),
+					si.create_player_despawn_packet(23132),
 					si.create_attack_swing_packet(-2000, 2000),
 					si.create_remove_item_packet(80),
 					si.create_item_craft_ok_packet(3, 323),
 					si.create_enemy_died_packet(31231),
-					si.create_initial_inventory_packet(1, 1, 2, 3, 4, 5),
+					si.create_player_despawn_packet(23132),
 					si.create_inventory_ok_packet(),
 					si.create_inventory_nok_packet(),
 					si.create_inventory_nok_packet(),
 					si.create_player_chat_packet(231, "rick HELLO WorLD ąłęęąśłą ąłęęąśłą ąłęęąśłą HELOOOL 98347191asd98723hdjw78h239onrfd79283hfd8923fsdf"),
 					si.create_inventory_update_packet(10000, 0, 1),
 					si.create_remove_item_packet(30),
+					si.create_initial_inventory_packet(1, 1, 2, 3, 4, 5),
 					si.create_inventory_nok_packet(),
 					si.create_take_damage_packet(-2021, 3000, 3),
-					si.create_initial_inventory_packet(3, 1, 2, 123, 4, 5),
 					si.create_attack_swing_packet(-2000, 2000),
 					si.create_enemy_died_packet(-321312),
 					si.create_enemy_died_packet(31231),
@@ -255,3 +257,17 @@ func test_auto_serialization():
 	assert_eq(packets.size(), packets2.size())
 	for i in range(packets.size()):
 		assert_eq_deep(packets[i], packets2[i])
+
+
+func test_serialize_player_spawn():
+	var packet_bundle = Serializer.PacketBundle.new()
+	var packet = si.create_player_spawn_packet(1, Vector2(23123.55, 23313.231235))
+	packet_bundle.serialize_packet_into_bundle(packet, packet_descriptor)
+	
+	var res = packet_bundle.deserialize_packet_from_bundle(packet_descriptor)
+	
+	assert_almost_eq(res["position"].x, packet["position"].x, 0.01)
+	assert_almost_eq(res["position"].y, packet["position"].y, 0.01)
+	res.erase("position")
+	packet.erase("position")
+	assert_eq_deep(res, packet)

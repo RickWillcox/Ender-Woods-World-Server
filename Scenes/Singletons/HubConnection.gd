@@ -57,9 +57,12 @@ func SendPlayerTokenToAuthDatabase(player_id, token):
 	
 remote func receive_player_inventory(inventory_data, session_token):
 	# Session token == player_id
+	var player_id = session_token
 	var player : Player = Players.get_player(session_token)
 	if player:
 		player.set_inventory(inventory_data)
+		gameserver.broadcast_packet(Players.get_players([player_id]),
+			player.get_initial_inventory_packet())
 	gameserver.send_player_inventory(inventory_data, session_token)
 
 func GetAllItemsFromDatabase():
