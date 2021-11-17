@@ -271,3 +271,44 @@ func test_serialize_player_spawn():
 	res.erase("position")
 	packet.erase("position")
 	assert_eq_deep(res, packet)
+
+
+func test_stress():
+	var packets = []
+	for _x in range(100):
+		packets.append_array(test_packet_list)
+		
+	_lgr.log("Testing serializing " + str(packets.size()) + " packets")
+	var packet_bundle = Serializer.PacketBundle.new()
+	var start = OS.get_ticks_usec()
+	
+	for packet in packets:
+		packet_bundle.serialize_packet_into_bundle(packet, packet_descriptor)
+	
+	var end = OS.get_ticks_usec()
+	
+	_lgr.log("Serialization took " + str(float(end - start)/1000) + " msec")
+	
+	var original_size = packet_bundle.buffer.size()
+	start = OS.get_ticks_usec()
+	packet_bundle.compress()
+	end = OS.get_ticks_usec()
+	_lgr.log("Compare size: %d > %d" % [original_size, packet_bundle.buffer.size()])
+	
+
+	_lgr.log("Compression took " + str(float(end - start)/1000) + " msec")
+	
+	start = OS.get_ticks_usec()
+	packet_bundle.decompress(original_size)
+	end = OS.get_ticks_usec()
+
+	_lgr.log("Decompression took " + str(float(end - start)/1000) + " msec")
+	
+	start = OS.get_ticks_usec()
+	var packets2 = packet_bundle.deserialize_packets(packet_descriptor)
+	end = OS.get_ticks_usec()
+	
+	_lgr.log("Deserialization took " + str(float(end - start)/1000) + " msec")
+	
+	assert_eq_deep(packets, packets2)
+	
