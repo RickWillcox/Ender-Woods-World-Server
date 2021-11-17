@@ -1,6 +1,7 @@
 extends "res://addons/gut/test.gd"
 
 var si = ServerInterface
+var packet_descriptor = Serializer.get_server_client_descriptor()
 
 # a big list of packets to test correct serialization in a packet bundle
 var test_packet_list = [ si.create_inventory_nok_packet(),
@@ -53,8 +54,8 @@ func test_serialize_simple_packets():
 	var packet_bundle =  Serializer.PacketBundle.new()
 	var packets = [ si.create_inventory_nok_packet(),
 					si.create_inventory_ok_packet()]
-	packet_bundle.serialize_packets(packets)
-	var packets2 = packet_bundle.deserialize_packets()
+	packet_bundle.serialize_packets(packets, packet_descriptor)
+	var packets2 = packet_bundle.deserialize_packets(packet_descriptor)
 		
 	assert_eq(packets.size(), packets2.size())
 	for i in range(packets.size()):
@@ -63,8 +64,8 @@ func test_serialize_simple_packets():
 func test_serialize_complex_packets():
 	var packet_bundle =  Serializer.PacketBundle.new()
 	var packets = test_packet_list
-	packet_bundle.serialize_packets(packets)
-	var packets2 = packet_bundle.deserialize_packets()
+	packet_bundle.serialize_packets(packets, packet_descriptor)
+	var packets2 = packet_bundle.deserialize_packets(packet_descriptor)
 	
 	assert_eq(packets.size(), packets2.size())
 	for i in range(packets.size()):
@@ -75,7 +76,7 @@ func test_serialize_send_data_only():
 	# Server encodes the data
 	var packet_bundle =  Serializer.PacketBundle.new()
 	var packets = test_packet_list
-	packet_bundle.serialize_packets(packets)
+	packet_bundle.serialize_packets(packets, packet_descriptor)
 	
 	var bytes = packet_bundle.buffer
 	packet_bundle.free()
@@ -84,7 +85,7 @@ func test_serialize_send_data_only():
 	var new_packet_bundle = Serializer.PacketBundle.new()
 	new_packet_bundle.buffer = bytes
 	
-	var packets2 = new_packet_bundle.deserialize_packets()
+	var packets2 = new_packet_bundle.deserialize_packets(packet_descriptor)
 	
 	assert_eq(packets.size(), packets2.size())
 	for i in range(packets.size()):
@@ -95,7 +96,7 @@ func test_compress_and_serialize():
 	# Server encodes the data
 	var packet_bundle =  Serializer.PacketBundle.new()
 	var packets = test_packet_list
-	packet_bundle.serialize_packets(packets)
+	packet_bundle.serialize_packets(packets, packet_descriptor)
 	
 	var original_size = packet_bundle.buffer.size()
 	# compress the buffer
@@ -110,7 +111,7 @@ func test_compress_and_serialize():
 	new_packet_bundle.buffer = bytes
 	new_packet_bundle.decompress(original_size)
 	
-	var packets2 = new_packet_bundle.deserialize_packets()
+	var packets2 = new_packet_bundle.deserialize_packets(packet_descriptor)
 	
 	assert_eq(packets.size(), packets2.size())
 	for i in range(packets.size()):
@@ -122,7 +123,7 @@ func test_serialize_one():
 	# Server encodes the data
 	var packet_bundle =  Serializer.PacketBundle.new()
 	var packets = [si.create_take_damage_packet(-2021, 3000, 3)]
-	packet_bundle.serialize_packets(packets)
+	packet_bundle.serialize_packets(packets, packet_descriptor)
 
 	var bytes = packet_bundle.buffer
 	packet_bundle.free()
@@ -132,7 +133,7 @@ func test_serialize_one():
 	# perform decompression
 	new_packet_bundle.buffer = bytes
 	
-	var packets2 = new_packet_bundle.deserialize_packets()
+	var packets2 = new_packet_bundle.deserialize_packets(packet_descriptor)
 	
 	assert_eq(packets.size(), packets2.size())
 	for i in range(packets.size()):
@@ -146,7 +147,7 @@ func test_serialize_two():
 	var packet_bundle =  Serializer.PacketBundle.new()
 	var packets = [si.create_take_damage_packet(-2021, 3000, 3),
 					si.create_inventory_nok_packet()]
-	packet_bundle.serialize_packets(packets)
+	packet_bundle.serialize_packets(packets, packet_descriptor)
 
 	var bytes = packet_bundle.buffer
 	packet_bundle.free()
@@ -156,7 +157,7 @@ func test_serialize_two():
 	# perform decompression
 	new_packet_bundle.buffer = bytes
 	
-	var packets2 = new_packet_bundle.deserialize_packets()
+	var packets2 = new_packet_bundle.deserialize_packets(packet_descriptor)
 	
 	assert_eq(packets.size(), packets2.size())
 	for i in range(packets.size()):
@@ -169,7 +170,7 @@ func test_serialize_attack_swing():
 	var packet_bundle =  Serializer.PacketBundle.new()
 	var packets = [si.create_attack_swing_packet(-2000, 2000),
 					si.create_inventory_nok_packet()]
-	packet_bundle.serialize_packets(packets)
+	packet_bundle.serialize_packets(packets, packet_descriptor)
 
 	var bytes = packet_bundle.buffer
 	packet_bundle.free()
@@ -179,7 +180,7 @@ func test_serialize_attack_swing():
 	# perform decompression
 	new_packet_bundle.buffer = bytes
 	
-	var packets2 = new_packet_bundle.deserialize_packets()
+	var packets2 = new_packet_bundle.deserialize_packets(packet_descriptor)
 	
 	assert_eq(packets.size(), packets2.size())
 	for i in range(packets.size()):
@@ -211,12 +212,46 @@ func test_serialize_vec2():
 func test_serialize_enemy_spawn():
 	var packet_bundle = Serializer.PacketBundle.new()
 	var packet = si.create_enemy_spawn_packet(1, 1, 3, 4, Vector2(23123.55, 23313.231235))
-	packet_bundle.serialize_packet_into_bundle(packet)
+	packet_bundle.serialize_packet_into_bundle(packet, packet_descriptor)
 	
-	var res = packet_bundle.deserialize_packet_from_bundle()
+	var res = packet_bundle.deserialize_packet_from_bundle(packet_descriptor)
 	
 	assert_almost_eq(res["position"].x, packet["position"].x, 0.01)
 	assert_almost_eq(res["position"].y, packet["position"].y, 0.01)
 	res.erase("position")
 	packet.erase("position")
 	assert_eq_deep(res, packet)
+
+# test automatic serializer
+func test_auto_serialization():
+	var packet_bundle = Serializer.PacketBundle.new()
+	var field_types = Serializer.PacketBundle.FieldType
+	var input_packet_descriptor = {
+		ServerInterface.Opcodes.INVENTORY_OK : [],
+		ServerInterface.Opcodes.ENEMY_DIED: [{ "name" : "enemy_id", "type" : field_types.INT64 }]
+	}	
+		
+	var packets = [si.create_inventory_ok_packet(),
+					si.create_enemy_died_packet(32)]
+	
+	# automatic serialization
+	for packet in packets:
+		packet_bundle.serialize_int_8(packet["op_code"])
+		packet_bundle._serialize_packet(packet, packet["op_code"], input_packet_descriptor)
+		
+	# Client reads it, allocates a new PacketBundle
+	var new_packet_bundle = Serializer.PacketBundle.new()
+	# perform decompression
+	new_packet_bundle.buffer = packet_bundle.buffer
+	
+	var packets2 = []
+	packets2.append(
+		new_packet_bundle._deserialize_packet(
+			new_packet_bundle.deserialize_int_8(), input_packet_descriptor))
+	packets2.append(
+		new_packet_bundle._deserialize_packet(
+			new_packet_bundle.deserialize_int_8(), input_packet_descriptor))
+	
+	assert_eq(packets.size(), packets2.size())
+	for i in range(packets.size()):
+		assert_eq_deep(packets[i], packets2[i])

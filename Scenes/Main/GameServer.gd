@@ -205,7 +205,8 @@ func send_all_packets():
 		# check if player is connected
 		if Players.get_player(player_id):
 			var packet_bundle = Serializer.PacketBundle.new()
-			packet_bundle.serialize_packets(packets_to_send[player_id])
+			packet_bundle.serialize_packets(packets_to_send[player_id],
+				Serializer.get_server_client_descriptor())
 			var size = packet_bundle.buffer.size()
 			if size > 50:
 				packet_bundle.compress()
