@@ -142,9 +142,11 @@ func process_state(delta):
 				elif not is_attacking: # wait until the swing animation is finished to move
 					velocity = (destination - position).normalized() * pars.get(EnemyParameters.CHASE_SPEED) * delta
 		State.EVADE:
-			velocity = (spawn_point - position).normalized() * pars.get(EnemyParameters.WANDER_SPEED) * delta
-			if (position - spawn_point).length() < 2:
+			if (position - spawn_point).length_squared() < 4:
 				enter_state(State.IDLE)
+			else:
+				velocity = (spawn_point - position).normalized() * pars.get(EnemyParameters.WANDER_SPEED) * delta
+				velocity = velocity.clamped((spawn_point - position).length())
 
 	if tagged_by_player != 0:
 		tagged_timer.advance(delta)
