@@ -153,3 +153,34 @@ func test_metal_bars_fit_smelter_output():
 			assert_false(ItemDatabase.item_fits_slot(metal_bar, slot))
 		for slot in range(ItemDatabase.Slots.FIRST_SMELTING_OUTPUT_SLOT, ItemDatabase.Slots.LAST_SMELTING_OUTPUT_SLOT + 1):
 			assert_true(ItemDatabase.item_fits_slot(metal_bar, slot))
+
+# Check that you cannot move ore from smelter when its running
+func test_remove_ore_from_smelter():
+	var inventory = Inventory.new()
+	inventory.slots[ItemDatabase.Slots.FIRST_SMELTING_INPUT_SLOT] = {
+		"item_id" : ItemDatabase.MaterialItemIds.COPPER_ORE,
+		"amount" : 1
+	}
+	
+	assert_true(inventory.is_move_to_slot_allowed(
+		ItemDatabase.Slots.FIRST_SMELTING_INPUT_SLOT,
+		ItemDatabase.Slots.FIRST_BACKPACK_SLOT))
+	
+	inventory.smelter_started = true
+	
+	assert_false(inventory.is_move_to_slot_allowed(
+		ItemDatabase.Slots.FIRST_SMELTING_INPUT_SLOT,
+		ItemDatabase.Slots.FIRST_BACKPACK_SLOT))
+	
+# Check that smelter output slots cannot be used by player to store items
+func test_move_to_smelter_output():
+	var inventory = Inventory.new()
+	
+	inventory.slots[ItemDatabase.Slots.FIRST_BACKPACK_SLOT] = {
+		"item_id" : ItemDatabase.MaterialItemIds.COPPER_BAR,
+		"amount" : 1
+	}
+	
+	assert_false(inventory.is_move_to_slot_allowed(
+		ItemDatabase.Slots.FIRST_BACKPACK_SLOT,
+		ItemDatabase.Slots.FIRST_SMELTING_OUTPUT_SLOT))
