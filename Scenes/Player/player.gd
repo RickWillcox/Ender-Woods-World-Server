@@ -90,3 +90,70 @@ func get_initial_inventory_packet():
 		get_item(ItemDatabase.Slots.LEGS_SLOT),
 		get_item(ItemDatabase.Slots.FEET_SLOT),
 		get_item(ItemDatabase.Slots.HANDS_SLOT))
+
+# This is called via rpc or as smelter loop, returns true if smelter is started
+func attempt_to_start_smelter() -> bool:
+	if inventory.smelter_started:
+		return true
+		
+	var recipe_id = find_recipe_for_smelter()
+	if recipe_id != -1:
+		start_smelter(recipe_id)
+		return true
+
+	return false
+
+func find_recipe_for_smelter() -> int:
+	# collect all available materials
+	var input_slots = range(
+		ItemDatabase.Slots.FIRST_SMELTING_INPUT_SLOT,
+		ItemDatabase.Slots.COAL_SMELTING_INPUT_SLOT + 1)
+	var available_materials = {}
+	for slot in input_slots:
+		if inventory.slots.has(slot):
+			var item_id = inventory.slots[slot]["item_id"]
+			var amount = inventory.slots[slot]["amount"]
+			if available_materials.has(item_id):
+				available_materials[item_id] += amount
+			else:
+				available_materials[item_id] = amount
+	
+	# Find a recipe
+	for recipe_id in ItemDatabase.all_recipe_data.keys():
+		var recipe = ItemDatabase.all_recipe_data[recipe_id]
+		var can_make_recipe = true
+		for item_id in recipe["materials"].keys():
+			if not available_materials.has(item_id):
+				can_make_recipe = false
+				break
+			if recipe["materials"][item_id] > available_materials[item_id]:
+				can_make_recipe = false
+				break
+		if can_make_recipe:
+			return recipe_id
+	return -1
+
+
+var smelter_recipe_id = -1
+func start_smelter(recipe_id):
+	inventory.smelter_started = true
+	smelter_recipe_id = recipe_id
+	# Start the timer
+
+
+func stop_smelter():
+	inventory.smelter_started = false
+	smelter_recipe_id = -1
+	# Stop the timer
+
+# Executed via timer
+func craft_smelting_recipe():
+	if smelter_recipe_id != -1:
+		var recipe = ItemDatabase.all_recipe_data[smelter_recipe_id]
+		inventory.remove_materials(recipe["materials"],
+			range(
+				ItemDatabase.Slots.FIRST_SMELTING_INPUT_SLOT,
+				ItemDatabase.Slots.COAL_SMELTING_INPUT_SLOT + 1
+			))
+		inventory.add_item(recipe["result_item_id"], 1)
+		
