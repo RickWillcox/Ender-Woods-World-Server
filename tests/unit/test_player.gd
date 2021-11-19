@@ -10,7 +10,14 @@ func test_player_inventory():
 	assert_true(player.get_item(17) == 3)
 
 func test_player_can_craft():
-	ItemDatabase.all_recipe_data[0] = { "materials" : {3 : 2}}
+	ItemDatabase.all_recipe_data[0] = {
+		"materials" : {3 : 2},
+		"result_item_id" : 5
+		}
+	ItemDatabase.all_item_data = {
+		3 : { "stack_size":20},
+		5 : { "stack_size":20}
+	}
 	var player = Player.new()
 	player.set_inventory({17 : {"item_id" : 3, "amount" : 3}} )
 	assert_true(player.can_craft_recipe(0))
@@ -19,6 +26,11 @@ func test_player_craft():
 	var result_item_id = 5
 	ItemDatabase.all_recipe_data[0] = { "materials" : {3 : 2, 4: 10},
 										"result_item_id" : result_item_id}
+	ItemDatabase.all_item_data = {
+		3 : { "stack_size":20},
+		5 : { "stack_size":20}
+	}
+	
 	var player = Player.new()
 	player.set_inventory(
 		{17 : {"item_id" : 3, "amount" : 1},
@@ -92,11 +104,13 @@ func test_player_find_recipe_for_smelter_complex_no_items():
 			"item_id" : ItemDatabase.MaterialItemIds.TIN_ORE, "amount" : 1
 		}
 	})
-	ItemDatabase.all_recipe_data[0] = {
+	ItemDatabase.all_recipe_data = {
+		0 : {
 		"materials": {
 			ItemDatabase.MaterialItemIds.COPPER_ORE: 2,
 			ItemDatabase.MaterialItemIds.TIN_ORE : 2
 		 }
+		}
 	}
 	assert_eq(player.find_recipe_for_smelter(), -1)
 
@@ -151,22 +165,22 @@ func test_player_add_remove_smelter_items():
 			4,
 			[ItemDatabase.Slots.FIRST_SMELTING_INPUT_SLOT]))
 			
-	player.inventory.add_item2(ItemDatabase.MaterialItemIds.COPPER_ORE, 2, smelting_input_slots)
-	
 	# always adds to the first slot unless its full
+	player.inventory.add_item(ItemDatabase.MaterialItemIds.COPPER_ORE, 2, smelting_input_slots)
+	
 	assert_eq(
 		player.inventory.slots[ItemDatabase.Slots.FIRST_SMELTING_INPUT_SLOT]["amount"],
 		5)
 		
 	# We can fit another 20 ore:
-	assert_true(
-		player.inventory.can_fit_item(
+	assert_eq(
+		player.inventory.fit_item(
 			ItemDatabase.MaterialItemIds.COPPER_ORE,
 			20,
-			smelting_input_slots))
+			smelting_input_slots), 0)
 		
 	# add 20 ore
-	player.inventory.add_item2(ItemDatabase.MaterialItemIds.COPPER_ORE, 20, smelting_input_slots)
+	player.inventory.add_item(ItemDatabase.MaterialItemIds.COPPER_ORE, 20, smelting_input_slots)
 		
 	# first slot has 20 now
 	assert_eq(
@@ -179,18 +193,18 @@ func test_player_add_remove_smelter_items():
 		6)
 		
 	# now we cannot fit another 20 ore:
-	assert_false(
-		player.inventory.can_fit_item(
+	assert_ne(
+		player.inventory.fit_item(
 			ItemDatabase.MaterialItemIds.COPPER_ORE,
 			20,
-			smelting_input_slots))	
+			smelting_input_slots), 0)	
 			
 	# should be possible to fit 14 though
-	assert_true(
-		player.inventory.can_fit_item(
+	assert_eq(
+		player.inventory.fit_item(
 			ItemDatabase.MaterialItemIds.COPPER_ORE,
 			14,
-			smelting_input_slots))
+			smelting_input_slots), 0)
 			
 	# we can remove some ore:
 	player.inventory.remove_items(
@@ -199,8 +213,8 @@ func test_player_add_remove_smelter_items():
 		smelting_input_slots)
 	
 	# should be possible to fit 30 now
-	assert_true(
-		player.inventory.can_fit_item(
+	assert_eq(
+		player.inventory.fit_item(
 			ItemDatabase.MaterialItemIds.COPPER_ORE,
 			30,
-			smelting_input_slots))
+			smelting_input_slots), 0)

@@ -64,22 +64,31 @@ func test_is_move_to_slot_allowed():
 	assert_true(inventory.is_move_to_slot_allowed(slot, ItemDatabase.Slots.CHEST_SLOT))
 	assert_false(inventory.is_move_to_slot_allowed(slot, ItemDatabase.Slots.MAIN_HAND_SLOT))
 
-func test_add_item_to_empty_slot():
+func test_move_item_stacking():
 	var item_id = 3
+	ItemDatabase.all_item_data = { item_id : {
+		"item_category" : ItemDatabase.Category.ORE,
+		"stack_size" : 20 }
+	}
+	
 	var inventory = Inventory.new()
 	var slot = ItemDatabase.Slots.FIRST_BACKPACK_SLOT
-	assert_true(inventory.add_item_to_empty_slot(item_id, 1, slot))
-	assert_false(inventory.add_item_to_empty_slot(item_id, 1, slot))
-	slot += 1
-	assert_true(inventory.add_item_to_empty_slot(item_id, 1, slot))
-	assert_false(inventory.add_item_to_empty_slot(item_id, 1, ItemDatabase.Slots.CHEST_SLOT))
+	var slot2 = ItemDatabase.Slots.FIRST_BACKPACK_SLOT + 1 
+	inventory.update(
+		{ slot: {"item_id": item_id, "amount": 15},
+		slot2: {"item_id": item_id, "amount": 15},
+	})
+	inventory.move_items(slot, slot2)
+	assert_eq(inventory.slots[slot]["amount"], 10)
+	assert_eq(inventory.slots[slot2]["amount"], 20)
 
 
 func test_has_materials():
 	var material_item_id = 3
 	var slot = ItemDatabase.Slots.FIRST_BACKPACK_SLOT
+	ItemDatabase.all_item_data = { material_item_id : {"stack_size" : 20} }
 	var inventory = Inventory.new()
-	inventory.add_item_to_empty_slot(material_item_id, 4, slot)
+	inventory.add_item(material_item_id, 4, [slot])
 	assert_true(inventory.has_materials({material_item_id : 4}))
 	assert_false(inventory.has_materials({material_item_id : 5}))
 
@@ -87,19 +96,21 @@ func test_has_materials():
 func test_has_materials_many_slots():
 	var material_item_id = 3
 	var slot = ItemDatabase.Slots.FIRST_BACKPACK_SLOT
+	ItemDatabase.all_item_data = { material_item_id : {"stack_size" : 20} }
 	var inventory = Inventory.new()
-	inventory.add_item_to_empty_slot(material_item_id, 1, slot)
-	inventory.add_item_to_empty_slot(material_item_id, 3, slot + 1)
+	inventory.add_item(material_item_id, 1, [slot])
+	inventory.add_item(material_item_id, 3, [slot + 1])
 	assert_true(inventory.has_materials({material_item_id : 4}))
 	assert_false(inventory.has_materials({material_item_id : 5}))
 
 func test_remove_materials_many_slots():
 	var material_item_id = 3
 	var slot = ItemDatabase.Slots.FIRST_BACKPACK_SLOT
+	ItemDatabase.all_item_data = { material_item_id : {"stack_size" : 20} }
 	var inventory = Inventory.new()
-	inventory.add_item_to_empty_slot(material_item_id, 1, slot)
-	inventory.add_item_to_empty_slot(material_item_id, 3, slot + 1)
-	inventory.add_item_to_empty_slot(material_item_id, 3, slot + 2)
+	inventory.add_item(material_item_id, 1, [slot])
+	inventory.add_item(material_item_id, 3, [slot + 1])
+	inventory.add_item(material_item_id, 3, [slot + 2])
 	
 	inventory.remove_materials({material_item_id : 7})
 	
@@ -107,15 +118,6 @@ func test_remove_materials_many_slots():
 	assert_false(inventory.slots.has(slot))
 	assert_false(inventory.slots.has(slot + 1))
 	assert_false(inventory.slots.has(slot + 2))
-
-func test_last_empty_slot():
-	var material_item_id = ItemDatabase.MaterialItemIds.COPPER_ORE
-	var inventory : Inventory = Inventory.new()
-	for _i in range(25):
-		var slot = inventory.find_empty_slot()
-		assert_true(inventory.add_item_to_empty_slot(material_item_id, 1, slot))
-		
-	assert_eq(inventory.find_empty_slot(), -1)
 
 func test_ore_fits_smelter_input():
 	var ores = [ItemDatabase.MaterialItemIds.COPPER_ORE,
@@ -184,3 +186,104 @@ func test_move_to_smelter_output():
 	assert_false(inventory.is_move_to_slot_allowed(
 		ItemDatabase.Slots.FIRST_BACKPACK_SLOT,
 		ItemDatabase.Slots.FIRST_SMELTING_OUTPUT_SLOT))
+
+
+func test_add_item_revert():
+	var inventory = Inventory.new()
+	
+	var backpack = range(
+		ItemDatabase.Slots.FIRST_BACKPACK_SLOT,
+		ItemDatabase.Slots.LAST_BACKPACK_SLOT + 1)
+	
+	
+	var ores = [ItemDatabase.MaterialItemIds.COPPER_ORE,
+				ItemDatabase.MaterialItemIds.TIN_ORE,
+				ItemDatabase.MaterialItemIds.IRON_ORE,
+				ItemDatabase.MaterialItemIds.SILVER_ORE,
+				ItemDatabase.MaterialItemIds.GOLD_ORE]
+	ItemDatabase.all_item_data = {}
+	for ore in ores:
+		ItemDatabase.all_item_data[ore] = {
+			"item_category" : ItemDatabase.Category.ORE,
+			"stack_size" : 20,
+		}
+	
+	var slots_before = inventory.slots.duplicate()
+	inventory.add_item(ItemDatabase.MaterialItemIds.COPPER_ORE, 20, backpack, true)
+	
+	inventory.reverse_last_operation()
+	assert_eq_deep(slots_before, inventory.slots)
+	
+	inventory.add_item(ItemDatabase.MaterialItemIds.COPPER_ORE, 20)
+	inventory.add_item(ItemDatabase.MaterialItemIds.COPPER_ORE, 20)
+	
+	inventory.add_item(ItemDatabase.MaterialItemIds.COPPER_ORE, 20)
+	slots_before = inventory.slots.duplicate()
+	inventory.add_item(ItemDatabase.MaterialItemIds.COPPER_ORE, 20, backpack, true)
+	inventory.reverse_last_operation()
+	assert_eq_deep(slots_before, inventory.slots)
+	
+	inventory.add_item(ItemDatabase.MaterialItemIds.COPPER_ORE, 20, backpack, true)
+	inventory.confirm_last_operation()
+	
+	inventory.add_item(ItemDatabase.MaterialItemIds.COPPER_ORE, 20)
+	
+	inventory.add_item(ItemDatabase.MaterialItemIds.TIN_ORE, 20)
+	
+
+
+func test_add_item_updated_slots():
+	var inventory = Inventory.new()
+	
+	var backpack = range(
+		ItemDatabase.Slots.FIRST_BACKPACK_SLOT,
+		ItemDatabase.Slots.LAST_BACKPACK_SLOT + 1)
+	
+	
+	var ores = [ItemDatabase.MaterialItemIds.COPPER_ORE,
+				ItemDatabase.MaterialItemIds.TIN_ORE,
+				ItemDatabase.MaterialItemIds.IRON_ORE,
+				ItemDatabase.MaterialItemIds.SILVER_ORE,
+				ItemDatabase.MaterialItemIds.GOLD_ORE]
+	ItemDatabase.all_item_data = {}
+	for ore in ores:
+		ItemDatabase.all_item_data[ore] = {
+			"item_category" : ItemDatabase.Category.ORE,
+			"stack_size" : 20,
+		}
+	
+	inventory.slots[ItemDatabase.Slots.FIRST_BACKPACK_SLOT] = {
+		"item_id" : ItemDatabase.MaterialItemIds.COPPER_ORE,
+		"amount" : 15
+	}
+	inventory.slots[ItemDatabase.Slots.FIRST_BACKPACK_SLOT + 1] = {
+		"item_id" : ItemDatabase.MaterialItemIds.COPPER_ORE,
+		"amount" : 15
+	}
+	inventory.slots[ItemDatabase.Slots.FIRST_BACKPACK_SLOT + 2] = {
+		"item_id" : ItemDatabase.MaterialItemIds.COPPER_ORE,
+		"amount" : 15
+	}
+	inventory.slots[ItemDatabase.Slots.FIRST_BACKPACK_SLOT + 3] = {
+		"item_id" : ItemDatabase.MaterialItemIds.COPPER_ORE,
+		"amount" : 15
+	}
+	inventory.slots[ItemDatabase.Slots.FIRST_BACKPACK_SLOT + 4] = {
+		"item_id" : ItemDatabase.MaterialItemIds.COPPER_ORE,
+		"amount" : 15
+	}
+	inventory.slots[ItemDatabase.Slots.FIRST_BACKPACK_SLOT + 6] = {
+		"item_id" : ItemDatabase.MaterialItemIds.TIN_ORE,
+		"amount" : 15
+	}
+	
+	var slots = inventory.add_item(ItemDatabase.MaterialItemIds.COPPER_ORE, 20)
+	assert_eq(slots.size(), 4)
+	assert_eq(slots, range(ItemDatabase.Slots.FIRST_BACKPACK_SLOT, ItemDatabase.Slots.FIRST_BACKPACK_SLOT + 4))
+	
+	slots = inventory.add_item(ItemDatabase.MaterialItemIds.TIN_ORE, 35)
+	assert_eq(slots.size(), 3)
+	assert_true(ItemDatabase.Slots.FIRST_BACKPACK_SLOT + 6 in slots)
+	assert_true(ItemDatabase.Slots.FIRST_BACKPACK_SLOT + 5 in slots)
+	assert_true(ItemDatabase.Slots.FIRST_BACKPACK_SLOT + 7 in slots)
+	

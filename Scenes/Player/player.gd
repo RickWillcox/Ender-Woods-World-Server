@@ -73,13 +73,13 @@ func get_username():
 func can_craft_recipe(recipe_id : int) -> bool:
 	var recipe = ItemDatabase.all_recipe_data[recipe_id]
 	return inventory.has_materials(recipe["materials"]) and \
-			inventory.find_empty_slot() != -1
+		inventory.fit_item(recipe["result_item_id"], 1) == 0
 
 
 func craft_recipe(recipe_id : int):
 	var recipe = ItemDatabase.all_recipe_data[recipe_id]
 	inventory.remove_materials(recipe["materials"])
-	return inventory.add_item(recipe["result_item_id"], 1)
+	inventory.add_item(recipe["result_item_id"], 1)
 
 
 func get_initial_inventory_packet():
@@ -150,10 +150,6 @@ func stop_smelter():
 func craft_smelting_recipe():
 	if smelter_recipe_id != -1:
 		var recipe = ItemDatabase.all_recipe_data[smelter_recipe_id]
-		inventory.remove_materials(recipe["materials"],
-			range(
-				ItemDatabase.Slots.FIRST_SMELTING_INPUT_SLOT,
-				ItemDatabase.Slots.COAL_SMELTING_INPUT_SLOT + 1
-			))
+		inventory.remove_materials(recipe["materials"])
 		inventory.add_item(recipe["result_item_id"], 1)
 		
