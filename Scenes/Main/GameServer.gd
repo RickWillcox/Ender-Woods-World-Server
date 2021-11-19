@@ -165,16 +165,15 @@ func add_item_drop_to_client(item_id : int, item_name : String, item_position : 
 func remove_item_drop_from_client(item_name):
 	broadcast_packet(Players.get_players(), si.create_remove_item_packet(int(item_name)))
 
-remote func add_item(action_id : String, slot : int):
+remote func pickup_item(item_drop_id : int, amount : int):
 	var player_id = get_tree().get_rpc_sender_id()
-	Logger.info("Add item %s to player %d, slot %d" % [action_id, player_id, slot])
+	Logger.info("Pickup item %d to player %d, slot %d" % [item_drop_id, player_id, amount])
 	var player : Player = Players.get_player(player_id)
 	if player:
-		
 		# Find item on server
 		var target_item = null
 		for item in server_map.get_node("YSort/Items").get_children():
-			if item.name == action_id:
+			if item.name == str(item_drop_id):
 				target_item = item
 				break
 		if target_item == null:
@@ -189,11 +188,16 @@ remote func add_item(action_id : String, slot : int):
 				send_packet(player_id, si.create_inventory_nok_packet())
 				return
 			
-			# add item to player inventory
-			if player.add_item(target_item.item_id, slot):
-				send_packet(player_id, si.create_inventory_ok_packet())
-				target_item.queue_free()
+			# Check if the items fit backpack
+			if player.inventory.fit_item(target_item.item_id, amount) != 0:
+				send_packet(player_id, si.create_inventory_nok_packet())
 				return
+			
+			# All conditions met, add items
+			player.inventory.add_item(target_item.item_id, amount) 
+			send_packet(player_id, si.create_inventory_ok_packet())
+			target_item.queue_free()
+			return
 	send_packet(player_id, si.create_inventory_nok_packet())
 
 var packets_to_send = {}
