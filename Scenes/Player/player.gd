@@ -153,7 +153,7 @@ func start_smelter(recipe_id):
 	inventory.smelter_started = true
 	smelter_recipe_id = recipe_id
 	timer = Timer.new()
-	timer.wait_time = 5
+	timer.wait_time = 2
 	timer.autostart = true
 	timer.one_shot = true
 	timer.connect("timeout", self, "craft_smelting_recipe")
