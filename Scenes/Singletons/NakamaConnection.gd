@@ -3,13 +3,15 @@ extends Node
 # this implements connection to nakama REST API
 
 var ip_port = "127.0.0.1:7350"
-var http_key = "defaultkey"
+# this is like the password for our API. Should be made more secure
+# to prevent cheating by calling our APIs
+var http_key = "defaulthttpkey"
 
 func get_item_database():
 	var request = HTTPRequest.new()
 	add_child(request)
 	request.connect("request_completed", self, "_http_request_completed")
-	var error = request.request("http://" + ip_port + "/v2/rpc/get_items?http_key=defaulthttpkey")
+	var error = request.request("http://" + ip_port + "/v2/rpc/get_items?http_key=" + http_key)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 	yield(self, "http_ok")
