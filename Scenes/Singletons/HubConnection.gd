@@ -44,8 +44,6 @@ func _on_connection_failed():
 	
 func _on_connection_succeeded():
 	connected = true
-	GetAllItemsFromDatabase()
-	rpc_id(1, "get_recipe_database")
 	Logger.info("Successfully connected to Game Hub server")
 
 
@@ -65,12 +63,6 @@ remote func receive_player_inventory(inventory_data, session_token):
 			player.get_initial_inventory_packet())
 	gameserver.send_player_inventory(inventory_data, session_token)
 
-func GetAllItemsFromDatabase():
-	rpc_id(1, "GetAllItemsFromDatabase")
-	
-remote func ReceiveItemData(all_item_data):
-	ItemDatabase.all_item_data = all_item_data
-
 func save_inventory(session_token, new_inventory):
 	rpc_id(1, "update_inventory", session_token, new_inventory)
 
@@ -82,7 +74,3 @@ remote func store_username(username : String, session_token : int):
 
 func get_username(session_token : int):
 	rpc_id(1, "get_username", session_token)
-	
-
-remote func receive_recipe_database(recipe_database):
-	ItemDatabase.all_recipe_data = recipe_database
