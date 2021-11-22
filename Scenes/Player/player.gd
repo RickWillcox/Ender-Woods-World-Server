@@ -117,39 +117,88 @@ func find_recipe_for_smelter() -> int:
 				available_materials[item_id] += amount
 			else:
 				available_materials[item_id] = amount
+				
+	var output_slots = range(
+		ItemDatabase.Slots.FIRST_SMELTING_OUTPUT_SLOT,
+		ItemDatabase.Slots.LAST_SMELTING_OUTPUT_SLOT + 1
+	)
 	
 	# Find a recipe
 	for recipe_id in ItemDatabase.all_recipe_data.keys():
 		var recipe = ItemDatabase.all_recipe_data[recipe_id]
 		var can_make_recipe = true
 		for item_id in recipe["materials"].keys():
+			# Check if the item is in the input slots
 			if not available_materials.has(item_id):
 				can_make_recipe = false
 				break
+				
+			# check if there is enough of the item
 			if recipe["materials"][item_id] > available_materials[item_id]:
 				can_make_recipe = false
 				break
+				
+		# check if the recipe result can fit into output
+		if inventory.fit_item(recipe["result_item_id"], 1, output_slots) != 0:
+			can_make_recipe = false
+
 		if can_make_recipe:
 			return recipe_id
 	return -1
 
 
+var timer : Timer = null
 var smelter_recipe_id = -1
 func start_smelter(recipe_id):
 	inventory.smelter_started = true
 	smelter_recipe_id = recipe_id
-	# Start the timer
+	timer = Timer.new()
+	timer.wait_time = 2
+	timer.autostart = true
+	timer.one_shot = true
+	timer.connect("timeout", self, "craft_smelting_recipe")
+	hitbox.add_child(timer)
 
 
 func stop_smelter():
 	inventory.smelter_started = false
 	smelter_recipe_id = -1
-	# Stop the timer
+	if timer != null:
+		timer.stop()
+		timer.queue_free()
+		timer = null
 
 # Executed via timer
 func craft_smelting_recipe():
+	var input_slots = range(
+		ItemDatabase.Slots.FIRST_SMELTING_INPUT_SLOT,
+		ItemDatabase.Slots.COAL_SMELTING_INPUT_SLOT + 1)
+	var output_slots = range(
+		ItemDatabase.Slots.FIRST_SMELTING_OUTPUT_SLOT,
+		ItemDatabase.Slots.LAST_SMELTING_OUTPUT_SLOT + 1)
 	if smelter_recipe_id != -1:
 		var recipe = ItemDatabase.all_recipe_data[smelter_recipe_id]
-		inventory.remove_materials(recipe["materials"])
-		inventory.add_item(recipe["result_item_id"], 1)
-		
+		var affected_slots = inventory.remove_materials(recipe["materials"], input_slots)
+		for slot in affected_slots:
+			var item_id = 0
+			var amount = 0
+			if inventory.slots.has(slot):
+				item_id = inventory.slots[slot]["item_id"]
+				amount = inventory.slots[slot]["amount"]
+			
+			server.send_packet(hitbox.id,
+					si.create_inventory_slot_update_packet(
+						slot,
+						item_id,
+						amount))
+				
+		var affected_slot = inventory.add_item(recipe["result_item_id"], 1, output_slots)[0]
+		server.send_packet(hitbox.id,
+			si.create_inventory_slot_update_packet(
+				affected_slot,
+				inventory.slots[affected_slot]["item_id"],
+				inventory.slots[affected_slot]["amount"]))
+		inventory.smelter_started = false
+		var restart = attempt_to_start_smelter()
+		if not restart:
+			server.send_packet(hitbox.id, si.create_smelter_stopped_packet())

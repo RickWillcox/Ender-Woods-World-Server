@@ -252,3 +252,29 @@ remote func craft_recipe(recipe_id : int):
 			send_packet(player_id, si.create_item_craft_ok_packet(slot, item_id))
 			return
 	send_packet(player_id, si.create_item_craft_nok_packet())
+
+remote func start_smelter():
+	var player_id = get_tree().get_rpc_sender_id()
+	var player : Player = Players.get_player(player_id)
+	if player:
+		
+		# its already started
+		if player.inventory.smelter_started:
+			send_packet(player_id, si.create_smelter_started_packet())
+			return
+			
+		# attempt to start by finding a recipe
+		var smelter_started = player.attempt_to_start_smelter()
+		if smelter_started:
+			send_packet(player_id, si.create_smelter_started_packet())
+			return
+	send_packet(player_id, si.create_smelter_stopped_packet())
+
+
+remote func stop_smelter():
+	var player_id = get_tree().get_rpc_sender_id()
+	var player : Player = Players.get_player(player_id)
+	if player:
+		if player.inventory.smelter_started:
+			player.stop_smelter()
+	send_packet(player_id, si.create_smelter_stopped_packet())
