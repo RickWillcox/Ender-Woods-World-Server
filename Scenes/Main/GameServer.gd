@@ -28,6 +28,7 @@ func _ready():
 	OS.set_window_position(Vector2(0,0))
 	Logger.info("%s: Ready function called" % filename)
 	NakamaConnection.get_item_database()
+	NakamaConnection.get_recipe_database()
 	start_server()
 	Logger.info("%s: finished Client>World Server function" % filename)
 	

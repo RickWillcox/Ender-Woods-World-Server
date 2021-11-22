@@ -26,6 +26,25 @@ func get_item_database():
 		ItemDatabase.all_item_data[int(key)] = data["result"][key]
 	Logger.info(str(ItemDatabase.all_item_data))
 
+func get_recipe_database():
+	var request = HTTPRequest.new()
+	add_child(request)
+	request.connect("request_completed", self, "_http_request_completed")
+	var error = request.request("http://" + ip_port + "/v2/rpc/get_recipes?http_key=" + http_key)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+	yield(self, "http_ok")
+	request.queue_free()
+	
+	var data = JSON.parse(http_response["payload"]).result
+	assert(data["success"] == true)
+	Logger.info("Received recipes data from Nakama server")
+	
+	ItemDatabase.all_recipe_data = {}
+	for key in data["result"]:
+		ItemDatabase.all_recipe_data[int(key)] = data["result"][key]
+	Logger.info(str(ItemDatabase.all_recipe_data))
+	
 
 signal http_ok
 var http_response
