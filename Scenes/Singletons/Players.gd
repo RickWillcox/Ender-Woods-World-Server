@@ -60,8 +60,9 @@ func get_players(exclude_list = []):
 
 func get_spawn_packet(player_id):
 	var player = storage[player_id]
+	# TODO: Change username
 	return ServerInterface.create_player_spawn_packet(player_id,
-		player.get_position())
+		player.get_position(), "username")
 
 func get_initial_inventory_packet(player_id):
 	var player = storage[player_id]
