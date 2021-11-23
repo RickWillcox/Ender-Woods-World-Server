@@ -64,6 +64,7 @@ config/windows_native_icon="res://Assets/w.ico"
 [autoload]
 
 Logger="*res://common/logger/logger.gd"
+Utils="*res://common/Utils.gd"
 LoggerConfig="*res://Scenes/Singletons/LoggerConfig.gd"
 ServerInterface="*res://common/ServerInterface.gd"
 ServerData="*res://Scenes/Singletons/ServerData.gd"

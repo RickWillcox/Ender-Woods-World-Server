@@ -264,7 +264,7 @@ func test_auto_serialization():
 
 func test_serialize_player_spawn():
 	var packet_bundle = Serializer.PacketBundle.new()
-	var packet = si.create_player_spawn_packet(1, Vector2(23123.55, 23313.231235))
+	var packet = si.create_player_spawn_packet(1, Vector2(23123.55, 23313.231235), "username")
 	packet_bundle.serialize_packet_into_bundle(packet, packet_descriptor)
 	
 	var res = packet_bundle.deserialize_packet_from_bundle(packet_descriptor)
