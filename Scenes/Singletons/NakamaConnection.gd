@@ -21,10 +21,8 @@ func get_item_database():
 	assert(data["success"] == true)
 	Logger.info("Received item data from Nakama server")
 	
-	ItemDatabase.all_item_data = {}
-	for key in data["result"]:
-		ItemDatabase.all_item_data[int(key)] = data["result"][key]
-	Logger.info(str(ItemDatabase.all_item_data))
+	ItemDatabase.all_item_data = data["result"]
+	Utils.convert_keys_to_int(ItemDatabase.all_item_data)
 
 func get_recipe_database():
 	var request = HTTPRequest.new()
@@ -40,11 +38,8 @@ func get_recipe_database():
 	assert(data["success"] == true)
 	Logger.info("Received recipes data from Nakama server")
 	
-	ItemDatabase.all_recipe_data = {}
-	for key in data["result"]:
-		ItemDatabase.all_recipe_data[int(key)] = data["result"][key]
-	Logger.info(str(ItemDatabase.all_recipe_data))
-	
+	ItemDatabase.all_recipe_data = data["result"]
+	Utils.convert_keys_to_int(ItemDatabase.all_recipe_data)
 
 signal http_ok
 var http_response
