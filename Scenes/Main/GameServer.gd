@@ -15,7 +15,6 @@ var network = NetworkedMultiplayerENet.new()
 var port = 1909
 var max_players = 100
 
-var expected_tokens = []
 
 onready var players_node = $ServerMap/YSort/Players
 
@@ -84,7 +83,7 @@ remote func return_token(token):
 	player_verification_process.verify(player_id, token)
 
 func return_token_verification_results(player_id : int, result : bool):
-	rpc_id(player_id, "return_token_verification_results", result, ItemDatabase.all_item_data, ItemDatabase.all_recipe_data)
+	rpc_id(player_id, "return_token_verification_results", result)
 	if result == true:
 		rpc_id(player_id, "get_items_on_ground", get_node("ServerMap").get_items_on_ground())
 		
@@ -108,17 +107,6 @@ remote func fetch_player_stats():
 	var player_id = get_tree().get_rpc_sender_id()
 	var player_stats = get_node(str(player_id)).player_stats
 	rpc_id(player_id, "return_player_stats", player_stats)
-
-func _on_TokenExpiration_timeout():
-	var current_time = OS.get_unix_time()
-	var token_time
-	if expected_tokens == []:
-		pass
-	else:
-		for i in range(expected_tokens.size() -1, -1, -1):
-			token_time = int(expected_tokens[i].right(64))
-			if current_time - token_time >= 30:
-				expected_tokens.remove(i)
 
 remote func receive_player_state(player_state):
 	var player_id = get_tree().get_rpc_sender_id()
