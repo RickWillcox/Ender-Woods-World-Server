@@ -29,7 +29,7 @@ func get_recipe_database():
 func verify_token(player_id, token):
 	var request = HTTPRequest.new()
 	add_child(request)
-	request.connect("request_completed", self, "_http_request_completed", [request, player_id, token])
+	request.connect("request_completed", self, "_handle_verify_token_response", [request, player_id, token])
 	var error = request.request(
 		"http://127.0.0.1:7350/v2/rpc/check_auth",
 		["Authorization: Bearer " + token])
@@ -73,5 +73,5 @@ func _handle_verify_token_response(result, response_code, headers, body, request
 	emit_signal("token_verified", true, player_id, token)
 	var player : Player = Players.get_player(player_id)
 	if player:
-		player.username = result["username"]
-		player.user_id = result["user_id"]
+		player.username = data["username"]
+		player.user_id = data["user_id"]
