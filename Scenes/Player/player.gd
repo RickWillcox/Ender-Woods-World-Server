@@ -7,6 +7,7 @@ var si = ServerInterface
 var stats : Dictionary = {}
 var inventory : Inventory = Inventory.new()
 var username : String
+var user_id : String
 
 var hitbox_scene = preload("res://Scenes/Player/PlayerHitbox.tscn")
 
@@ -15,7 +16,6 @@ func initialize(player_id):
 	hitbox.id = player_id
 	hitbox.position = Vector2(250, 250) # Spawn point
 	hitbox.display("Current health: " + str(stats["current_health"]))
-	HubConnection.get_username(player_id)
 
 func register(world):
 	world.add_child(hitbox)
@@ -33,7 +33,6 @@ func remove():
 			si.create_player_despawn_packet(player_id))
 		hitbox.queue_free()
 		hitbox = null
-		HubConnection.save_inventory(player_id, inventory.slots)
 
 func get_position():
 	return hitbox.position
