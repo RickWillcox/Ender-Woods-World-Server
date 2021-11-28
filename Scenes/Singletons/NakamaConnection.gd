@@ -37,13 +37,6 @@ func verify_token(player_id, token):
 		push_error("An error occurred in the HTTP request.")
 		emit_signal("token_verified", false, player_id, token)
 
-
-func save_inventory(uuid, new_inventory):
-	pass
-	
-func get_inventory(uuid):
-	pass
-
 func _handle_recipe_db_received(result, response_code, headers, body, request : HTTPRequest):
 	var response = parse_json(body.get_string_from_utf8())	
 	request.queue_free()
@@ -70,8 +63,9 @@ func _handle_verify_token_response(result, response_code, headers, body, request
 	var data = JSON.parse(response["payload"]).result
 	assert(data["success"] == true)
 	request.queue_free()
-	emit_signal("token_verified", true, player_id, token)
 	var player : Player = Players.get_player(player_id)
 	if player:
 		player.username = data["username"]
 		player.user_id = data["user_id"]
+
+	emit_signal("token_verified", true, player_id, token)

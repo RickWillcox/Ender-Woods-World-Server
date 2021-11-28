@@ -7,7 +7,6 @@ func prepare_new_player(player_id):
 	Logger.info("%s: Prepared player %d" % [name, player_id])
 	storage[player_id] = Player.new()
 	storage[player_id].mock_stats()
-	#TODO: Fetch player stats, items, data from auth server
 
 func update_player(player_id, new_state):
 	if player_state_collection.has(player_id): #check if player is in current collection
@@ -28,11 +27,26 @@ func initialize_player(player_id, world):
 		ServerInterface.PLAYER_TIMESTAMP : 0 }
 	
 func remove_player(player_id):
+	var user_id = ""
+	var inventory_slots = {}
 	if storage.has(player_id):
-		(storage[player_id] as Player).remove()
+		var player : Player = storage[player_id]
+		user_id = player.user_id
+		inventory_slots = player.inventory.slots
+		player.remove()
+		
 		storage.erase(player_id)
 	if player_state_collection.has(player_id):
 		player_state_collection.erase(player_id)
+		
+	if user_id != "":
+		var nakama_request : NakamaRequest = NakamaRequest.new()
+		add_child(nakama_request)
+		nakama_request.connect("request_completed", self, "_handle_inventory_saved")
+		nakama_request.request(
+			"set_inventory",
+			{"user_id" : user_id, "inventory": inventory_slots})
+
 
 func _update_player(player_id, state):
 	var player : Player = get_player(player_id)
@@ -67,3 +81,7 @@ func get_spawn_packet(player_id):
 func get_initial_inventory_packet(player_id):
 	var player = storage[player_id]
 	return (player as Player).get_initial_inventory_packet()
+
+
+func _handle_inventory_saved(input_data, output_data, request : NakamaRequest):
+	request.queue_free()
