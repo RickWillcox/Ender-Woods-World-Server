@@ -89,6 +89,13 @@ func return_token_verification_results(player_id : int, result : bool):
 		
 		Players.initialize_player(player_id, get_node("ServerMap/YSort/Players"))
 		
+		var player : Player = Players.get_player(player_id)
+		# start the process of getting the items from database
+		var nakama_request : NakamaRequest = NakamaRequest.new()
+		add_child(nakama_request)
+		nakama_request.connect("request_completed", self, "_handle_get_inventory", [player_id])
+		nakama_request.request("get_inventory", { "user_id": player.user_id })
+		
 		# Spawn all enemies for the player that just connected
 		for packet in get_node("ServerMap").get_enemy_state_packets():
 			send_packet(player_id, packet)
@@ -268,3 +275,14 @@ remote func stop_smelter():
 		if player.inventory.smelter_started:
 			player.stop_smelter()
 	send_packet(player_id, si.create_smelter_stopped_packet())
+
+
+func _handle_get_inventory(input_data, output_data, request : NakamaRequest, player_id):
+	request.queue_free()
+	var player : Player = Players.get_player(player_id)
+	if player:
+		player.set_inventory(output_data["result"])
+		rpc_id(player_id, "receive_player_inventory", output_data["result"])
+		broadcast_packet(
+			Players.get_players([player_id]),
+			player.get_initial_inventory_packet())
