@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Enemies/Scripts and Scenes/Hitboxes.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Enemies/BaseEnemy.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+height = 5.04671
+
+[node name="BaseEnemy" type="KinematicBody2D" groups=[
+"Enemies",
+]]
+scale = Vector2( 2, 2 )
+collision_layer = 4
+collision_mask = 9
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.380875, -14.1199 )
+shape = SubResource( 1 )
+
+[node name="Name" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.4645
+margin_top = -38.4662
+margin_right = 23.5355
+margin_bottom = -24.4662
+text = "Mino"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hitboxes" parent="." instance=ExtResource( 1 )]
+modulate = Color( 1, 1, 1, 1 )
+
+[node name="CollisionShape2D" parent="Hitboxes/Area2D" index="0"]
+modulate = Color( 1, 0, 0, 0.807843 )
+
+[node name="CollisionPolygon2D" parent="Hitboxes/Area2D" index="1"]
+modulate = Color( 0.937255, 0.0313726, 0.0313726, 0.317647 )
+
+[editable path="Hitboxes"]

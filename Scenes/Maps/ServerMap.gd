@@ -1,16 +1,17 @@
 extends Node2D
 
-
+#Enemies
 var slime = preload("res://Scenes/Enemies/Slime.tscn")
 var mino = preload("res://Scenes/Enemies/Mino.tscn")
 var batsquito = preload("res://Scenes/Enemies/Batsquito.tscn")
+var deer = preload("res://Scenes/Enemies/Deer.tscn")
+
 var melee_attack = preload("res://Scenes/Player/Melee_Attack.tscn")
 var item_drop = preload("res://Scenes/Props/ItemGround.tscn")
-onready var server = get_node("/root/Server")
 
 var si = ServerInterface
 var enemy_maximum = 3
-var enemy_types = ["Slime" ,"Mino"] #list of enemies that spawn
+var enemy_types = ["Slime" ,"Mino", "Batsquito", "Deer"] #list of enemies that spawn
 var enemy_spawn_points = [Vector2 (250, 225), Vector2 (500, 150), Vector2 (570, 470)]
 var open_locations = [0,1,2]
 var occupied_locations = {}
@@ -18,6 +19,8 @@ var enemy_list = {}
 
 var ore_list = ServerData.mining_data
 var ore_types = [si.GOLD_ORE]
+
+onready var server = get_node("/root/Server")
 
 func _ready(): 
 	var timer = Timer.new() 
@@ -33,13 +36,17 @@ func respawn_enemies():
 		randomize()
 		var random_enemy_type = si.EnemyType.values()[randi() % si.EnemyType.size()]
 		# TODO: remove this and only use EnemyType after cleanup of enemy spawning
-		var type = "Batsquito"
+		var type 
 		match random_enemy_type:
 			si.EnemyType.MINO:
 				type = "Mino"
 			si.EnemyType.SLIME:
 				type = "Slime"
-
+			si.EnemyType.BATSQUITO:
+				type = "Batsquito"
+			si.EnemyType.DEER:
+				type = "Deer"
+			
 		var rng_location_index = randi() % open_locations.size()
 		var location = enemy_spawn_points[open_locations[rng_location_index]]  #select random location to spawn at
 		var enemy_id = get_next_enemy_id()
@@ -72,6 +79,10 @@ func spawn_enemy(enemy_id, location, type, status_dict):
 		enemy_spawn = slime
 	elif type == "Mino":
 		enemy_spawn = mino
+	elif type == "Batsquito":
+		enemy_spawn = batsquito
+	elif type == "Deer":
+		enemy_spawn = deer
 	var enemy_spawn_instance = enemy_spawn.instance()
 	enemy_spawn_instance.name = str(enemy_id)
 	enemy_spawn_instance.position = location
