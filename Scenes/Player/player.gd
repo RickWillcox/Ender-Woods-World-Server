@@ -2,59 +2,61 @@ extends Node
 class_name Player
 
 var server
-var hitbox : StaticBody2D
+var world_player : StaticBody2D
 var si = ServerInterface
 var stats : Dictionary = {}
 var inventory : Inventory = Inventory.new()
 var username : String
 var user_id : String
 
-var hitbox_scene = preload("res://Scenes/Player/PlayerHitbox.tscn")
+var world_player_scene = preload("res://Scenes/Player/PlayerHitbox.tscn")
 
 func initialize(player_id):
-	hitbox = hitbox_scene.instance()
-	hitbox.id = player_id
-	hitbox.position = Vector2(250, 250) # Spawn point
-	hitbox.display("Current health: " + str(stats["current_health"]))
+	world_player = world_player_scene.instance()
+	world_player.id = player_id
+	world_player.position = Vector2(250, 250) # Spawn point
+	mock_stats()
+	world_player.display("Current health: " + str(stats["current_health"]))
 
 func register(world):
-	world.add_child(hitbox)
+	world.add_child(world_player)
 	server = world.get_node("/root/Server")
 
 func update(new_state):
-  hitbox.position = new_state[si.PLAYER_POSITION]
+  world_player.position = new_state[si.PLAYER_POSITION]
 
 func remove():
-	if hitbox == null:
+	if world_player == null:
 		Logger.warn("Player disconnected before registering")
 	else:
-		var player_id = hitbox.id
+		var player_id = world_player.id
 		server.broadcast_packet(Players.get_players([player_id]),
 			si.create_player_despawn_packet(player_id))
-		hitbox.queue_free()
-		hitbox = null
+		world_player.queue_free()
+		world_player = null
 
 func get_position():
-	return hitbox.position
+	return world_player.position
 
 func mock_stats():
 	stats["current_health"] = 100
 	stats["max_health"] = 100
 	stats["attack"] = 150
 
-func take_damage(value, attacker):
-	var current_health =  stats["current_health"]
-	current_health = max(0, current_health - value)
-	stats["current_health"] = current_health
-	hitbox.display("Current health: " + str(current_health))
+func take_damage(damage_value, attacker):
+	stats["current_health"] -= damage_value
+	world_player.display("Current health: %d" % [stats["current_health"]])
 	server.broadcast_packet(Players.get_players(),
-		si.create_player_take_damage_packet(attacker, hitbox.id, value))
-
+		si.create_player_take_damage_packet(attacker, world_player.id, damage_value))
+	if stats["current_health"] <= 0:
+		world_player.position = Vector2(250, 250)
+		si.create_player_died_packet(world_player.id, world_player.position)
+	
 func set_inventory(new_inventory):
 	inventory.update(new_inventory)
 
 func move_items(from : int, to : int) -> bool:
-	Logger.info("Player: Player %d is attempting to move item %d to %d " % [hitbox.id, from, to])
+	Logger.info("Player: Player %d is attempting to move item %d to %d " % [world_player.id, from, to])
 	return inventory.move_items(from, to)
 
 func add_item(item_id : int, slot : int, amount : int = 1) -> bool:
@@ -82,7 +84,7 @@ func craft_recipe(recipe_id : int):
 
 
 func get_initial_inventory_packet():
-	var player_id = hitbox.id
+	var player_id = world_player.id
 	return ServerInterface.create_initial_inventory_packet(player_id,
 		get_item(ItemDatabase.Slots.HEAD_SLOT),
 		get_item(ItemDatabase.Slots.CHEST_SLOT),
@@ -156,7 +158,7 @@ func start_smelter(recipe_id):
 	timer.autostart = true
 	timer.one_shot = true
 	timer.connect("timeout", self, "craft_smelting_recipe")
-	hitbox.add_child(timer)
+	world_player.add_child(timer)
 
 
 func stop_smelter():
@@ -185,14 +187,14 @@ func craft_smelting_recipe():
 				item_id = inventory.slots[slot]["item_id"]
 				amount = inventory.slots[slot]["amount"]
 			
-			server.send_packet(hitbox.id,
+			server.send_packet(world_player.id,
 					si.create_inventory_slot_update_packet(
 						slot,
 						item_id,
 						amount))
 				
 		var affected_slot = inventory.add_item(recipe["result_item_id"], 1, output_slots)[0]
-		server.send_packet(hitbox.id,
+		server.send_packet(world_player.id,
 			si.create_inventory_slot_update_packet(
 				affected_slot,
 				inventory.slots[affected_slot]["item_id"],
@@ -200,4 +202,7 @@ func craft_smelting_recipe():
 		inventory.smelter_started = false
 		var restart = attempt_to_start_smelter()
 		if not restart:
-			server.send_packet(hitbox.id, si.create_smelter_stopped_packet())
+			server.send_packet(world_player.id, si.create_smelter_stopped_packet())
+
+
+
