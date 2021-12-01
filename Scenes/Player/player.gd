@@ -28,11 +28,12 @@ func set_experience(_experience):
 func set_current_health(_current_health):
 	# TODO: make this part of a "Stat" node, just set the value in the stat
 	# node of player and add a getter also
-	if current_health == -1:
+	if _current_health == -1:
 		# TODO: set _current_health to max_health, this happens when current 
 		# health is uninitialized: player just started the game or some reset
 		# conditions in the future
-		pass
+		# To test out gamedata saving
+		_current_health = 100
 	current_health = _current_health
 	# TODO: Check if player died. Perform on death actions
 
