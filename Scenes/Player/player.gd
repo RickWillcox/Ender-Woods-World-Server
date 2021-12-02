@@ -72,8 +72,10 @@ func take_damage(damage_value, attacker):
 		si.create_player_take_damage_packet(attacker, world_player.id, damage_value))
 	if stats["current_health"] <= 0:
 		world_player.position = Vector2(250, 250)
-		si.create_player_died_packet(world_player.id, world_player.position)
-	
+		server.broadcast_packet(
+			Players.get_players(), # everyone receives the packet
+			si.create_player_died_packet(world_player.id, world_player.position))
+
 func set_inventory(new_inventory):
 	inventory.update(new_inventory)
 
