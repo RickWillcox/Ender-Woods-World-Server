@@ -65,6 +65,8 @@ func _handle_verify_token_response(result, response_code, headers, body, request
 	request.queue_free()
 	var player : Player = Players.get_player(player_id)
 	if player:
+		player.experience = data["gamedata"]["experience"]
+		player.current_health = data["gamedata"]["current_health"]
 		player.username = data["username"]
 		player.user_id = data["user_id"]
 

@@ -27,25 +27,34 @@ func initialize_player(player_id, world):
 		ServerInterface.PLAYER_TIMESTAMP : 0 }
 	
 func remove_player(player_id):
-	var user_id = ""
-	var inventory_slots = {}
 	if storage.has(player_id):
 		var player : Player = storage[player_id]
-		user_id = player.user_id
-		inventory_slots = player.inventory.slots
-		player.remove()
+
+		# Save inventory
+		var nakama_request : NakamaRequest = NakamaRequest.new()
+		add_child(nakama_request)
+		nakama_request.connect("request_completed", self, "_handle_data_saved")
+		nakama_request.request(
+			"set_inventory",
+			{"user_id" : player.user_id, "inventory": player.inventory.slots })		
 		
+		
+		# Save game data
+		var save_gamedata_request : NakamaRequest = NakamaRequest.new()
+		add_child(save_gamedata_request)
+		save_gamedata_request.connect("request_completed", self, "_handle_data_saved")
+		save_gamedata_request.request(
+			"update_gamedata",
+			{
+				"user_id" : player.user_id,
+				"experience": player.experience,
+				"current_health": player.current_health
+			})
+		
+		player.remove()		
 		storage.erase(player_id)
 	if player_state_collection.has(player_id):
 		player_state_collection.erase(player_id)
-		
-	if user_id != "":
-		var nakama_request : NakamaRequest = NakamaRequest.new()
-		add_child(nakama_request)
-		nakama_request.connect("request_completed", self, "_handle_inventory_saved")
-		nakama_request.request(
-			"set_inventory",
-			{"user_id" : user_id, "inventory": inventory_slots})
 
 
 func _update_player(player_id, state):
@@ -83,5 +92,7 @@ func get_initial_inventory_packet(player_id):
 	return (player as Player).get_initial_inventory_packet()
 
 
-func _handle_inventory_saved(input_data, output_data, request : NakamaRequest):
+func _handle_data_saved(input_data, output_data, request : NakamaRequest):
+	# Current dont care if it fails. NakamaRequest would crash the server if it
+	# does. TODO: Some error handling
 	request.queue_free()

@@ -83,13 +83,13 @@ remote func return_token(token):
 	player_verification_process.verify(player_id, token)
 
 func return_token_verification_results(player_id : int, result : bool):
-	rpc_id(player_id, "return_token_verification_results", result)
+	var player : Player = Players.get_player(player_id)
+	rpc_id(player_id, "return_token_verification_results", result, player.experience, player.current_health)
 	if result == true:
 		rpc_id(player_id, "get_items_on_ground", get_node("ServerMap").get_items_on_ground())
 		
 		Players.initialize_player(player_id, get_node("ServerMap/YSort/Players"))
 		
-		var player : Player = Players.get_player(player_id)
 		# start the process of getting the items from database
 		var nakama_request : NakamaRequest = NakamaRequest.new()
 		add_child(nakama_request)
