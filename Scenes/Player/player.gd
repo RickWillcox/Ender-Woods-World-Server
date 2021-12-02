@@ -8,6 +8,8 @@ var stats : Dictionary = {}
 var inventory : Inventory = Inventory.new()
 var username : String
 var user_id : String
+var experience : int setget set_experience
+var current_health : float setget set_current_health
 
 var world_player_scene = preload("res://Scenes/Player/PlayerHitbox.tscn")
 
@@ -17,6 +19,26 @@ func initialize(player_id):
 	world_player.position = Vector2(250, 250) # Spawn point
 	mock_stats()
 	world_player.display("Current health: " + str(stats["current_health"]))
+
+
+func set_experience(_experience):
+	# TODO: make this part of a "Stat" node, just set the value in the stat
+	# node of player and add a getter also
+	experience = _experience
+	# TODO: Call some function to recalcualte stats
+	
+func set_current_health(_current_health):
+	# TODO: make this part of a "Stat" node, just set the value in the stat
+	# node of player and add a getter also
+	if _current_health == -1:
+		# TODO: set _current_health to max_health, this happens when current 
+		# health is uninitialized: player just started the game or some reset
+		# conditions in the future
+		# To test out gamedata saving
+		_current_health = 100
+	current_health = _current_health
+	# TODO: Check if player died. Perform on death actions
+
 
 func register(world):
 	world.add_child(world_player)
