@@ -315,3 +315,16 @@ func test_stress():
 	
 	assert_eq_deep(packets, packets2)
 	
+
+func test_serialize_player_died_packet():
+	var packet_bundle = Serializer.PacketBundle.new()
+	var packet = si.create_player_died_packet(1, Vector2(23123.55, 23313.231235))
+	packet_bundle.serialize_packet_into_bundle(packet, packet_descriptor)
+	
+	var res = packet_bundle.deserialize_packet_from_bundle(packet_descriptor)
+	
+	assert_almost_eq(res["player_position"].x, packet["player_position"].x, 0.01)
+	assert_almost_eq(res["player_position"].y, packet["player_position"].y, 0.01)
+	res.erase("player_position")
+	packet.erase("player_position")
+	assert_eq_deep(res, packet)
