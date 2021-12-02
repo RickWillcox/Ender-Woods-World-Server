@@ -59,13 +59,8 @@ func _handle_item_db_received(result, response_code, headers, body, request : HT
 
 
 func _handle_verify_token_response(result, response_code, headers, body, request : HTTPRequest, player_id : int, token : String):
-	print("result: ", result)
-	print("response_code: ", response_code)
-	print("headers: ", headers)
-	print("body: ", body)
-	print("request: ", request)
-	print("player_id: ", player_id)
-	print("token: ", token)
+	Logger.info("Verify token response result: %s, response_code: %s, headers: %s, body: %s, token: %s" %
+		[str(result, str(response_code), str(headers), str(body), token)])
 	var response = parse_json(body.get_string_from_utf8())
 	print(response)
 	var data = JSON.parse(response["payload"]).result

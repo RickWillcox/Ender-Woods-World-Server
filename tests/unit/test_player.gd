@@ -231,7 +231,7 @@ func test_smelting():
 	})
 	
 	var test_server = TestServer.new()
-	player.hitbox = TestHitbox.new()
+	player.world_player = TestHitbox.new()
 	player.server = test_server
 	assert_true(player.attempt_to_start_smelter())
 	assert_eq(player.inventory.smelter_started, true)
