@@ -18,12 +18,12 @@ script = ExtResource( 4 )
 
 [node name="SpawnLocations" type="Node2D" parent="ServerMap"]
 
-[node name="Area0" type="Node2D" parent="ServerMap/SpawnLocations"]
+[node name="Area_0" type="Node2D" parent="ServerMap/SpawnLocations"]
 
-[node name="SP1" type="Position2D" parent="ServerMap/SpawnLocations/Area0"]
-position = Vector2( 183.713, 186.329 )
+[node name="SP1" type="Position2D" parent="ServerMap/SpawnLocations/Area_0"]
+position = Vector2( 224.725, 72.4852 )
 
-[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area0/SP1"]
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area_0/SP1"]
 margin_left = -21.6043
 margin_top = -21.6043
 margin_right = 22.3957
@@ -33,10 +33,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SP2" type="Position2D" parent="ServerMap/SpawnLocations/Area0"]
-position = Vector2( 489.379, 107.285 )
+[node name="SP2" type="Position2D" parent="ServerMap/SpawnLocations/Area_0"]
+position = Vector2( 224.921, 112.235 )
 
-[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area0/SP2"]
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area_0/SP2"]
 margin_left = -22.0
 margin_top = -22.0
 margin_right = 22.0
@@ -46,10 +46,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SP3" type="Position2D" parent="ServerMap/SpawnLocations/Area0"]
-position = Vector2( 435.982, 407.485 )
+[node name="SP3" type="Position2D" parent="ServerMap/SpawnLocations/Area_0"]
+position = Vector2( 220.314, 164.948 )
 
-[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area0/SP3"]
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area_0/SP3"]
 margin_left = -22.0
 margin_top = -22.0
 margin_right = 22.0
@@ -59,12 +59,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Area1" type="Node2D" parent="ServerMap/SpawnLocations"]
+[node name="Area_1" type="Node2D" parent="ServerMap/SpawnLocations"]
 
-[node name="SP1" type="Position2D" parent="ServerMap/SpawnLocations/Area1"]
-position = Vector2( 731.149, 310.432 )
+[node name="SP1" type="Position2D" parent="ServerMap/SpawnLocations/Area_1"]
+position = Vector2( 732.563, 285.683 )
 
-[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area1/SP1"]
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area_1/SP1"]
 margin_left = -20.3487
 margin_top = -18.4461
 margin_right = 23.6513
@@ -74,10 +74,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SP2" type="Position2D" parent="ServerMap/SpawnLocations/Area1"]
-position = Vector2( 651.909, 394.547 )
+[node name="SP2" type="Position2D" parent="ServerMap/SpawnLocations/Area_1"]
+position = Vector2( 731.105, 330.2 )
 
-[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area1/SP2"]
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area_1/SP2"]
 margin_left = -21.2572
 margin_top = -22.7365
 margin_right = 22.7428
@@ -87,10 +87,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SP3" type="Position2D" parent="ServerMap/SpawnLocations/Area1"]
-position = Vector2( 776.649, 415.342 )
+[node name="SP3" type="Position2D" parent="ServerMap/SpawnLocations/Area_1"]
+position = Vector2( 738.466, 370.088 )
 
-[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area1/SP3"]
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area_1/SP3"]
 margin_left = -22.0
 margin_top = -22.0
 margin_right = 22.0
@@ -100,10 +100,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SP4" type="Position2D" parent="ServerMap/SpawnLocations/Area1"]
-position = Vector2( 576.952, 330.298 )
+[node name="SP4" type="Position2D" parent="ServerMap/SpawnLocations/Area_1"]
+position = Vector2( 736.758, 408.787 )
 
-[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area1/SP4"]
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area_1/SP4"]
 margin_left = -22.0
 margin_top = -22.0
 margin_right = 22.0
@@ -113,12 +113,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Area2" type="Node2D" parent="ServerMap/SpawnLocations"]
+[node name="Area_2" type="Node2D" parent="ServerMap/SpawnLocations"]
 
-[node name="SP1" type="Position2D" parent="ServerMap/SpawnLocations/Area2"]
-position = Vector2( 99.2984, 365.238 )
+[node name="SP1" type="Position2D" parent="ServerMap/SpawnLocations/Area_2"]
+position = Vector2( 292.743, 413.669 )
 
-[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area2/SP1"]
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area_2/SP1"]
 margin_left = -20.3487
 margin_top = -18.4461
 margin_right = 23.6513
@@ -128,23 +128,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SP2" type="Position2D" parent="ServerMap/SpawnLocations/Area2"]
-position = Vector2( 171.879, 408.406 )
+[node name="SP2" type="Position2D" parent="ServerMap/SpawnLocations/Area_2"]
+position = Vector2( 341.489, 418.589 )
 
-[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area2/SP2"]
-margin_left = -21.8871
-margin_top = -21.4765
-margin_right = 22.1129
-margin_bottom = -7.4765
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area_2/SP2"]
+margin_left = -21.2572
+margin_top = -22.7365
+margin_right = 22.7428
+margin_bottom = -8.73645
 text = "A2:SP2"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SP3" type="Position2D" parent="ServerMap/SpawnLocations/Area2"]
-position = Vector2( 274.571, 402.113 )
+[node name="SP3" type="Position2D" parent="ServerMap/SpawnLocations/Area_2"]
+position = Vector2( 392.69, 417.464 )
 
-[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area2/SP3"]
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area_2/SP3"]
 margin_left = -22.0
 margin_top = -22.0
 margin_right = 22.0
@@ -154,10 +154,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SP4" type="Position2D" parent="ServerMap/SpawnLocations/Area2"]
-position = Vector2( 179.447, 364.316 )
+[node name="SP4" type="Position2D" parent="ServerMap/SpawnLocations/Area_2"]
+position = Vector2( 440.48, 417.272 )
 
-[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area2/SP4"]
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area_2/SP4"]
 margin_left = -22.0
 margin_top = -22.0
 margin_right = 22.0
