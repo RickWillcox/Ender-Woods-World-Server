@@ -78,6 +78,7 @@ EnemyData="*res://Scenes/Singletons/EnemyData.gd"
 Players="*res://Scenes/Singletons/Players.gd"
 ItemDatabase="*res://common/ItemDatabase.gd"
 NakamaConnection="*res://Scenes/Singletons/NakamaConnection.gd"
+EnemySpawnData="*res://Scenes/Singletons/EnemySpawnData.gd"
 
 [display]
 

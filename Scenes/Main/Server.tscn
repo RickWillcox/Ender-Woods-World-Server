@@ -16,4 +16,155 @@ script = ExtResource( 4 )
 
 [node name="ServerMap" parent="." instance=ExtResource( 6 )]
 
+[node name="SpawnLocations" type="Node2D" parent="ServerMap"]
+
+[node name="Area0" type="Node2D" parent="ServerMap/SpawnLocations"]
+
+[node name="SP1" type="Position2D" parent="ServerMap/SpawnLocations/Area0"]
+position = Vector2( 183.713, 186.329 )
+
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area0/SP1"]
+margin_left = -21.6043
+margin_top = -21.6043
+margin_right = 22.3957
+margin_bottom = -7.60429
+text = "A0:SP1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SP2" type="Position2D" parent="ServerMap/SpawnLocations/Area0"]
+position = Vector2( 489.379, 107.285 )
+
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area0/SP2"]
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = -8.0
+text = "A0:SP2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SP3" type="Position2D" parent="ServerMap/SpawnLocations/Area0"]
+position = Vector2( 435.982, 407.485 )
+
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area0/SP3"]
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = -8.0
+text = "A0:SP3"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Area1" type="Node2D" parent="ServerMap/SpawnLocations"]
+
+[node name="SP1" type="Position2D" parent="ServerMap/SpawnLocations/Area1"]
+position = Vector2( 731.149, 310.432 )
+
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area1/SP1"]
+margin_left = -20.3487
+margin_top = -18.4461
+margin_right = 23.6513
+margin_bottom = -4.44614
+text = "A1:SP1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SP2" type="Position2D" parent="ServerMap/SpawnLocations/Area1"]
+position = Vector2( 651.909, 394.547 )
+
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area1/SP2"]
+margin_left = -21.2572
+margin_top = -22.7365
+margin_right = 22.7428
+margin_bottom = -8.73645
+text = "A1:SP2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SP3" type="Position2D" parent="ServerMap/SpawnLocations/Area1"]
+position = Vector2( 776.649, 415.342 )
+
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area1/SP3"]
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = -8.0
+text = "A1:SP3"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SP4" type="Position2D" parent="ServerMap/SpawnLocations/Area1"]
+position = Vector2( 576.952, 330.298 )
+
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area1/SP4"]
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = -8.0
+text = "A1:SP4"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Area2" type="Node2D" parent="ServerMap/SpawnLocations"]
+
+[node name="SP1" type="Position2D" parent="ServerMap/SpawnLocations/Area2"]
+position = Vector2( 99.2984, 365.238 )
+
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area2/SP1"]
+margin_left = -20.3487
+margin_top = -18.4461
+margin_right = 23.6513
+margin_bottom = -4.44614
+text = "A2:SP1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SP2" type="Position2D" parent="ServerMap/SpawnLocations/Area2"]
+position = Vector2( 171.879, 408.406 )
+
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area2/SP2"]
+margin_left = -21.8871
+margin_top = -21.4765
+margin_right = 22.1129
+margin_bottom = -7.4765
+text = "A2:SP2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SP3" type="Position2D" parent="ServerMap/SpawnLocations/Area2"]
+position = Vector2( 274.571, 402.113 )
+
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area2/SP3"]
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = -8.0
+text = "A2:SP3"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SP4" type="Position2D" parent="ServerMap/SpawnLocations/Area2"]
+position = Vector2( 179.447, 364.316 )
+
+[node name="Label" type="Label" parent="ServerMap/SpawnLocations/Area2/SP4"]
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = -8.0
+text = "A2:SP4"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [editable path="ServerMap"]

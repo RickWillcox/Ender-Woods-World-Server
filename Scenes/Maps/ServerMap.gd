@@ -17,6 +17,8 @@ var open_locations = [0,1,2]
 var occupied_locations = {}
 var enemy_list = {}
 
+
+
 var ore_list = ServerData.mining_data
 var ore_types = [si.GOLD_ORE]
 
@@ -28,6 +30,11 @@ func _ready():
 	timer.autostart = true
 	timer.connect("timeout", self, "respawn_enemies")
 	self.add_child(timer)
+
+func spawn_enemies():
+	pass	
+
+
 	
 func respawn_enemies():
 	if enemy_list.size() >= enemy_maximum:
