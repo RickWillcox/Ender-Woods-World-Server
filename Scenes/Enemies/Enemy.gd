@@ -179,7 +179,7 @@ func enter_state(new_state, extra_data = null):
 			server.broadcast_packet(Players.get_players(),
 				si.create_enemy_despawn_packet(int(name)))
 			var id = int(name)
-			server_map.release_occupied_location(id)
+			EnemySpawnData.open_spawn_location(id)
 			queue_free()
 		State.EVADE:
 			# When evading, enemies avoid collision and are untargetable
