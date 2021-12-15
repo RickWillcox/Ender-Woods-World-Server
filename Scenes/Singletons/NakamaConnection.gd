@@ -8,24 +8,85 @@ var ip_port = "127.0.0.1:7350"
 # to prevent cheating by calling our APIs
 var http_key = "defaulthttpkey"
 
-func get_item_database():
+# Item Database
+func get_items_database():
 	var request = HTTPRequest.new()
 	add_child(request)
-	request.connect("request_completed", self, "_handle_item_db_received", [request])
-	var error = request.request("http://" + ip_port + "/v2/rpc/get_items?http_key=" + http_key)
+	request.connect("request_completed", self, "_handle_items_database_received", [request])
+	var error = request.request("http://" + ip_port + "/v2/rpc/get_items_database?http_key=" + http_key)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		assert(false)
 
-func get_recipe_database():
+func _handle_items_database_received(result, response_code, headers, body, request : HTTPRequest):
+	var response = parse_json(body.get_string_from_utf8())	
+	var data = JSON.parse(response["payload"]).result
+	request.queue_free()
+	assert(data["success"] == true)
+	Logger.info("Received item data from Nakama server")
+	
+	ItemDatabase.all_item_data = data["result"]
+	Utils.convert_keys_to_int(ItemDatabase.all_item_data)
+
+# Crafting Recipes Database
+func get_crafting_recipes_database():
 	var request = HTTPRequest.new()
 	add_child(request)
-	request.connect("request_completed", self, "_handle_recipe_db_received", [request])
-	var error = request.request("http://" + ip_port + "/v2/rpc/get_recipes?http_key=" + http_key)
+	request.connect("request_completed", self, "_handle_crafting_recipes_database_received", [request])
+	var error = request.request("http://" + ip_port + "/v2/rpc/get_crafting_recipes_database?http_key=" + http_key)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		assert(false)
+
+func _handle_crafting_recipes_database_received(result, response_code, headers, body, request : HTTPRequest):
+	var response = parse_json(body.get_string_from_utf8())	
+	request.queue_free()
+	var data = JSON.parse(response["payload"]).result
+	assert(data["success"] == true)
+	Logger.info("Received recipes data from Nakama server")
 	
+	ItemDatabase.all_recipe_data = data["result"]
+	Utils.convert_keys_to_int(ItemDatabase.all_recipe_data)
+
+# Item Modifier Database
+func get_item_modifiers_database():
+	var request = HTTPRequest.new()
+	add_child(request)
+	request.connect("request_completed", self, "_handle_item_modifiers_database_received", [request])
+	var error = request.request("http://" + ip_port + "/v2/rpc/get_item_modifiers_database?http_key=" + http_key)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+		assert(false)
+		
+func _handle_item_modifiers_database_received(result, response_code, headers, body, request : HTTPRequest):
+	var response = parse_json(body.get_string_from_utf8())	
+	var data = JSON.parse(response["payload"]).result
+	request.queue_free()
+	assert(data["success"] == true)
+	Logger.info("Received item data from Nakama server")
+	
+	# TODO use the item modifiers data received
+
+# Quests Database
+func get_quests_database():
+	var request = HTTPRequest.new()
+	add_child(request)
+	request.connect("request_completed", self, "_handle_quests_database_received", [request])
+	var error = request.request("http://" + ip_port + "/v2/rpc/get_quests_database?http_key=" + http_key)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+		assert(false)	
+
+func _handle_quests_database_received(result, response_code, headers, body, request : HTTPRequest):
+	var response = parse_json(body.get_string_from_utf8())	
+	var data = JSON.parse(response["payload"]).result
+	request.queue_free()
+	assert(data["success"] == true)
+	Logger.info("Received item data from Nakama server")
+	
+	# TODO use the quest data received
+	
+# Verify Token	
 func verify_token(player_id, token):
 	var request = HTTPRequest.new()
 	add_child(request)
@@ -36,27 +97,6 @@ func verify_token(player_id, token):
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		emit_signal("token_verified", false, player_id, token)
-
-func _handle_recipe_db_received(result, response_code, headers, body, request : HTTPRequest):
-	var response = parse_json(body.get_string_from_utf8())	
-	request.queue_free()
-	var data = JSON.parse(response["payload"]).result
-	assert(data["success"] == true)
-	Logger.info("Received recipes data from Nakama server")
-	
-	ItemDatabase.all_recipe_data = data["result"]
-	Utils.convert_keys_to_int(ItemDatabase.all_recipe_data)
-
-func _handle_item_db_received(result, response_code, headers, body, request : HTTPRequest):
-	var response = parse_json(body.get_string_from_utf8())	
-	var data = JSON.parse(response["payload"]).result
-	request.queue_free()
-	assert(data["success"] == true)
-	Logger.info("Received item data from Nakama server")
-	
-	ItemDatabase.all_item_data = data["result"]
-	Utils.convert_keys_to_int(ItemDatabase.all_item_data)
-
 
 func _handle_verify_token_response(result, response_code, headers, body, request : HTTPRequest, player_id : int, token : String):
 	Logger.info("Verify token response result: %s, response_code: %s, headers: %s, body: %s, token: %s" %

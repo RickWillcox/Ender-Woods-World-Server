@@ -30,25 +30,45 @@ func remove_player(player_id):
 	if storage.has(player_id):
 		var player : Player = storage[player_id]
 
-		# Save inventory
-		var nakama_request : NakamaRequest = NakamaRequest.new()
-		add_child(nakama_request)
-		nakama_request.connect("request_completed", self, "_handle_data_saved")
-		nakama_request.request(
-			"set_inventory",
-			{"user_id" : player.user_id, "inventory": player.inventory.slots })		
-		
-		
-		# Save game data
-		var save_gamedata_request : NakamaRequest = NakamaRequest.new()
-		add_child(save_gamedata_request)
-		save_gamedata_request.connect("request_completed", self, "_handle_data_saved")
-		save_gamedata_request.request(
-			"update_gamedata",
+		# set user inventory 
+		var set_player_inventory : NakamaRequest = NakamaRequest.new()
+		add_child(set_player_inventory)
+		set_player_inventory.connect("request_completed", self, "_on_set_player_data_completed")
+		set_player_inventory.request(
+			"set_player_inventory",
 			{
 				"user_id" : player.user_id,
-				"experience": player.experience,
-				"current_health": player.current_health
+				"inventory": player.inventory.slots,
+			})		
+		
+		
+		# set player stats
+		var set_player_stats : NakamaRequest = NakamaRequest.new()
+		add_child(set_player_stats)
+		set_player_stats.connect("request_completed", self, "_on_set_player_data_completed")
+		set_player_stats.request(
+			"set_player_stats",
+			{
+				"user_id" : player.user_id,
+				"player_stats" : {
+					"experience": player.experience,
+					"current_health": player.current_health
+				}
+			})
+		
+		# set user Quest States
+		var set_player_quests : NakamaRequest = NakamaRequest.new()
+		add_child(set_player_quests)
+		set_player_quests.connect("request_completed", self, "_on_set_player_data_completed")
+		#TODO implement proper tracking of quests
+		set_player_quests.request(
+			"set_player_quests",
+			{
+				"user_id" : player.user_id,
+				"quest_states":{
+					"completed_quests" : 1,
+					"active_quests" : 1
+				}
 			})
 		
 		player.remove()		
@@ -92,7 +112,7 @@ func get_initial_inventory_packet(player_id):
 	return (player as Player).get_initial_inventory_packet()
 
 
-func _handle_data_saved(input_data, output_data, request : NakamaRequest):
+func _on_set_player_data_completed(input_data, output_data, request : NakamaRequest):
 	# Current dont care if it fails. NakamaRequest would crash the server if it
 	# does. TODO: Some error handling
 	request.queue_free()
