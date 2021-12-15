@@ -53,9 +53,6 @@ var enemy_spawn_data : Dictionary = {
 	},
 }
 
-func _ready() -> void:
-	add_spawn_locations_to_enemy_spawn_data()
-	add_respawn_timers()
 		
 func spawn_enemy(area_name):
 	if enemy_spawn_data[area_name].current_enemies_in_area < enemy_spawn_data[area_name].max_enemies_in_area:
