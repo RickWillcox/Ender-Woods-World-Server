@@ -26,8 +26,8 @@ var si = ServerInterface
 func _ready():
 	OS.set_window_position(Vector2(0,0))
 	Logger.info("%s: Ready function called" % filename)
-	NakamaConnection.get_item_database()
-	NakamaConnection.get_recipe_database()
+	NakamaConnection.get_items_database()
+	NakamaConnection.get_crafting_recipes_database()
 	start_server()
 	Logger.info("%s: finished Client>World Server function" % filename)
 	
@@ -93,8 +93,8 @@ func return_token_verification_results(player_id : int, result : bool):
 		# start the process of getting the items from database
 		var nakama_request : NakamaRequest = NakamaRequest.new()
 		add_child(nakama_request)
-		nakama_request.connect("request_completed", self, "_handle_get_inventory", [player_id])
-		nakama_request.request("get_inventory", { "user_id": player.user_id })
+		nakama_request.connect("request_completed", self, "_handle_get_player_inventory", [player_id])
+		nakama_request.request("get_player_inventory", { "user_id": player.user_id })
 		
 		# Spawn all enemies for the player that just connected
 		for packet in get_node("ServerMap").get_enemy_state_packets():
@@ -277,7 +277,7 @@ remote func stop_smelter():
 	send_packet(player_id, si.create_smelter_stopped_packet())
 
 
-func _handle_get_inventory(input_data, output_data, request : NakamaRequest, player_id):
+func _handle_get_player_inventory(input_data, output_data, request : NakamaRequest, player_id):
 	request.queue_free()
 	var player : Player = Players.get_player(player_id)
 	if player:
