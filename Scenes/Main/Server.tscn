@@ -169,4 +169,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Camera2D" type="Camera2D" parent="ServerMap"]
+position = Vector2( 423.812, 239.655 )
+current = true
+
+[node name="Label" type="Label" parent="ServerMap/Camera2D"]
+margin_left = -417.085
+margin_top = 132.021
+margin_right = -344.085
+margin_bottom = 231.021
+text = "Left:   
+Right: 
+Up:     
+Down:
+Zoom In:
+Zoom Out: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="ServerMap/Camera2D"]
+margin_left = -344.178
+margin_top = 132.021
+margin_right = -271.178
+margin_bottom = 231.021
+text = "a    arrow keys 
+d    also work
+w 
+d 
+mwheel up
+mwheel down"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [editable path="ServerMap"]
