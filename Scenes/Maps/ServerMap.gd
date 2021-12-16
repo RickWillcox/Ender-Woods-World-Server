@@ -67,3 +67,18 @@ func get_enemy_state_packets() -> Array:
 			enemy_state_packets.append(enemy.get_state_packet())
 	return enemy_state_packets
 
+func _input(event):
+	if(event.is_action("camera_left")):
+		$Camera2D.position.x -= 40
+	if(event.is_action("camera_right")):
+		$Camera2D.position.x += 40
+	if(event.is_action("camera_up")):
+		$Camera2D.position.y -= 40
+	if(event.is_action("camera_down")):
+		$Camera2D.position.y += 40
+	if(event.is_action("camera_zoom_in")):
+		$Camera2D.zoom.x -= 0.1
+		$Camera2D.zoom.y -= 0.1
+	if(event.is_action("camera_zoom_out")):
+		$Camera2D.zoom.x += 0.1
+		$Camera2D.zoom.y += 0.1
