@@ -91,32 +91,7 @@ func set_inventory(new_inventory):
 
 func move_items(from : int, to : int) -> bool:
 	Logger.info("Player: Player %d is attempting to move item %d to %d " % [world_player.id, from, to])
-	
-#	testing()
-	
 	return inventory.move_items(from, to)
-
-#func testing():
-#	Logger.info("SETTING NEW QUESTS")
-#	var current_player_quests = get_quests()
-#	Logger.info("OLD QUEST DATA: ", current_player_quests)
-#	set_quests(current_player_quests, {
-#			1: {
-#				"kill" : {
-#					"rock_golem" : 22
-#				},
-#				"collect_items" : 1,
-#				"talk_to_npc" : "jack"
-#			},
-#			2: {
-#				"kill" : {
-#					"mino" : 50
-#				},
-#				"collect_items" : 20,
-#				"talk_to_npc" : "nick",
-#				"test" : 11
-#			},
-#		})
 
 func add_item(item_id : int, slot : int, amount : int = 1) -> bool:
 	return inventory.add_item_to_empty_slot(item_id, amount, slot)
