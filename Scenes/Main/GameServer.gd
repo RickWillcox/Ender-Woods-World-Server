@@ -90,12 +90,19 @@ func return_token_verification_results(player_id : int, result : bool):
 		
 		Players.initialize_player(player_id, get_node("ServerMap/YSort/Players"))
 		
-		# start the process of getting the items from database
-		var nakama_request : NakamaRequest = NakamaRequest.new()
-		add_child(nakama_request)
-		nakama_request.connect("request_completed", self, "_handle_get_player_inventory", [player_id])
-		nakama_request.request("get_player_inventory", { "user_id": player.user_id })
+		# start the process of getting the player inventory from database
+		var player_inventory_request : NakamaRequest = NakamaRequest.new()
+		add_child(player_inventory_request)
+		player_inventory_request.connect("request_completed", self, "_handle_get_player_inventory", [player_id])
+		player_inventory_request.request("get_player_inventory", { "user_id": player.user_id })
 		
+		# get player quests from the database
+		var player_quests_request : NakamaRequest = NakamaRequest.new()
+		add_child(player_quests_request)
+		player_quests_request.connect("request_completed", self, "_handle_get_player_quests", [player_id])
+		player_quests_request.request("get_player_quests", { "user_id": player.user_id})
+		
+
 		# Spawn all enemies for the player that just connected
 		for packet in get_node("ServerMap").get_enemy_state_packets():
 			send_packet(player_id, packet)
@@ -128,6 +135,10 @@ func enemy_attack(enemy_id, attack_type):
 func send_player_inventory(inventory_data, session_token):
 	var player_id = session_token
 	rpc_id(player_id, "receive_player_inventory", inventory_data)
+
+func send_player_initial_quest_state(quest_state, session_token):
+	var player_id = session_token
+	rpc_id(player_id, " receieve_player_initial_quest_state", quest_state)
 
 remote func move_items(from, to):
 	var player_id = get_tree().get_rpc_sender_id()
@@ -286,3 +297,13 @@ func _handle_get_player_inventory(input_data, output_data, request : NakamaReque
 		broadcast_packet(
 			Players.get_players([player_id]),
 			player.get_initial_inventory_packet())
+			
+
+func _handle_get_player_quests(input_data, output_data, request : NakamaRequest, player_id):
+	var empty_dict : Dictionary = {}
+	request.queue_free()
+	var player : Player = Players.get_player(player_id)
+	if player:
+		player.set_quests(empty_dict, output_data["result"])
+
+		

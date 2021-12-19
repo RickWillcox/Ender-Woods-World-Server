@@ -6,6 +6,7 @@ var world_player : StaticBody2D
 var si = ServerInterface
 var stats : Dictionary = {}
 var inventory : Inventory = Inventory.new()
+var player_quests : PlayerQuests = PlayerQuests.new()
 var username : String
 var user_id : String
 var experience : int setget set_experience
@@ -76,12 +77,46 @@ func take_damage(damage_value, attacker):
 			Players.get_players(), # everyone receives the packet
 			si.create_player_died_packet(world_player.id, world_player.position))
 
+# This function can be used to initialise the quest state or update any quests, just pass it valid json
+func set_quests(current_quests : Dictionary, updated_quests : Dictionary):
+	player_quests.set_player_quests(current_quests, updated_quests)
+	Logger.info("SET QUESTS! ", player_quests.quests)
+		
+func get_quests() -> Dictionary:
+	Logger.info("GET QUESTS! ", player_quests.quests)
+	return player_quests.quests
+
 func set_inventory(new_inventory):
 	inventory.update(new_inventory)
 
 func move_items(from : int, to : int) -> bool:
 	Logger.info("Player: Player %d is attempting to move item %d to %d " % [world_player.id, from, to])
+	
+	testing()
+	
 	return inventory.move_items(from, to)
+
+func testing():
+	Logger.info("SETTING NEW QUESTS")
+	var current_player_quests = get_quests()
+	Logger.info("OLD QUEST DATA: ", current_player_quests)
+	set_quests(current_player_quests, {
+			1: {
+				"kill" : {
+					"rock_golem" : 22
+				},
+				"collect_items" : 1,
+				"talk_to_npc" : "jack"
+			},
+			2: {
+				"kill" : {
+					"mino" : 50
+				},
+				"collect_items" : 20,
+				"talk_to_npc" : "nick",
+				"test" : 11
+			},
+		})
 
 func add_item(item_id : int, slot : int, amount : int = 1) -> bool:
 	return inventory.add_item_to_empty_slot(item_id, amount, slot)
