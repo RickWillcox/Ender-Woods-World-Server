@@ -303,5 +303,9 @@ func _handle_get_player_quests(input_data, output_data, request : NakamaRequest,
 	var player : Player = Players.get_player(player_id)
 	if player:
 		player.set_quests(player.get_quests(), output_data["result"])
+		send_player_quests_to_client(player_id, output_data["result"])
+
+func send_player_quests_to_client(player_id, player_quests):
+	rpc_id(player_id, "set_player_quests_on_player", player_quests)
 
 		

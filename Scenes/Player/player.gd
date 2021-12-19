@@ -14,7 +14,10 @@ var current_health : float setget set_current_health
 
 var world_player_scene = preload("res://Scenes/Player/PlayerHitbox.tscn")
 
+
+
 func initialize(player_id):
+
 	world_player = world_player_scene.instance()
 	world_player.id = player_id
 	world_player.position = Vector2(250, 250) # Spawn point
@@ -79,10 +82,11 @@ func take_damage(damage_value, attacker):
 
 # This function can be used to initialise the quest state or update any quests, just pass it valid json
 func set_quests(current_quests : Dictionary, updated_quests : Dictionary):
-	Logger.info("SET QUESTS! ", player_quests.quests)
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_quests)
 		
 func get_quests() -> Dictionary:
-	return player_quests.quests
+	print("!!!!!! !!! !!! ", player_quests.get_player_quests())
+	return player_quests.get_player_quests()
 
 func set_inventory(new_inventory):
 	inventory.update(new_inventory)
