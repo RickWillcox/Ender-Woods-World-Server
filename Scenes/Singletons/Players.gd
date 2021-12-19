@@ -61,14 +61,12 @@ func remove_player(player_id):
 		add_child(set_player_quests)
 		set_player_quests.connect("request_completed", self, "_on_set_player_data_completed")
 		#TODO implement proper tracking of quests
+
 		set_player_quests.request(
 			"set_player_quests",
 			{
 				"user_id" : player.user_id,
-				"quest_states":{
-					"completed_quests" : 1,
-					"active_quests" : 1
-				}
+				"quest_states": player.get_quests()
 			})
 		
 		player.remove()		

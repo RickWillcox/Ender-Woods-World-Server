@@ -31,6 +31,8 @@ func request(rpc_name : String, input_data : Dictionary = {}):
 
 func _handle_request_completed(result, response_code, headers, body, request : HTTPRequest, input_data):
 	var response = parse_json(body.get_string_from_utf8())
+	print(response)
+	print(request)
 	var output_data = JSON.parse(response["payload"]).result
 	assert(output_data["success"] == true)
 	if "result" in output_data:

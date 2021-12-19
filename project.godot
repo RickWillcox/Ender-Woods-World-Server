@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Player/player.gd"
 }, {
+"base": "Reference",
+"class": "PlayerQuests",
+"language": "GDScript",
+"path": "res://common/PlayerQuests.gd"
+}, {
 "base": "Node",
 "class": "Serializer",
 "language": "GDScript",
@@ -57,6 +62,7 @@ _global_script_class_icons={
 "NakamaRequest": "",
 "Ore": "",
 "Player": "",
+"PlayerQuests": "",
 "Serializer": ""
 }
 
