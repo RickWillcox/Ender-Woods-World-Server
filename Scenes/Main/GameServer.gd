@@ -100,9 +100,8 @@ func return_token_verification_results(player_id : int, result : bool):
 		var player_quests_request : NakamaRequest = NakamaRequest.new()
 		add_child(player_quests_request)
 		player_quests_request.connect("request_completed", self, "_handle_get_player_quests", [player_id])
-		player_quests_request.request("get_player_quests", { "user_id": player.user_id})
+		player_quests_request.request("get_player_quests", { "user_id": player.user_id })
 		
-
 		# Spawn all enemies for the player that just connected
 		for packet in get_node("ServerMap").get_enemy_state_packets():
 			send_packet(player_id, packet)
@@ -300,10 +299,9 @@ func _handle_get_player_inventory(input_data, output_data, request : NakamaReque
 			
 
 func _handle_get_player_quests(input_data, output_data, request : NakamaRequest, player_id):
-	var empty_dict : Dictionary = {}
 	request.queue_free()
 	var player : Player = Players.get_player(player_id)
 	if player:
-		player.set_quests(empty_dict, output_data["result"])
+		player.set_quests(player.get_quests(), output_data["result"])
 
 		

@@ -79,11 +79,9 @@ func take_damage(damage_value, attacker):
 
 # This function can be used to initialise the quest state or update any quests, just pass it valid json
 func set_quests(current_quests : Dictionary, updated_quests : Dictionary):
-	player_quests.set_player_quests(current_quests, updated_quests)
 	Logger.info("SET QUESTS! ", player_quests.quests)
 		
 func get_quests() -> Dictionary:
-	Logger.info("GET QUESTS! ", player_quests.quests)
 	return player_quests.quests
 
 func set_inventory(new_inventory):
