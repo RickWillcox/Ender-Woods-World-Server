@@ -31,11 +31,14 @@ func test_move_items_backpack():
 	var to_slot = ItemDatabase.Slots.FIRST_BACKPACK_SLOT + 2
 	var item_id = 3
 	var to_item_id = 5
-	inventory.update({ slot: {"item_id": item_id, "amount": 1},
-					to_slot: {"item_id": to_item_id, "amount" : 1} })
+	inventory.update({ slot: {"item_id": item_id, "amount": 3, "prefix" : 1},
+					to_slot: {"item_id": to_item_id, "amount" : 1, "suffix" : 2} })
+	var src_item_copy = inventory.slots[slot].duplicate()
+	var dest_item_copy = inventory.slots[to_slot].duplicate()
+	
 	assert_true(inventory.move_items(slot, to_slot, false))
-	assert_eq(inventory.slots[to_slot]["item_id"], item_id)
-	assert_eq(inventory.slots[slot]["item_id"], to_item_id)
+	assert_eq_deep(inventory.slots[to_slot], src_item_copy)
+	assert_eq_deep(inventory.slots[slot], dest_item_copy)
 	
 	
 func test_move_items_backpack_reversible():
@@ -44,12 +47,12 @@ func test_move_items_backpack_reversible():
 	var to_slot = ItemDatabase.Slots.FIRST_BACKPACK_SLOT + 2
 	var item_id = 3
 	var to_item_id = 5
-	inventory.update({ slot: {"item_id": item_id, "amount": 1},
-					to_slot: {"item_id": to_item_id, "amount" : 1} })
+	inventory.update({ slot: {"item_id": item_id, "amount": 3, "prefix" : 1},
+					to_slot: {"item_id": to_item_id, "amount" : 1, "suffix" : 2} })
 	var inventory_copy = inventory.slots.duplicate(true)
 	assert_true(inventory.move_items(slot, to_slot))
-	assert_eq(inventory.slots[to_slot]["item_id"], item_id)
-	assert_eq(inventory.slots[slot]["item_id"], to_item_id)
+	assert_eq_deep(inventory.slots[to_slot], inventory_copy[slot])
+	assert_eq_deep(inventory.slots[slot], inventory_copy[to_slot])
 	
 	inventory.reverse_last_operation()
 	assert_eq_deep(inventory.slots, inventory_copy)	
