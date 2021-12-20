@@ -28,6 +28,8 @@ func _ready():
 	Logger.info("%s: Ready function called" % filename)
 	NakamaConnection.get_items_database()
 	NakamaConnection.get_crafting_recipes_database()
+	NakamaConnection.get_quests_database()
+	NakamaConnection.get_item_modifiers_database()
 	start_server()
 	Logger.info("%s: finished Client>World Server function" % filename)
 	
@@ -304,8 +306,14 @@ func _handle_get_player_quests(input_data, output_data, request : NakamaRequest,
 	if player:
 		player.set_quests(player.get_quests(), output_data["result"])
 		send_player_quests_to_client(player_id, output_data["result"])
+		
 
-func send_player_quests_to_client(player_id, player_quests):
+func send_player_quests_to_client(player_id : int, player_quests : Dictionary):
 	rpc_id(player_id, "set_player_quests_on_player", player_quests)
+	
+func send_player_available_quests(player_id : int, avaiable_quests : Dictionary):
+	rpc_id(player_id, "set_player_avaiable_quests_on_player", avaiable_quests)
+
+
 
 		
