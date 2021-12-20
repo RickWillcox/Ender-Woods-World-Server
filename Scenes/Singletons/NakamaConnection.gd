@@ -23,7 +23,7 @@ func _handle_items_database_received(result, response_code, headers, body, reque
 	var data = JSON.parse(response["payload"]).result
 	request.queue_free()
 	assert(data["success"] == true)
-	Logger.info("Received item data from Nakama server")
+	Logger.info("Received ITEMS DATABASE from Nakama server")
 	
 	ItemDatabase.all_item_data = data["result"]
 	Utils.convert_keys_to_int(ItemDatabase.all_item_data)
@@ -43,7 +43,7 @@ func _handle_crafting_recipes_database_received(result, response_code, headers, 
 	request.queue_free()
 	var data = JSON.parse(response["payload"]).result
 	assert(data["success"] == true)
-	Logger.info("Received recipes data from Nakama server")
+	Logger.info("Received CRAFTING RECIPES DATABASE from Nakama server")
 	
 	ItemDatabase.all_recipe_data = data["result"]
 	Utils.convert_keys_to_int(ItemDatabase.all_recipe_data)
@@ -63,7 +63,7 @@ func _handle_item_modifiers_database_received(result, response_code, headers, bo
 	var data = JSON.parse(response["payload"]).result
 	request.queue_free()
 	assert(data["success"] == true)
-	Logger.info("Received item data from Nakama server")
+	Logger.info("Received ITEM MODIFIERS DATABASE from Nakama server")
 	
 	# TODO use the item modifiers data received
 
@@ -79,12 +79,12 @@ func get_quests_database():
 
 func _handle_quests_database_received(result, response_code, headers, body, request : HTTPRequest):
 	var response = parse_json(body.get_string_from_utf8())	
-	var data = JSON.parse(response["payload"]).result
+	var all_quest_data = JSON.parse(response["payload"]).result
 	request.queue_free()
-	assert(data["success"] == true)
-	Logger.info("Received item data from Nakama server")
-	
+	assert(all_quest_data["success"] == true)
+	Logger.info("Received QUEST DATABASE from Nakama server")
 	# TODO use the quest data received
+	AllQuests.set_all_quests(all_quest_data["result"])
 	
 # Verify Token	
 func verify_token(player_id, token):

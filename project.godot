@@ -85,6 +85,7 @@ Players="*res://Scenes/Singletons/Players.gd"
 ItemDatabase="*res://common/ItemDatabase.gd"
 NakamaConnection="*res://Scenes/Singletons/NakamaConnection.gd"
 EnemySpawnData="*res://Scenes/Singletons/EnemySpawnData.gd"
+AllQuests="*res://Scenes/Singletons/AllQuests.gd"
 
 [display]
 
@@ -143,6 +144,10 @@ camera_zoom_out={
 , Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[network]
+
+limits/debugger_stdout/max_chars_per_second=50000
 
 [physics]
 

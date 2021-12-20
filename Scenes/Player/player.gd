@@ -23,6 +23,9 @@ func initialize(player_id):
 	world_player.position = Vector2(250, 250) # Spawn point
 	mock_stats()
 	world_player.display("Current health: " + str(stats["current_health"]))
+	
+	#placeholder stats
+	stats["level"] = 0
 
 
 func set_experience(_experience):
@@ -83,10 +86,15 @@ func take_damage(damage_value, attacker):
 # This function can be used to initialise the quest state or update any quests, just pass it valid json
 func set_quests(current_quests : Dictionary, updated_quests : Dictionary):
 	player_quests.set_player_quests(player_quests.get_player_quests(), updated_quests)
+	# everytime we set quests we also want to update the players quest availability
+	set_and_send_quests_available()
 		
 func get_quests() -> Dictionary:
-	print("!!!!!! !!! !!! ", player_quests.get_player_quests())
 	return player_quests.get_player_quests()
+
+func set_and_send_quests_available():
+	var player_available_quests = player_quests.check_all_quest_requirements_to_start(stats, AllQuests.get_all_quests())
+	set_quests(get_quests(), player_available_quests)
 
 func set_inventory(new_inventory):
 	inventory.update(new_inventory)
