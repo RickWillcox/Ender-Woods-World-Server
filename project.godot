@@ -144,6 +144,10 @@ camera_zoom_out={
  ]
 }
 
+[network]
+
+limits/debugger_stdout/max_chars_per_second=50000
+
 [physics]
 
 common/physics_fps=20
