@@ -309,7 +309,7 @@ func _handle_get_player_quests(input_data, output_data, request : NakamaRequest,
 		
 
 func send_player_quests_to_client(player_id : int, player_quests : Dictionary):
-	rpc_id(player_id, "set_player_quests_on_player", player_quests)
+	rpc_id(player_id, "set_player_quests_on_client", player_quests)
 	
 func send_player_available_quests(player_id : int, avaiable_quests : Dictionary):
 	rpc_id(player_id, "set_player_avaiable_quests_on_player", avaiable_quests)

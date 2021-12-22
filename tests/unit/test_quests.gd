@@ -117,7 +117,7 @@ func test_empty_player_quests():
 func test_set_player_quests_on_login():
 	var player_quests := PlayerQuests.new()
 	var initial_quests_on_login : Dictionary = {
-		"active_quests_tracking": {
+		"player_started_quests": {
 			"1": {
 				"kill_enemies": {
 					"slimes": 20,
@@ -130,6 +130,7 @@ func test_set_player_quests_on_login():
 		}
 	}
 	
+	
 	player_quests.set_player_quests(player_quests.get_player_quests(), initial_quests_on_login)
 	assert_eq(player_quests.get_player_quests().hash(), initial_quests_on_login.hash(), "Quests should be equal")
 	return player_quests
@@ -137,7 +138,7 @@ func test_set_player_quests_on_login():
 func test_update_player_quests_change_value():
 	var player_quests : Reference = test_set_player_quests_on_login()
 	var expected_updated_quest_state : Dictionary = {
-		"active_quests_tracking": {
+		"player_started_quests": {
 			"1": {
 				"kill_enemies": {
 					"slimes": 2,
@@ -150,7 +151,7 @@ func test_update_player_quests_change_value():
 		}
 	}
 	var updated_quest : Dictionary = {
-		"active_quests_tracking": {
+		"player_started_quests": {
 			"1": {
 				"kill_enemies": {
 					"slimes": 2,
@@ -165,7 +166,7 @@ func test_update_player_quests_change_value():
 func test_update_player_quests_add_keys():
 	var player_quests : Reference = test_set_player_quests_on_login()
 	var expected_updated_quest_state : Dictionary = {
-		"active_quests_tracking": {
+		"player_started_quests": {
 			"1": {
 				"kill_enemies": {
 					"slimes": 20,
@@ -180,7 +181,7 @@ func test_update_player_quests_add_keys():
 		}
 	}
 	var updated_quest : Dictionary = {
-		"active_quests_tracking": {
+		"player_started_quests": {
 			"1": {
 				"kill_enemies": {
 					"deers" : 10
@@ -197,22 +198,22 @@ func test_update_player_quests_add_keys():
 
 func test_delete_quest_id_by_key():
 	var player_quests : Reference = test_set_player_quests_on_login()
-	assert_true("1" in player_quests.get_player_quests()["active_quests_tracking"], "1 key is in Player Quests")
+	assert_true("1" in player_quests.get_player_quests()["player_started_quests"], "1 key is in Player Quests")
 	var expected_updated_quest_state : Dictionary = {
-		"active_quests_tracking": {
+		"player_started_quests": {
 
 		},
 		"all_quest_ids_completed": {
 			"3": null
 		}
 	}
-	player_quests.del_player_quests("1")
+	player_quests.remove_player_started_quest_by_id("1")
 	assert_eq(player_quests.get_player_quests().hash(), expected_updated_quest_state.hash(), "Delete a key using Quest ID")
 	
 func test_get_player_quests():
 	var player_quests : Reference = test_set_player_quests_on_login()
 	var expected_updated_quest_state : Dictionary = {
-		"active_quests_tracking": {
+		"player_started_quests": {
 			"1": {
 				"kill_enemies": {
 					"slimes": 20,
@@ -232,7 +233,7 @@ func test_check_requirements():
 	}
 	var player_quests : PlayerQuests = PlayerQuests.new()
 	var player_quest_state : Dictionary = {
-		"active_quests_tracking": {
+		"player_started_quests": {
 			"3": {
 				"kill_enemies": {
 					"slimes": 20,
@@ -250,3 +251,102 @@ func test_check_requirements():
 	assert_false(quests_available_to_begin.has("2"), "Quest cannot be started because havent completed previous quests")
 	assert_false(quests_available_to_begin.has("3"), "Quest cannot be started because the player has already started that quest")
 	assert_false(quests_available_to_begin.has("999"), "Quest does not exist")
+
+func test_get_player_started_and_completed_quests():
+	var player_quests : Reference = test_set_player_quests_on_login()
+	var quests_at_start : Dictionary = {
+		"player_started_quests": {
+			"1": {
+				"kill_enemies": {
+					"slimes": 20,
+					"minos" : 10
+				}
+			}
+		},
+		"all_quest_ids_completed": {
+			"3": null
+		}
+	}
+	assert_true(player_quests.check_player_already_started_quest("1", player_quests.get_player_quests()["player_started_quests"]), "Player has started 1")	
+	assert_false(player_quests.check_player_already_started_quest("2", player_quests.get_player_quests()["player_started_quests"]), "Player has not started 2")
+	
+	assert_true(player_quests.check_player_already_completed_quest("3", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has completed  3")
+	assert_false(player_quests.check_player_already_completed_quest("1", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has not completed  1")
+	assert_false(player_quests.check_player_already_completed_quest("4", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has not completed  4")
+	
+	#add started and completed quests and recheck
+	var new_quests_started : Dictionary = {
+		"player_started_quests": {
+			"2": {
+				"kill_enemies": {
+					"slimes": 20,
+					"minos" : 10
+				}
+			}
+		},
+		"all_quest_ids_completed": {
+			"4": null
+		}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), new_quests_started)
+	assert_true(player_quests.check_player_already_started_quest("1", player_quests.get_player_quests()["player_started_quests"]), "Player has started 1")	
+	assert_true(player_quests.check_player_already_started_quest("2", player_quests.get_player_quests()["player_started_quests"]), "Player has started 2")
+	assert_false(player_quests.check_player_already_started_quest("3", player_quests.get_player_quests()["player_started_quests"]), "Player has not started 3")
+	
+	assert_true(player_quests.check_player_already_completed_quest("3", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has completed  3")
+	assert_true(player_quests.check_player_already_completed_quest("4", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has completed  4")
+	assert_false(player_quests.check_player_already_completed_quest("1", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has not completed  1")
+	assert_false(player_quests.check_player_already_completed_quest("5", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has not completed  5")
+	
+	#remove a quest and recheck
+	player_quests.remove_player_started_quest_by_id("1")
+	assert_false(player_quests.check_player_already_started_quest("1", player_quests.get_player_quests()["player_started_quests"]), "Player has started 1")	
+	assert_true(player_quests.check_player_already_started_quest("2", player_quests.get_player_quests()["player_started_quests"]), "Player has started 2")
+	assert_false(player_quests.check_player_already_started_quest("3", player_quests.get_player_quests()["player_started_quests"]), "Player has not started 3")
+
+func test_get_player_completed_quests_dictionary():
+	var player_quests = PlayerQuests.new()
+	assert_eq_deep({}, player_quests.get_player_completed_quests())
+	assert_ne_deep({"Junk" : 1}, player_quests.get_player_completed_quests())
+	var player_quest_state : Dictionary = {
+		"player_started_quests": {
+			"3": {
+				"kill_enemies": {
+					"slimes": 20,
+					"minos" : 10
+				}
+			}
+		},
+		"all_quest_ids_completed": {
+			"4": null
+		}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), player_quest_state)
+	assert_eq_deep({"4": null}, player_quests.get_player_completed_quests())
+	assert_ne_deep({}, player_quests.get_player_completed_quests())
+	
+func test_get_player_started_quests_dictionary():
+	var player_quests = PlayerQuests.new()
+	assert_eq_deep({}, player_quests.get_player_started_quests())
+	assert_ne_deep({"Junk" : 1}, player_quests.get_player_started_quests())
+	var player_quest_state : Dictionary = {
+		"player_started_quests": {
+			"3": {
+				"kill_enemies": {
+					"slimes": 20,
+					"minos" : 10
+				}
+			}
+		},
+		"all_quest_ids_completed": {
+			"4": null
+		}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), player_quest_state)
+	assert_eq_deep({"3": {
+				"kill_enemies": {
+					"slimes": 20,
+					"minos" : 10
+				}
+			}}, player_quests.get_player_started_quests())
+	assert_ne_deep({}, player_quests.get_player_started_quests())
