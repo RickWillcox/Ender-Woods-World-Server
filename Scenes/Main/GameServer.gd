@@ -35,7 +35,7 @@ func _ready():
 	
 	# to make sure we do packet sending at the end of frame
 	process_priority = 3000
-
+	
 
 func start_server():
 	Logger.info("%s: Start server called" % filename)
@@ -287,8 +287,7 @@ remote func stop_smelter():
 		if player.inventory.smelter_started:
 			player.stop_smelter()
 	send_packet(player_id, si.create_smelter_stopped_packet())
-
-
+	
 func _handle_get_player_inventory(input_data, output_data, request : NakamaRequest, player_id):
 	request.queue_free()
 	var player : Player = Players.get_player(player_id)
@@ -299,20 +298,23 @@ func _handle_get_player_inventory(input_data, output_data, request : NakamaReque
 			Players.get_players([player_id]),
 			player.get_initial_inventory_packet())
 			
-
 func _handle_get_player_quests(input_data, output_data, request : NakamaRequest, player_id):
 	request.queue_free()
 	var player : Player = Players.get_player(player_id)
 	if player:
-		player.set_quests(player.get_quests(), output_data["result"])
-		send_player_quests_to_client(player_id, output_data["result"])
+		var updated_player_quest_state = player.set_and_get_quests(player.get_quests(), output_data["result"])
+		send_player_quests_to_client(player_id, updated_player_quest_state)
 		
-
 func send_player_quests_to_client(player_id : int, player_quests : Dictionary):
 	rpc_id(player_id, "set_player_quests_on_client", player_quests)
-	
-func send_player_available_quests(player_id : int, avaiable_quests : Dictionary):
-	rpc_id(player_id, "set_player_avaiable_quests_on_player", avaiable_quests)
+
+# will always get a response from the server to validate it and also pass the new updated quest state
+remote func receive_player_quest_update_from_client(player_quests : Dictionary):
+	var player_id : int = get_tree().get_rpc_sender_id()
+	var player : Player = Players.get_player(player_id)
+	if player:
+		var updated_player_quest_state = player.set_and_get_quests(player.get_quests(), player_quests)
+		send_player_quests_to_client(player_id, updated_player_quest_state)
 
 
 
