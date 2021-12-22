@@ -16,6 +16,7 @@ var world_player_scene = preload("res://Scenes/Player/PlayerHitbox.tscn")
 
 
 
+
 func initialize(player_id):
 
 	world_player = world_player_scene.instance()
@@ -25,8 +26,8 @@ func initialize(player_id):
 	world_player.display("Current health: " + str(stats["current_health"]))
 	
 	#placeholder stats
-	stats["level"] = 0
-
+	
+	
 
 func set_experience(_experience):
 	# TODO: make this part of a "Stat" node, just set the value in the stat
@@ -84,17 +85,15 @@ func take_damage(damage_value, attacker):
 			si.create_player_died_packet(world_player.id, world_player.position))
 
 # This function can be used to initialise the quest state or update any quests, just pass it valid json
-func set_quests(current_quests : Dictionary, updated_quests : Dictionary):
+# for lack of a better way everytime we set the quests we also get the new quest state and return it
+func set_and_get_quests(current_quests : Dictionary, updated_quests : Dictionary) -> Dictionary:
 	player_quests.set_player_quests(player_quests.get_player_quests(), updated_quests)
 	# everytime we set quests we also want to update the players quest availability
-	set_and_send_quests_available()
+	# we need to perform some validation here and return a dictionary with FALSE or something, that we can use to tell the client that it wasnt valid and reset their quest state back to their latest valid state.. help
+	return player_quests.get_player_quests()
 		
 func get_quests() -> Dictionary:
 	return player_quests.get_player_quests()
-
-func set_and_send_quests_available():
-	var player_available_quests = player_quests.check_all_quest_requirements_to_start(stats, AllQuests.get_all_quests())
-	set_quests(get_quests(), player_available_quests)
 
 func set_inventory(new_inventory):
 	inventory.update(new_inventory)

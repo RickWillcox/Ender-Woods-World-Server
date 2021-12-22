@@ -125,7 +125,7 @@ func test_set_player_quests_on_login():
 				}
 			}
 		},
-		"all_quest_ids_completed": {
+		"player_completed_quest_ids": {
 			"3": null
 		}
 	}
@@ -146,7 +146,7 @@ func test_update_player_quests_change_value():
 				}
 			}
 		},
-		"all_quest_ids_completed": {
+		"player_completed_quest_ids": {
 			"3": null
 		}
 	}
@@ -175,7 +175,7 @@ func test_update_player_quests_add_keys():
 				}
 			}
 		},
-		"all_quest_ids_completed": {
+		"player_completed_quest_ids": {
 			"3": null,
 			"4": null		
 		}
@@ -188,7 +188,7 @@ func test_update_player_quests_add_keys():
 				}
 			}
 		},
-		"all_quest_ids_completed": {
+		"player_completed_quest_ids": {
 			"4": null
 		}
 	}
@@ -203,12 +203,16 @@ func test_delete_quest_id_by_key():
 		"player_started_quests": {
 
 		},
-		"all_quest_ids_completed": {
+		"player_completed_quest_ids": {
 			"3": null
 		}
 	}
 	player_quests.remove_player_started_quest_by_id("1")
 	assert_eq(player_quests.get_player_quests().hash(), expected_updated_quest_state.hash(), "Delete a key using Quest ID")
+	
+	# testing trying to remove a quest id that doenst exist in player_quests
+	player_quests.remove_player_started_quest_by_id("1")
+	assert_eq(player_quests.get_player_quests().hash(), expected_updated_quest_state.hash(), "No Error and no change")
 	
 func test_get_player_quests():
 	var player_quests : Reference = test_set_player_quests_on_login()
@@ -221,7 +225,7 @@ func test_get_player_quests():
 				}
 			}
 		},
-		"all_quest_ids_completed": {
+		"player_completed_quest_ids": {
 			"3": null
 		}
 	}
@@ -241,7 +245,7 @@ func test_check_requirements():
 				}
 			}
 		},
-		"all_quest_ids_completed": {
+		"player_completed_quest_ids": {
 			"4": null
 		}
 	}
@@ -263,16 +267,16 @@ func test_get_player_started_and_completed_quests():
 				}
 			}
 		},
-		"all_quest_ids_completed": {
+		"player_completed_quest_ids": {
 			"3": null
 		}
 	}
 	assert_true(player_quests.check_player_already_started_quest("1", player_quests.get_player_quests()["player_started_quests"]), "Player has started 1")	
 	assert_false(player_quests.check_player_already_started_quest("2", player_quests.get_player_quests()["player_started_quests"]), "Player has not started 2")
 	
-	assert_true(player_quests.check_player_already_completed_quest("3", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has completed  3")
-	assert_false(player_quests.check_player_already_completed_quest("1", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has not completed  1")
-	assert_false(player_quests.check_player_already_completed_quest("4", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has not completed  4")
+	assert_true(player_quests.check_player_already_completed_quest("3", player_quests.get_player_quests()["player_completed_quest_ids"]), "Player has completed  3")
+	assert_false(player_quests.check_player_already_completed_quest("1", player_quests.get_player_quests()["player_completed_quest_ids"]), "Player has not completed  1")
+	assert_false(player_quests.check_player_already_completed_quest("4", player_quests.get_player_quests()["player_completed_quest_ids"]), "Player has not completed  4")
 	
 	#add started and completed quests and recheck
 	var new_quests_started : Dictionary = {
@@ -284,7 +288,7 @@ func test_get_player_started_and_completed_quests():
 				}
 			}
 		},
-		"all_quest_ids_completed": {
+		"player_completed_quest_ids": {
 			"4": null
 		}
 	}
@@ -293,10 +297,10 @@ func test_get_player_started_and_completed_quests():
 	assert_true(player_quests.check_player_already_started_quest("2", player_quests.get_player_quests()["player_started_quests"]), "Player has started 2")
 	assert_false(player_quests.check_player_already_started_quest("3", player_quests.get_player_quests()["player_started_quests"]), "Player has not started 3")
 	
-	assert_true(player_quests.check_player_already_completed_quest("3", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has completed  3")
-	assert_true(player_quests.check_player_already_completed_quest("4", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has completed  4")
-	assert_false(player_quests.check_player_already_completed_quest("1", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has not completed  1")
-	assert_false(player_quests.check_player_already_completed_quest("5", player_quests.get_player_quests()["all_quest_ids_completed"]), "Player has not completed  5")
+	assert_true(player_quests.check_player_already_completed_quest("3", player_quests.get_player_quests()["player_completed_quest_ids"]), "Player has completed  3")
+	assert_true(player_quests.check_player_already_completed_quest("4", player_quests.get_player_quests()["player_completed_quest_ids"]), "Player has completed  4")
+	assert_false(player_quests.check_player_already_completed_quest("1", player_quests.get_player_quests()["player_completed_quest_ids"]), "Player has not completed  1")
+	assert_false(player_quests.check_player_already_completed_quest("5", player_quests.get_player_quests()["player_completed_quest_ids"]), "Player has not completed  5")
 	
 	#remove a quest and recheck
 	player_quests.remove_player_started_quest_by_id("1")
@@ -317,7 +321,7 @@ func test_get_player_completed_quests_dictionary():
 				}
 			}
 		},
-		"all_quest_ids_completed": {
+		"player_completed_quest_ids": {
 			"4": null
 		}
 	}
@@ -338,7 +342,7 @@ func test_get_player_started_quests_dictionary():
 				}
 			}
 		},
-		"all_quest_ids_completed": {
+		"player_completed_quest_ids": {
 			"4": null
 		}
 	}
@@ -350,3 +354,35 @@ func test_get_player_started_quests_dictionary():
 				}
 			}}, player_quests.get_player_started_quests())
 	assert_ne_deep({}, player_quests.get_player_started_quests())
+
+func test_set_quest_to_completed():
+	var player_quests = PlayerQuests.new()
+	var add_quest : Dictionary = {
+		"player_started_quests" : {
+			"1" : {
+				"kill_enemies" : {
+					"slimes" : 10
+				}
+			}
+		},
+		"player_completed_quest_ids" : {
+			
+		}	
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), add_quest)
+	assert_eq_deep(add_quest, player_quests.get_player_quests())
+	print(player_quests.get_player_quests())
+	
+	var after_quest_completed : Dictionary = {
+		"player_completed_quest_ids" : {
+			"1" : null
+		}
+	}
+	#some of these checks are kinda overkill as they are run in set quests to complete
+	assert_true(player_quests.set_quest_to_completed("1"), "1 is removed from started and moved to completed")
+	assert_false(player_quests.check_player_already_started_quest("1", player_quests.get_player_started_quests()))
+	assert_true(player_quests.check_player_already_completed_quest("1", player_quests.get_player_completed_quests()))
+	assert_false(player_quests.set_quest_to_completed("3"), "3 not in started quests so cant complete it")
+
+
+	
