@@ -24,7 +24,6 @@ func _handle_items_database_received(result, response_code, headers, body, reque
 	request.queue_free()
 	assert(data["success"] == true)
 	Logger.info("Received ITEMS DATABASE from Nakama server")
-	
 	ItemDatabase.all_item_data = data["result"]
 	Utils.convert_keys_to_int(ItemDatabase.all_item_data)
 

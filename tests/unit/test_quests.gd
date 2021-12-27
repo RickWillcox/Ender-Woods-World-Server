@@ -3,7 +3,7 @@ extends "res://addons/gut/test.gd"
 var all_quests : Dictionary = {
 		  "1": {
 			"quest_name": "I hate wet feet",
-			"npc_begins": "fisherman_bob",
+			"npc_starts": "fisherman_bob",
 			"npc_ends" : "fisherman_bob",
 			"requirements": {
 				"min_level" : 0,
@@ -12,7 +12,7 @@ var all_quests : Dictionary = {
 
 				}
 			},
-			"items_given_at_beginning_of_quest": {
+			"items_given_at_startning_of_quest": {
 
 			},
 			"item_rewards" : {
@@ -38,7 +38,7 @@ var all_quests : Dictionary = {
 		  },
 			"2": {
 				"quest_name": "Quest_2",
-				"npc_begins": "fisherman_sam",
+				"npc_starts": "fisherman_sam",
 				"npc_ends" : "fisherman_sam",
 				"requirements": {
 					"min_level" : 1,
@@ -48,7 +48,7 @@ var all_quests : Dictionary = {
 						"1" : null
 					}
 				},
-				"items_given_at_beginning_of_quest": {
+				"items_given_at_startning_of_quest": {
 
 				},
 				"item_rewards" : {
@@ -74,7 +74,7 @@ var all_quests : Dictionary = {
 			  },
 			"3": {
 			"quest_name": "Quest_3",
-			"npc_begins": "fisherman_bob",
+			"npc_starts": "fisherman_bob",
 			"npc_ends" : "fisherman_bob",
 			"requirements": {
 				"min_level" : 0,
@@ -83,7 +83,7 @@ var all_quests : Dictionary = {
 
 				}
 			},
-			"items_given_at_beginning_of_quest": {
+			"items_given_at_startning_of_quest": {
 
 			},
 			"item_rewards" : {
@@ -250,11 +250,11 @@ func test_check_requirements():
 		}
 	}
 	player_quests.set_player_quests(player_quests.get_player_quests(), player_quest_state)
-	var quests_available_to_begin : Dictionary = player_quests.check_all_quest_requirements_to_start(player_stats, all_quests)
-	assert_true(quests_available_to_begin.has("1"), "Quest can be started")
-	assert_false(quests_available_to_begin.has("2"), "Quest cannot be started because havent completed previous quests")
-	assert_false(quests_available_to_begin.has("3"), "Quest cannot be started because the player has already started that quest")
-	assert_false(quests_available_to_begin.has("999"), "Quest does not exist")
+	var quests_available_to_start : Dictionary = player_quests.check_all_quest_requirements_to_start(player_stats, all_quests)
+	assert_true(quests_available_to_start.has("1"), "Quest can be started")
+	assert_false(quests_available_to_start.has("2"), "Quest cannot be started because havent completed previous quests")
+	assert_false(quests_available_to_start.has("3"), "Quest cannot be started because the player has already started that quest")
+	assert_false(quests_available_to_start.has("999"), "Quest does not exist")
 
 func test_get_player_started_and_completed_quests():
 	var player_quests : Reference = test_set_player_quests_on_login()

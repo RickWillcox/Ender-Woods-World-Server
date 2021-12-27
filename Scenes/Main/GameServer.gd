@@ -89,6 +89,7 @@ func return_token_verification_results(player_id : int, result : bool):
 	rpc_id(player_id, "return_token_verification_results", result, player.experience, player.current_health)
 	if result == true:
 		rpc_id(player_id, "get_items_on_ground", get_node("ServerMap").get_items_on_ground())
+		send_all_quests_from_database(player_id)
 		
 		Players.initialize_player(player_id, get_node("ServerMap/YSort/Players"))
 		
@@ -132,6 +133,9 @@ func send_world_state(world_state): #in case of maps or chunks you will want to 
 
 func enemy_attack(enemy_id, attack_type):
 	rpc_id(0, "receive_enemy_attack", enemy_id, attack_type)
+
+func send_all_quests_from_database(player_id):
+	rpc_id(player_id, "receive_all_quests", AllQuests.get_all_quests())
 
 func send_player_inventory(inventory_data, session_token):
 	var player_id = session_token
