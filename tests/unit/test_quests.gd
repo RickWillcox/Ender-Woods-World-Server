@@ -717,7 +717,42 @@ func test_player_finished_tasks_for_specific_quest():
 	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
 	assert_false(player_quests.player_finished_all_tasks_for_quest("1", player_quests.get_player_quests()["player_started_quests"]))
 
+func test_player_starting_quest_from_npc():
+	var player_stats : Dictionary = {
+		"level" : 0
+	}
+	var player_quests = PlayerQuests.new()
+	var player_quest_state : Dictionary = {
+		"player_started_quests": {},
+		"player_completed_quest_ids": {}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), player_quest_state)
+	assert_eq_deep(player_quests.get_player_quests(), player_quest_state)
+
+	var npc_name := "fisherman_bob"
+	var quest_id := "1"
+	# index 0 = true/false | index 1 = reason for failure or succeed message
+	var quest_successfully_started = player_quests.set_quest_to_started(player_stats, quest_id, all_quests, npc_name)
+	assert_eq(quest_successfully_started, [true, "Player started quest"])
+
+	# Should fail this time as its already started
+	quest_successfully_started = player_quests.set_quest_to_started(player_stats, quest_id, all_quests, npc_name)
+	assert_eq(quest_successfully_started, [false, "Player has already started this quest"])
 	
+	# Should fail as player completed the quest
+	player_quests.set_quest_to_completed(quest_id)
+	assert_eq_deep(player_quests.get_player_quests()["player_completed_quest_ids"], {quest_id : null})
 	
+	quest_successfully_started = player_quests.set_quest_to_started(player_stats, quest_id, all_quests, npc_name)
+	assert_eq(quest_successfully_started, [false, "Player has completed this quest"])
 	
+	# Should fail as player tried to start quest from the wrong npc
+	quest_id = "5"
+	quest_successfully_started = player_quests.set_quest_to_started(player_stats, quest_id, all_quests, npc_name)
+	assert_eq(quest_successfully_started, [false, "Player tried to start from incorrect npc"])	
 	
+	# Should fail as player doesnt meet all the requirements, in this case hasnt completed previous quests
+	quest_id = "5"
+	npc_name = "miner_greg"
+	quest_successfully_started = player_quests.set_quest_to_started(player_stats, quest_id, all_quests, npc_name)
+	assert_eq(quest_successfully_started, [false, "Player did not meet Requirements"])	
