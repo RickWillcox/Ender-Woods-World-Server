@@ -4,8 +4,8 @@ var all_quests : Dictionary = {
   "1": {
 	"story": "Player wakes up naked on the beach, after being washed ashore. Fisherman Bob nearby offers you some help and tells you to talk to his village chief and also give him this bucket of fish as he might be able to provide you further assistance. When you talk to Beach Chief Sam he sees you are hurt and offers you some Health Potions to heal. He also takes the fish.",
 	"npc_ends": "beach_chief_sam",
-	"milestones": {},
-	"npc_begins": "fisherman_bob",
+	"tasks": {},
+	"npc_starts": "fisherman_bob",
 	"quest_name": "I hate wet feet",
 	"item_rewards": {
 	  "REPLACE_minor_health_potion_ITEM_ID": {
@@ -36,8 +36,8 @@ var all_quests : Dictionary = {
   "2": {
 	"story": "Player talks to Beach Chief Sam, Sam says all are welcome here as long as they put in their fair share of work.He tells you how he is craving some beautiful crab soup but the hunters have gone missing for weeks now and there is no one here to hunt the crabs anymore. How about you take this copper sword and go get the crab guts for me and I will return the favour by giving you some coin to get you started on your travels.",
 	"npc_ends": "beach_chief_sam",
-	"milestones": {},
-	"npc_begins": "beach_chief_sam",
+	"tasks": {},
+	"npc_starts": "beach_chief_sam",
 	"quest_name": "Crab soup",
 	"item_rewards": {
 	  "REPLACE_SILVER_COINS_ITEM_ID": {
@@ -72,8 +72,8 @@ var all_quests : Dictionary = {
   "3": {
 	"story": "Player gets told to go look for those damn miners. They haven't been back in days, things are not like they used to be around here. Player then follows the beach track over to the Miners who have a camp set up.",
 	"npc_ends": "miner_greg",
-	"milestones": {},
-	"npc_begins": "beach_chief_sam",
+	"tasks": {},
+	"npc_starts": "beach_chief_sam",
 	"quest_name": "Where are those damn miners?",
 	"item_rewards": {},
 	"requirements": {
@@ -103,8 +103,8 @@ var all_quests : Dictionary = {
   "4": {
 	"story": "Miner Greg after having read the note from Beach Chief Sam whines about how he has no idea how things work these days, “we've only been gone for a few days, cant the old bastard look after himself for a few days?”. Anyways kid, since you’re new here you are going to need some gear. I tell you what, Ill give you this copper pickaxe if you'll go get me 10 copper ore from those rocks over there. If you can do that ill give you a nice pair of boots that’ll protect ya feet from the hot sand. ",
 	"npc_ends": "miner_greg",
-	"milestones": {},
-	"npc_begins": "miner_greg",
+	"tasks": {},
+	"npc_starts": "miner_greg",
 	"quest_name": "Go hit some rocks kid!",
 	"item_rewards": {
 	  "5": {
@@ -141,8 +141,8 @@ var all_quests : Dictionary = {
   "5": {
 	"story": "Miner Greg tells you that unless you want to end up like the cranky old man (referring to Beach Chief Sam), I'd get the hell off the beach whilst you can. He says he doesn't know much about the rest of the world but his friend Travelling Vendor Robby hangs out around the crossroads selling  various goods and that you should ask him where to go next. Or do whatever you want, what do I care? The player then upon leaving the beach sees an obvious crossroads ahead where he finds Travelling Vendor Robby. Robby then offers you some items from his shop, but you can only afford to buy 1 small cooked fish. Robby scoffs at your poverty and tosses a single silver coin at your feet in disgust. ",
 	"npc_ends": "travelling_vendor_robby",
-	"milestones": {},
-	"npc_begins": "miner_greg",
+	"tasks": {},
+	"npc_starts": "miner_greg",
 	"quest_name": "These boots were made for walkin",
 	"item_rewards": {
 	  "REPLACE_SILVER_COINS_ITEM_ID": {
@@ -170,8 +170,8 @@ var all_quests : Dictionary = {
   "6": {
 	"story": "Why are you even hanging around me? Be gone. Bloody peasants wasting my time, you bloody young people and your work ethic, go get yourself a job from the Recruiter Billy in town and get your act together! Player … Player then goes to town and finds Recruiter Billy standing next to the Job Board, Billy tells you there is always work to be done and you can always find work on this Job Board. Player What do you do then? Billy: ...",
 	"npc_ends": "recruiter_billy",
-	"milestones": {},
-	"npc_begins": "travelling_vendor_robby",
+	"tasks": {},
+	"npc_starts": "travelling_vendor_robby",
 	"quest_name": "Time to make something of myself…. I guess",
 	"item_rewards": {},
 	"requirements": {
@@ -195,12 +195,12 @@ var all_quests : Dictionary = {
   "7": {
 	"story": "First Job Board quest and last in the first quest chain. Introduces the player to the job board. Kill 15 deer.",
 	"npc_ends": "ender_town_job_board",
-	"milestones": {
+	"tasks": {
 	  "enemies_left_to_kill": {
 		"deer": 15
 	  }
 	},
-	"npc_begins": "ender_town_job_board",
+	"npc_starts": "ender_town_job_board",
 	"quest_name": "Deers gotta go",
 	"item_rewards": {
 	  "REPLACE_SILVER_COINS_ITEM_ID": {
@@ -230,12 +230,12 @@ var all_quests : Dictionary = {
   "1001": {
 	"story": "Job Board repeatable quest: Kill 15 boars",
 	"npc_ends": "ender_town_job_board",
-	"milestones": {
+	"tasks": {
 	  "enemies_left_to_kill": {
 		"boar": 15
 	  }
 	},
-	"npc_begins": "ender_town_job_board",
+	"npc_starts": "ender_town_job_board",
 	"quest_name": "Hunt some Boars",
 	"item_rewards": {
 	  "REPLACE_SILVER_COINS_ITEM_ID": {
@@ -260,12 +260,12 @@ var all_quests : Dictionary = {
   "1002": {
 	"story": "Job Board repeatable quest: Kill 20 slimes",
 	"npc_ends": "ender_town_job_board",
-	"milestones": {
+	"tasks": {
 	  "enemies_left_to_kill": {
 		"slime": 20
 	  }
 	},
-	"npc_begins": "ender_town_job_board",
+	"npc_starts": "ender_town_job_board",
 	"quest_name": "Squishy Slimes",
 	"item_rewards": {
 	  "REPLACE_SILVER_COINS_ITEM_ID": {
@@ -290,8 +290,8 @@ var all_quests : Dictionary = {
   "1003": {
 	"story": "Job Board repeatable quest: Trade in 20 Boar Meat",
 	"npc_ends": "ender_town_job_board",
-	"milestones": {},
-	"npc_begins": "ender_town_job_board",
+	"tasks": {},
+	"npc_starts": "ender_town_job_board",
 	"quest_name": "Pig on a spit",
 	"item_rewards": {
 	  "REPLACE_SILVER_COINS_ITEM_ID": {
@@ -460,7 +460,7 @@ func test_check_requirements():
 		}
 	}
 	player_quests.set_player_quests(player_quests.get_player_quests(), player_quest_state)
-	var quests_available_to_start : Dictionary = player_quests.check_all_quest_requirements_to_start(player_stats, all_quests)
+	var quests_available_to_start : Dictionary = player_quests.check_all_quest_requirements_to_start(player_stats, player_quests.get_player_quests(), all_quests)
 	assert_true(quests_available_to_start.has("1"), "Quest can be started")
 	assert_false(quests_available_to_start.has("2"), "Quest cannot be started because havent completed previous quests")
 	assert_false(quests_available_to_start.has("3"), "Quest cannot be started because the player has already started that quest")
@@ -481,12 +481,12 @@ func test_check_requirements():
 		"player_completed_quest_ids": {}
 	}
 	player_quests.set_player_quests(player_quests.get_player_quests(), player_quest_state)
-	quests_available_to_start = player_quests.check_all_quest_requirements_to_start(player_stats, all_quests)
+	quests_available_to_start = player_quests.check_all_quest_requirements_to_start(player_stats, player_quests.get_player_quests(), all_quests)
 	assert_true(quests_available_to_start.has("1"), "Quest can be started")
 	assert_false(quests_available_to_start.has("2"), "Quest cannot be started because havent completed previous quests")	
 	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quest_state)
 	assert_true(player_quests.set_quest_to_completed("1"), "1 was set to completed")
-	quests_available_to_start = player_quests.check_all_quest_requirements_to_start(player_stats, all_quests)
+	quests_available_to_start = player_quests.check_all_quest_requirements_to_start(player_stats, player_quests.get_player_quests(), all_quests)
 	assert_false(quests_available_to_start.has("1"), "Quest cannot be started as it is completed")
 	assert_true(quests_available_to_start.has("2"), "Quest can be started")	
 	assert_false(quests_available_to_start.has("3"), "Quest cannot be started as player has not met requirements")
@@ -500,7 +500,7 @@ func test_check_requirements():
 	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quest_state)
 	assert_false(player_quests.set_quest_to_completed("3"), "3 cannot be set to completed")
 	assert_true(player_quests.set_quest_to_completed("2"), "2 was set to completed")
-	quests_available_to_start = player_quests.check_all_quest_requirements_to_start(player_stats, all_quests)
+	quests_available_to_start = player_quests.check_all_quest_requirements_to_start(player_stats, player_quests.get_player_quests(), all_quests)
 	assert_false(quests_available_to_start.has("1"), "1 Quest cannot be started as it is completed")
 	assert_false(quests_available_to_start.has("2"), "2 Quest cannot be started as it is completed")
 	assert_true(quests_available_to_start.has("3"), "3 Quest can be started")
@@ -562,8 +562,8 @@ func test_get_player_started_and_completed_quests():
 
 func test_get_player_completed_quests_dictionary():
 	var player_quests = PlayerQuests.new()
-	assert_eq_deep({}, player_quests.get_player_completed_quests())
-	assert_ne_deep({"Junk" : 1}, player_quests.get_player_completed_quests())
+	assert_eq_deep({}, player_quests.get_player_completed_quests(player_quests.get_player_quests()))
+	assert_ne_deep({"Junk" : 1}, player_quests.get_player_completed_quests(player_quests.get_player_quests()))
 	var player_quest_state : Dictionary = {
 		"player_started_quests": {
 			"3": {
@@ -578,13 +578,13 @@ func test_get_player_completed_quests_dictionary():
 		}
 	}
 	player_quests.set_player_quests(player_quests.get_player_quests(), player_quest_state)
-	assert_eq_deep({"4": null}, player_quests.get_player_completed_quests())
-	assert_ne_deep({}, player_quests.get_player_completed_quests())
+	assert_eq_deep({"4": null}, player_quests.get_player_completed_quests(player_quests.get_player_quests()))
+	assert_ne_deep({}, player_quests.get_player_completed_quests(player_quests.get_player_quests()))
 	
 func test_get_player_started_quests_dictionary():
 	var player_quests = PlayerQuests.new()
-	assert_eq_deep({}, player_quests.get_player_started_quests())
-	assert_ne_deep({"Junk" : 1}, player_quests.get_player_started_quests())
+	assert_eq_deep({}, player_quests.get_player_started_quests(player_quests.get_player_quests()))
+	assert_ne_deep({"Junk" : 1}, player_quests.get_player_started_quests(player_quests.get_player_quests()))
 	var player_quest_state : Dictionary = {
 		"player_started_quests": {
 			"3": {
@@ -604,8 +604,8 @@ func test_get_player_started_quests_dictionary():
 					"slimes": 20,
 					"minos" : 10
 				}
-			}}, player_quests.get_player_started_quests())
-	assert_ne_deep({}, player_quests.get_player_started_quests())
+			}}, player_quests.get_player_started_quests(player_quests.get_player_quests()))
+	assert_ne_deep({}, player_quests.get_player_started_quests(player_quests.get_player_quests()))
 
 func test_set_quest_to_completed():
 	var player_quests = PlayerQuests.new()
@@ -632,9 +632,127 @@ func test_set_quest_to_completed():
 	}
 	#some of these checks are kinda overkill as they are run in set quests to complete
 	assert_true(player_quests.set_quest_to_completed("1"), "1 is removed from started and moved to completed")
-	assert_false(player_quests.check_player_already_started_quest("1", player_quests.get_player_started_quests()))
-	assert_true(player_quests.check_player_already_completed_quest("1", player_quests.get_player_completed_quests()))
+	assert_false(player_quests.check_player_already_started_quest("1", player_quests.get_player_started_quests(player_quests.get_player_quests())))
+	assert_true(player_quests.check_player_already_completed_quest("1", player_quests.get_player_completed_quests(player_quests.get_player_quests())))
 	assert_false(player_quests.set_quest_to_completed("3"), "3 not in started quests so cant complete it")
 
-
+func test_player_finished_tasks_for_specific_quest():
+	var player_quests := PlayerQuests.new()
+	var updated_player_quests : Dictionary = {
+		"player_started_quests": {
+			"1" : {
+				"kill_enemies" : {
+					"slimes" : 0,
+					"mino" : 0,
+					"more_enemies" : {
+						"big_slime" : 0
+					}
+				},
+				"talk_to_bob" : 0
+			}
+		},
+		"player_completed_quest_ids": {}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	assert_true(player_quests.player_finished_all_tasks_for_quest("1", player_quests.get_player_quests()["player_started_quests"]))
+	assert_false(player_quests.player_finished_all_tasks_for_quest("0", player_quests.get_player_quests()["player_started_quests"]))
 	
+	player_quests = PlayerQuests.new()
+	updated_player_quests = {
+		"player_started_quests": {
+			"1" : {
+				"kill_enemies" : {
+					"slimes" : 1,
+					"mino" : 0,
+					"more_enemies" : {
+						"big_slime" : 0
+					}
+				},
+				"talk_to_bob" : 0
+			}
+		},
+		"player_completed_quest_ids": {}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	assert_false(player_quests.player_finished_all_tasks_for_quest("1", player_quests.get_player_quests()["player_started_quests"]))
+
+	player_quests = PlayerQuests.new()
+	updated_player_quests = {
+		"player_started_quests": {
+			"1" : {
+				"kill_enemies" : {
+					"slimes" : 0,
+					"mino" : 0,
+					"more_enemies" : {
+						"big_slime" : 1
+					}
+				},
+				"talk_to_bob" : 0
+			}
+		},
+		"player_completed_quest_ids": {}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	assert_false(player_quests.player_finished_all_tasks_for_quest("1", player_quests.get_player_quests()["player_started_quests"]))
+	
+	player_quests = PlayerQuests.new()
+	updated_player_quests = {
+		"player_started_quests": {
+			"1" : {
+				"kill_enemies" : {
+					"slimes" : 0,
+					"mino" : 0,
+					"more_enemies" : {
+						"big_slime" : 0
+					}
+				},
+				"talk_to_bob" : 1
+			}
+		},
+		"player_completed_quest_ids": {}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	assert_false(player_quests.player_finished_all_tasks_for_quest("1", player_quests.get_player_quests()["player_started_quests"]))
+
+func test_player_starting_quest_from_npc():
+	var player_stats : Dictionary = {
+		"level" : 0
+	}
+	var player_quests = PlayerQuests.new()
+	var player_quest_state : Dictionary = {
+		"player_started_quests": {},
+		"player_completed_quest_ids": {}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), player_quest_state)
+	assert_eq_deep(player_quests.get_player_quests(), player_quest_state)
+
+	var npc_name := "fisherman_bob"
+	var quest_id := "1"
+	# index 0 = true/false | index 1 = reason for failure or succeed message
+	var quest_successfully_started = player_quests.set_quest_to_started(player_stats, quest_id, all_quests, npc_name)
+	assert_eq(quest_successfully_started, [true, "Player started quest"])
+
+	# Should fail this time as its already started
+	quest_successfully_started = player_quests.set_quest_to_started(player_stats, quest_id, all_quests, npc_name)
+	assert_eq(quest_successfully_started, [false, "Player has already started this quest"])
+	
+	# Should fail as player completed the quest
+	player_quests.set_quest_to_completed(quest_id)
+	assert_eq_deep(player_quests.get_player_quests()["player_completed_quest_ids"], {quest_id : null})
+	
+	quest_successfully_started = player_quests.set_quest_to_started(player_stats, quest_id, all_quests, npc_name)
+	assert_eq(quest_successfully_started, [false, "Player has completed this quest"])
+	
+	# Should fail as player tried to start quest from the wrong npc
+	quest_id = "5"
+	quest_successfully_started = player_quests.set_quest_to_started(player_stats, quest_id, all_quests, npc_name)
+	assert_eq(quest_successfully_started, [false, "Player tried to start from incorrect npc"])	
+	
+	# Should fail as player doesnt meet all the requirements, in this case hasnt completed previous quests
+	quest_id = "5"
+	npc_name = "miner_greg"
+	quest_successfully_started = player_quests.set_quest_to_started(player_stats, quest_id, all_quests, npc_name)
+	assert_eq(quest_successfully_started, [false, "Player did not meet Requirements"])	
