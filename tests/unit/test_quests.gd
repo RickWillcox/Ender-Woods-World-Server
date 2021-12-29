@@ -636,6 +636,88 @@ func test_set_quest_to_completed():
 	assert_true(player_quests.check_player_already_completed_quest("1", player_quests.get_player_completed_quests(player_quests.get_player_quests())))
 	assert_false(player_quests.set_quest_to_completed("3"), "3 not in started quests so cant complete it")
 
+func test_player_finished_tasks_for_specific_quest():
+	var player_quests := PlayerQuests.new()
+	var updated_player_quests : Dictionary = {
+		"player_started_quests": {
+			"1" : {
+				"kill_enemies" : {
+					"slimes" : 0,
+					"mino" : 0,
+					"more_enemies" : {
+						"big_slime" : 0
+					}
+				},
+				"talk_to_bob" : 0
+			}
+		},
+		"player_completed_quest_ids": {}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	assert_true(player_quests.player_finished_all_tasks_for_quest("1", player_quests.get_player_quests()["player_started_quests"]))
+	assert_false(player_quests.player_finished_all_tasks_for_quest("0", player_quests.get_player_quests()["player_started_quests"]))
+	
+	player_quests = PlayerQuests.new()
+	updated_player_quests = {
+		"player_started_quests": {
+			"1" : {
+				"kill_enemies" : {
+					"slimes" : 1,
+					"mino" : 0,
+					"more_enemies" : {
+						"big_slime" : 0
+					}
+				},
+				"talk_to_bob" : 0
+			}
+		},
+		"player_completed_quest_ids": {}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	assert_false(player_quests.player_finished_all_tasks_for_quest("1", player_quests.get_player_quests()["player_started_quests"]))
 
+	player_quests = PlayerQuests.new()
+	updated_player_quests = {
+		"player_started_quests": {
+			"1" : {
+				"kill_enemies" : {
+					"slimes" : 0,
+					"mino" : 0,
+					"more_enemies" : {
+						"big_slime" : 1
+					}
+				},
+				"talk_to_bob" : 0
+			}
+		},
+		"player_completed_quest_ids": {}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	assert_false(player_quests.player_finished_all_tasks_for_quest("1", player_quests.get_player_quests()["player_started_quests"]))
+	
+	player_quests = PlayerQuests.new()
+	updated_player_quests = {
+		"player_started_quests": {
+			"1" : {
+				"kill_enemies" : {
+					"slimes" : 0,
+					"mino" : 0,
+					"more_enemies" : {
+						"big_slime" : 0
+					}
+				},
+				"talk_to_bob" : 1
+			}
+		},
+		"player_completed_quest_ids": {}
+	}
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	player_quests.set_player_quests(player_quests.get_player_quests(), updated_player_quests)
+	assert_false(player_quests.player_finished_all_tasks_for_quest("1", player_quests.get_player_quests()["player_started_quests"]))
+
+	
+	
 	
 	
