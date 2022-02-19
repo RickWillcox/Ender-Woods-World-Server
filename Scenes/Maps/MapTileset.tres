@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=13 format=2]
+[gd_resource type="TileSet" load_steps=14 format=2]
 
 [ext_resource path="res://Assets/base_textures.png" type="Texture" id=1]
 [ext_resource path="res://Assets/small_rocks.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/fences and walls.png" type="Texture" id=10]
 [ext_resource path="res://Assets/bridges & more v1.png" type="Texture" id=11]
 [ext_resource path="res://Assets/village-objects-large.png" type="Texture" id=12]
+[ext_resource path="res://Assets/spring_forest.png" type="Texture" id=13]
 
 [resource]
 26/name = "base_textures.png 26"
@@ -4543,3 +4544,45 @@
 275/shape_one_way_margin = 0.0
 275/shapes = [  ]
 275/z_index = 0
+276/name = "spring_forest.png 276"
+276/texture = ExtResource( 13 )
+276/tex_offset = Vector2( 0, 0 )
+276/modulate = Color( 1, 1, 1, 1 )
+276/region = Rect2( 0, 0, 208, 112 )
+276/tile_mode = 2
+276/autotile/icon_coordinate = Vector2( 0, 0 )
+276/autotile/tile_size = Vector2( 16, 16 )
+276/autotile/spacing = 0
+276/autotile/occluder_map = [  ]
+276/autotile/navpoly_map = [  ]
+276/autotile/priority_map = [  ]
+276/autotile/z_index_map = [  ]
+276/occluder_offset = Vector2( 0, 0 )
+276/navigation_offset = Vector2( 0, 0 )
+276/shape_offset = Vector2( 0, 0 )
+276/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+276/shape_one_way = false
+276/shape_one_way_margin = 0.0
+276/shapes = [  ]
+276/z_index = 0
+277/name = "spring_forest.png 277"
+277/texture = ExtResource( 13 )
+277/tex_offset = Vector2( 0, 0 )
+277/modulate = Color( 1, 1, 1, 1 )
+277/region = Rect2( 0, 0, 208, 224 )
+277/tile_mode = 2
+277/autotile/icon_coordinate = Vector2( 0, 0 )
+277/autotile/tile_size = Vector2( 16, 16 )
+277/autotile/spacing = 0
+277/autotile/occluder_map = [  ]
+277/autotile/navpoly_map = [  ]
+277/autotile/priority_map = [  ]
+277/autotile/z_index_map = [  ]
+277/occluder_offset = Vector2( 0, 0 )
+277/navigation_offset = Vector2( 0, 0 )
+277/shape_offset = Vector2( 0, 0 )
+277/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+277/shape_one_way = false
+277/shape_one_way_margin = 0.0
+277/shapes = [  ]
+277/z_index = 0
