@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Maps/MapTileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Assets/npcs/bc-oldman.png" type="Texture" id=2]
+[ext_resource path="res://Assets/npcs/bard.png" type="Texture" id=3]
+[ext_resource path="res://Assets/npcs/lady.png" type="Texture" id=4]
+[ext_resource path="res://Assets/npcs/lady3.png" type="Texture" id=5]
 
 [node name="NewMap" type="Node2D"]
 
@@ -25,10 +29,28 @@ format = 1
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 327712, 188, 0, 327713, 189, 0, 327717, 189, 0, 393245, 188, 0, 393252, 188, 0, 851992, 258, 0, 851995, 258, 0, 852011, 189, 0, 1179668, 254, 0, 1179695, 258, 0 )
+tile_data = PoolIntArray( -2031607, 256, 0, -1966068, 271, 0, -1769460, 275, 0, 327712, 188, 0, 327713, 189, 0, 327717, 189, 0, 393245, 188, 0, 393252, 188, 0, 851992, 258, 0, 851995, 258, 0, 852011, 189, 0, 1179668, 254, 0, 1179695, 258, 0 )
 
 [node name="ObjectsMain" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 1, 188, 0, 131117, 188, 0, 262165, 188, 0, 262201, 188, 0, 458782, 170, 0, 524314, 188, 0, 589834, 189, 0, 589863, 188, 0, 655410, 193, 0, 720904, 189, 0, 720948, 193, 0, 786477, 188, 0, 852015, 188, 0, 852021, 193, 0, 917529, 188, 0, 917531, 188, 0, 917546, 167, 0, 983064, 167, 0, 983087, 188, 0, 983097, 188, 0, 1048599, 188, 0, 1048616, 191, 0, 1048622, 188, 0, 1179688, 191, 0, 1245213, 191, 0, 1245219, 250, 0, 1310743, 189, 0, 1376304, 193, 0, 1376305, 193, 0, 1441816, 188, 0, 1441839, 193, 0, 1441840, 193, 0, 1507374, 193, 0, 1572907, 193, 0, 1572909, 193, 0, 1769478, 193, 0, 1835014, 193, 0, 1835015, 193, 0 )
+
+[node name="Npcs-Temp" type="Node2D" parent="."]
+
+[node name="BeachChief" type="Sprite" parent="Npcs-Temp"]
+position = Vector2( 608.6, 250.679 )
+texture = ExtResource( 2 )
+
+[node name="BeachChief2" type="Sprite" parent="Npcs-Temp"]
+position = Vector2( 214.213, -446.198 )
+texture = ExtResource( 3 )
+
+[node name="BeachChief3" type="Sprite" parent="Npcs-Temp"]
+position = Vector2( 450.48, 375.411 )
+texture = ExtResource( 4 )
+
+[node name="BeachChief4" type="Sprite" parent="Npcs-Temp"]
+position = Vector2( 729.868, 358.717 )
+texture = ExtResource( 5 )
