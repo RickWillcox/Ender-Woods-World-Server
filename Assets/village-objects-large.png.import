@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/grass.png-46bb554aade75a091da98570239d1507.stex"
+path="res://.import/village-objects-large.png-87375231c0b60ed76776d81ed5b26870.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/grass.png"
-dest_files=[ "res://.import/grass.png-46bb554aade75a091da98570239d1507.stex" ]
+source_file="res://Assets/village-objects-large.png"
+dest_files=[ "res://.import/village-objects-large.png-87375231c0b60ed76776d81ed5b26870.stex" ]
 
 [params]
 

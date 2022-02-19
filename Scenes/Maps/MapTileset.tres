@@ -1,23 +1,21 @@
-[gd_scene load_steps=16 format=2]
+[gd_resource type="TileSet" load_steps=13 format=2]
 
-[ext_resource path="res://Scenes/Maps/ServerMap.gd" type="Script" id=1]
-[ext_resource path="res://Assets/base_textures.png" type="Texture" id=2]
-[ext_resource path="res://Assets/small_rocks.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/Props/Ores/Ore.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/detail.png" type="Texture" id=5]
-[ext_resource path="res://Assets/big_rocks.png" type="Texture" id=6]
-[ext_resource path="res://Assets/village-objects-small.png" type="Texture" id=7]
-[ext_resource path="res://Assets/trees.png" type="Texture" id=8]
-[ext_resource path="res://Assets/cliffs.png" type="Texture" id=9]
-[ext_resource path="res://Assets/traveler's camp.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Houses.png" type="Texture" id=11]
-[ext_resource path="res://Assets/fences and walls.png" type="Texture" id=12]
-[ext_resource path="res://Assets/bridges & more v1.png" type="Texture" id=13]
-[ext_resource path="res://Assets/village-objects-large.png" type="Texture" id=14]
+[ext_resource path="res://Assets/base_textures.png" type="Texture" id=1]
+[ext_resource path="res://Assets/small_rocks.png" type="Texture" id=2]
+[ext_resource path="res://Assets/detail.png" type="Texture" id=3]
+[ext_resource path="res://Assets/big_rocks.png" type="Texture" id=4]
+[ext_resource path="res://Assets/village-objects-small.png" type="Texture" id=5]
+[ext_resource path="res://Assets/trees.png" type="Texture" id=6]
+[ext_resource path="res://Assets/cliffs.png" type="Texture" id=7]
+[ext_resource path="res://Assets/traveler's camp.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Houses.png" type="Texture" id=9]
+[ext_resource path="res://Assets/fences and walls.png" type="Texture" id=10]
+[ext_resource path="res://Assets/bridges & more v1.png" type="Texture" id=11]
+[ext_resource path="res://Assets/village-objects-large.png" type="Texture" id=12]
 
-[sub_resource type="TileSet" id=1]
+[resource]
 26/name = "base_textures.png 26"
-26/texture = ExtResource( 2 )
+26/texture = ExtResource( 1 )
 26/tex_offset = Vector2( 0, 0 )
 26/modulate = Color( 1, 1, 1, 1 )
 26/region = Rect2( 48, 0, 32, 80 )
@@ -38,7 +36,7 @@
 26/shapes = [  ]
 26/z_index = 0
 27/name = "base_textures.png 27"
-27/texture = ExtResource( 2 )
+27/texture = ExtResource( 1 )
 27/tex_offset = Vector2( 0, 0 )
 27/modulate = Color( 1, 1, 1, 1 )
 27/region = Rect2( 0, 0, 32, 80 )
@@ -59,7 +57,7 @@
 27/shapes = [  ]
 27/z_index = 0
 28/name = "base_textures.png 28"
-28/texture = ExtResource( 2 )
+28/texture = ExtResource( 1 )
 28/tex_offset = Vector2( 0, 0 )
 28/modulate = Color( 1, 1, 1, 1 )
 28/region = Rect2( 96, 0, 16, 80 )
@@ -80,7 +78,7 @@
 28/shapes = [  ]
 28/z_index = 0
 29/name = "base_textures.png 29"
-29/texture = ExtResource( 2 )
+29/texture = ExtResource( 1 )
 29/tex_offset = Vector2( 0, 0 )
 29/modulate = Color( 1, 1, 1, 1 )
 29/region = Rect2( 160, 0, 16, 80 )
@@ -101,7 +99,7 @@
 29/shapes = [  ]
 29/z_index = 0
 30/name = "base_textures.png 30"
-30/texture = ExtResource( 2 )
+30/texture = ExtResource( 1 )
 30/tex_offset = Vector2( 0, 0 )
 30/modulate = Color( 1, 1, 1, 1 )
 30/region = Rect2( 208, 0, 16, 16 )
@@ -122,7 +120,7 @@
 30/shapes = [  ]
 30/z_index = 0
 31/name = "base_textures.png 31"
-31/texture = ExtResource( 2 )
+31/texture = ExtResource( 1 )
 31/tex_offset = Vector2( 0, 0 )
 31/modulate = Color( 1, 1, 1, 1 )
 31/region = Rect2( 256, 0, 16, 80 )
@@ -143,7 +141,7 @@
 31/shapes = [  ]
 31/z_index = 0
 32/name = "base_textures.png 32"
-32/texture = ExtResource( 2 )
+32/texture = ExtResource( 1 )
 32/tex_offset = Vector2( 0, 0 )
 32/modulate = Color( 1, 1, 1, 1 )
 32/region = Rect2( 320, 0, 32, 64 )
@@ -164,7 +162,7 @@
 32/shapes = [  ]
 32/z_index = 0
 33/name = "base_textures.png 33"
-33/texture = ExtResource( 2 )
+33/texture = ExtResource( 1 )
 33/tex_offset = Vector2( 0, 0 )
 33/modulate = Color( 1, 1, 1, 1 )
 33/region = Rect2( 32, 224, 16, 16 )
@@ -185,7 +183,7 @@
 33/shapes = [  ]
 33/z_index = 0
 34/name = "base_textures.png 34"
-34/texture = ExtResource( 2 )
+34/texture = ExtResource( 1 )
 34/tex_offset = Vector2( 0, 0 )
 34/modulate = Color( 1, 1, 1, 1 )
 34/region = Rect2( 96, 224, 80, 80 )
@@ -206,7 +204,7 @@
 34/shapes = [  ]
 34/z_index = 0
 35/name = "base_textures.png 35"
-35/texture = ExtResource( 2 )
+35/texture = ExtResource( 1 )
 35/tex_offset = Vector2( 0, 0 )
 35/modulate = Color( 1, 1, 1, 1 )
 35/region = Rect2( 192, 224, 80, 80 )
@@ -227,7 +225,7 @@
 35/shapes = [  ]
 35/z_index = 0
 36/name = "base_textures.png 36"
-36/texture = ExtResource( 2 )
+36/texture = ExtResource( 1 )
 36/tex_offset = Vector2( 0, 0 )
 36/modulate = Color( 1, 1, 1, 1 )
 36/region = Rect2( 288, 224, 80, 80 )
@@ -248,7 +246,7 @@
 36/shapes = [  ]
 36/z_index = 0
 37/name = "base_textures.png 37"
-37/texture = ExtResource( 2 )
+37/texture = ExtResource( 1 )
 37/tex_offset = Vector2( 0, 0 )
 37/modulate = Color( 1, 1, 1, 1 )
 37/region = Rect2( 384, 224, 80, 80 )
@@ -269,7 +267,7 @@
 37/shapes = [  ]
 37/z_index = 0
 38/name = "base_textures.png 38"
-38/texture = ExtResource( 2 )
+38/texture = ExtResource( 1 )
 38/tex_offset = Vector2( 0, 0 )
 38/modulate = Color( 1, 1, 1, 1 )
 38/region = Rect2( 480, 224, 80, 80 )
@@ -290,7 +288,7 @@
 38/shapes = [  ]
 38/z_index = 0
 39/name = "base_textures.png 39"
-39/texture = ExtResource( 2 )
+39/texture = ExtResource( 1 )
 39/tex_offset = Vector2( 0, 0 )
 39/modulate = Color( 1, 1, 1, 1 )
 39/region = Rect2( 0, 224, 80, 80 )
@@ -311,7 +309,7 @@
 39/shapes = [  ]
 39/z_index = 0
 40/name = "base_textures.png 40"
-40/texture = ExtResource( 2 )
+40/texture = ExtResource( 1 )
 40/tex_offset = Vector2( 0, 0 )
 40/modulate = Color( 1, 1, 1, 1 )
 40/region = Rect2( 0, 336, 48, 48 )
@@ -332,7 +330,7 @@
 40/shapes = [  ]
 40/z_index = 0
 41/name = "base_textures.png 41"
-41/texture = ExtResource( 2 )
+41/texture = ExtResource( 1 )
 41/tex_offset = Vector2( 0, 0 )
 41/modulate = Color( 1, 1, 1, 1 )
 41/region = Rect2( 64, 336, 48, 48 )
@@ -353,7 +351,7 @@
 41/shapes = [  ]
 41/z_index = 0
 42/name = "base_textures.png 42"
-42/texture = ExtResource( 2 )
+42/texture = ExtResource( 1 )
 42/tex_offset = Vector2( 0, 0 )
 42/modulate = Color( 1, 1, 1, 1 )
 42/region = Rect2( 128, 336, 48, 48 )
@@ -374,7 +372,7 @@
 42/shapes = [  ]
 42/z_index = 0
 43/name = "base_textures.png 43"
-43/texture = ExtResource( 2 )
+43/texture = ExtResource( 1 )
 43/tex_offset = Vector2( 0, 0 )
 43/modulate = Color( 1, 1, 1, 1 )
 43/region = Rect2( 192, 336, 48, 48 )
@@ -395,7 +393,7 @@
 43/shapes = [  ]
 43/z_index = 0
 44/name = "base_textures.png 44"
-44/texture = ExtResource( 2 )
+44/texture = ExtResource( 1 )
 44/tex_offset = Vector2( 0, 0 )
 44/modulate = Color( 1, 1, 1, 1 )
 44/region = Rect2( 256, 336, 48, 48 )
@@ -416,7 +414,7 @@
 44/shapes = [  ]
 44/z_index = 0
 45/name = "base_textures.png 45"
-45/texture = ExtResource( 2 )
+45/texture = ExtResource( 1 )
 45/tex_offset = Vector2( 0, 0 )
 45/modulate = Color( 1, 1, 1, 1 )
 45/region = Rect2( 0, 400, 48, 48 )
@@ -437,7 +435,7 @@
 45/shapes = [  ]
 45/z_index = 0
 46/name = "base_textures.png 46"
-46/texture = ExtResource( 2 )
+46/texture = ExtResource( 1 )
 46/tex_offset = Vector2( 0, 0 )
 46/modulate = Color( 1, 1, 1, 1 )
 46/region = Rect2( 64, 400, 48, 48 )
@@ -458,7 +456,7 @@
 46/shapes = [  ]
 46/z_index = 0
 47/name = "base_textures.png 47"
-47/texture = ExtResource( 2 )
+47/texture = ExtResource( 1 )
 47/tex_offset = Vector2( 0, 0 )
 47/modulate = Color( 1, 1, 1, 1 )
 47/region = Rect2( 128, 400, 48, 48 )
@@ -479,7 +477,7 @@
 47/shapes = [  ]
 47/z_index = 0
 48/name = "base_textures.png 48"
-48/texture = ExtResource( 2 )
+48/texture = ExtResource( 1 )
 48/tex_offset = Vector2( 0, 0 )
 48/modulate = Color( 1, 1, 1, 1 )
 48/region = Rect2( 192, 400, 48, 48 )
@@ -500,7 +498,7 @@
 48/shapes = [  ]
 48/z_index = 0
 49/name = "base_textures.png 49"
-49/texture = ExtResource( 2 )
+49/texture = ExtResource( 1 )
 49/tex_offset = Vector2( 0, 0 )
 49/modulate = Color( 1, 1, 1, 1 )
 49/region = Rect2( 256, 400, 48, 48 )
@@ -521,7 +519,7 @@
 49/shapes = [  ]
 49/z_index = 0
 50/name = "base_textures.png 50"
-50/texture = ExtResource( 2 )
+50/texture = ExtResource( 1 )
 50/tex_offset = Vector2( 0, 0 )
 50/modulate = Color( 1, 1, 1, 1 )
 50/region = Rect2( 320, 400, 48, 48 )
@@ -542,7 +540,7 @@
 50/shapes = [  ]
 50/z_index = 0
 51/name = "base_textures.png 51"
-51/texture = ExtResource( 2 )
+51/texture = ExtResource( 1 )
 51/tex_offset = Vector2( 0, 0 )
 51/modulate = Color( 1, 1, 1, 1 )
 51/region = Rect2( 384, 368, 64, 96 )
@@ -563,7 +561,7 @@
 51/shapes = [  ]
 51/z_index = 0
 52/name = "base_textures.png 52"
-52/texture = ExtResource( 2 )
+52/texture = ExtResource( 1 )
 52/tex_offset = Vector2( 0, 0 )
 52/modulate = Color( 1, 1, 1, 1 )
 52/region = Rect2( 448, 448, 32, 32 )
@@ -584,7 +582,7 @@
 52/shapes = [  ]
 52/z_index = 0
 53/name = "base_textures.png 53"
-53/texture = ExtResource( 2 )
+53/texture = ExtResource( 1 )
 53/tex_offset = Vector2( 0, 0 )
 53/modulate = Color( 1, 1, 1, 1 )
 53/region = Rect2( 496, 416, 48, 48 )
@@ -605,7 +603,7 @@
 53/shapes = [  ]
 53/z_index = 0
 54/name = "base_textures.png 54"
-54/texture = ExtResource( 2 )
+54/texture = ExtResource( 1 )
 54/tex_offset = Vector2( 0, 0 )
 54/modulate = Color( 1, 1, 1, 1 )
 54/region = Rect2( 560, 416, 48, 48 )
@@ -626,7 +624,7 @@
 54/shapes = [  ]
 54/z_index = 0
 55/name = "base_textures.png 55"
-55/texture = ExtResource( 2 )
+55/texture = ExtResource( 1 )
 55/tex_offset = Vector2( 0, 0 )
 55/modulate = Color( 1, 1, 1, 1 )
 55/region = Rect2( 624, 416, 48, 48 )
@@ -647,7 +645,7 @@
 55/shapes = [  ]
 55/z_index = 0
 56/name = "base_textures.png 56"
-56/texture = ExtResource( 2 )
+56/texture = ExtResource( 1 )
 56/tex_offset = Vector2( 0, 0 )
 56/modulate = Color( 1, 1, 1, 1 )
 56/region = Rect2( 0, 464, 32, 32 )
@@ -668,7 +666,7 @@
 56/shapes = [  ]
 56/z_index = 0
 57/name = "base_textures.png 57"
-57/texture = ExtResource( 2 )
+57/texture = ExtResource( 1 )
 57/tex_offset = Vector2( 0, 0 )
 57/modulate = Color( 1, 1, 1, 1 )
 57/region = Rect2( 48, 464, 32, 32 )
@@ -689,7 +687,7 @@
 57/shapes = [  ]
 57/z_index = 0
 58/name = "base_textures.png 58"
-58/texture = ExtResource( 2 )
+58/texture = ExtResource( 1 )
 58/tex_offset = Vector2( 0, 0 )
 58/modulate = Color( 1, 1, 1, 1 )
 58/region = Rect2( 96, 464, 32, 32 )
@@ -710,7 +708,7 @@
 58/shapes = [  ]
 58/z_index = 0
 59/name = "base_textures.png 59"
-59/texture = ExtResource( 2 )
+59/texture = ExtResource( 1 )
 59/tex_offset = Vector2( 0, 0 )
 59/modulate = Color( 1, 1, 1, 1 )
 59/region = Rect2( 96, 464, 32, 32 )
@@ -731,7 +729,7 @@
 59/shapes = [  ]
 59/z_index = 0
 60/name = "base_textures.png 60"
-60/texture = ExtResource( 2 )
+60/texture = ExtResource( 1 )
 60/tex_offset = Vector2( 0, 0 )
 60/modulate = Color( 1, 1, 1, 1 )
 60/region = Rect2( 0, 512, 48, 48 )
@@ -752,7 +750,7 @@
 60/shapes = [  ]
 60/z_index = 0
 61/name = "base_textures.png 61"
-61/texture = ExtResource( 2 )
+61/texture = ExtResource( 1 )
 61/tex_offset = Vector2( 0, 0 )
 61/modulate = Color( 1, 1, 1, 1 )
 61/region = Rect2( 64, 512, 48, 48 )
@@ -773,7 +771,7 @@
 61/shapes = [  ]
 61/z_index = 0
 62/name = "base_textures.png 62"
-62/texture = ExtResource( 2 )
+62/texture = ExtResource( 1 )
 62/tex_offset = Vector2( 0, 0 )
 62/modulate = Color( 1, 1, 1, 1 )
 62/region = Rect2( 128, 512, 48, 48 )
@@ -794,7 +792,7 @@
 62/shapes = [  ]
 62/z_index = 0
 63/name = "base_textures.png 63"
-63/texture = ExtResource( 2 )
+63/texture = ExtResource( 1 )
 63/tex_offset = Vector2( 0, 0 )
 63/modulate = Color( 1, 1, 1, 1 )
 63/region = Rect2( 192, 512, 48, 48 )
@@ -815,7 +813,7 @@
 63/shapes = [  ]
 63/z_index = 0
 64/name = "base_textures.png 64"
-64/texture = ExtResource( 2 )
+64/texture = ExtResource( 1 )
 64/tex_offset = Vector2( 0, 0 )
 64/modulate = Color( 1, 1, 1, 1 )
 64/region = Rect2( 256, 512, 48, 48 )
@@ -836,7 +834,7 @@
 64/shapes = [  ]
 64/z_index = 0
 65/name = "base_textures.png 65"
-65/texture = ExtResource( 2 )
+65/texture = ExtResource( 1 )
 65/tex_offset = Vector2( 0, 0 )
 65/modulate = Color( 1, 1, 1, 1 )
 65/region = Rect2( 320, 512, 48, 48 )
@@ -857,7 +855,7 @@
 65/shapes = [  ]
 65/z_index = 0
 66/name = "base_textures.png 66"
-66/texture = ExtResource( 2 )
+66/texture = ExtResource( 1 )
 66/tex_offset = Vector2( 0, 0 )
 66/modulate = Color( 1, 1, 1, 1 )
 66/region = Rect2( 384, 512, 48, 48 )
@@ -878,7 +876,7 @@
 66/shapes = [  ]
 66/z_index = 0
 67/name = "base_textures.png 67"
-67/texture = ExtResource( 2 )
+67/texture = ExtResource( 1 )
 67/tex_offset = Vector2( 0, 0 )
 67/modulate = Color( 1, 1, 1, 1 )
 67/region = Rect2( 448, 512, 48, 48 )
@@ -899,7 +897,7 @@
 67/shapes = [  ]
 67/z_index = 0
 68/name = "base_textures.png 68"
-68/texture = ExtResource( 2 )
+68/texture = ExtResource( 1 )
 68/tex_offset = Vector2( 0, 0 )
 68/modulate = Color( 1, 1, 1, 1 )
 68/region = Rect2( 64, 576, 48, 48 )
@@ -920,7 +918,7 @@
 68/shapes = [  ]
 68/z_index = 0
 69/name = "base_textures.png 69"
-69/texture = ExtResource( 2 )
+69/texture = ExtResource( 1 )
 69/tex_offset = Vector2( 0, 0 )
 69/modulate = Color( 1, 1, 1, 1 )
 69/region = Rect2( 128, 576, 48, 48 )
@@ -941,7 +939,7 @@
 69/shapes = [  ]
 69/z_index = 0
 70/name = "base_textures.png 70"
-70/texture = ExtResource( 2 )
+70/texture = ExtResource( 1 )
 70/tex_offset = Vector2( 0, 0 )
 70/modulate = Color( 1, 1, 1, 1 )
 70/region = Rect2( 192, 576, 48, 48 )
@@ -962,7 +960,7 @@
 70/shapes = [  ]
 70/z_index = 0
 71/name = "base_textures.png 71"
-71/texture = ExtResource( 2 )
+71/texture = ExtResource( 1 )
 71/tex_offset = Vector2( 0, 0 )
 71/modulate = Color( 1, 1, 1, 1 )
 71/region = Rect2( 256, 576, 48, 48 )
@@ -983,7 +981,7 @@
 71/shapes = [  ]
 71/z_index = 0
 72/name = "base_textures.png 72"
-72/texture = ExtResource( 2 )
+72/texture = ExtResource( 1 )
 72/tex_offset = Vector2( 0, 0 )
 72/modulate = Color( 1, 1, 1, 1 )
 72/region = Rect2( 320, 576, 48, 48 )
@@ -1004,7 +1002,7 @@
 72/shapes = [  ]
 72/z_index = 0
 73/name = "base_textures.png 73"
-73/texture = ExtResource( 2 )
+73/texture = ExtResource( 1 )
 73/tex_offset = Vector2( 0, 0 )
 73/modulate = Color( 1, 1, 1, 1 )
 73/region = Rect2( 384, 576, 48, 48 )
@@ -1025,7 +1023,7 @@
 73/shapes = [  ]
 73/z_index = 0
 74/name = "base_textures.png 74"
-74/texture = ExtResource( 2 )
+74/texture = ExtResource( 1 )
 74/tex_offset = Vector2( 0, 0 )
 74/modulate = Color( 1, 1, 1, 1 )
 74/region = Rect2( 448, 576, 48, 48 )
@@ -1046,7 +1044,7 @@
 74/shapes = [  ]
 74/z_index = 0
 75/name = "base_textures.png 75"
-75/texture = ExtResource( 2 )
+75/texture = ExtResource( 1 )
 75/tex_offset = Vector2( 0, 0 )
 75/modulate = Color( 1, 1, 1, 1 )
 75/region = Rect2( 0, 640, 48, 48 )
@@ -1067,7 +1065,7 @@
 75/shapes = [  ]
 75/z_index = 0
 76/name = "base_textures.png 76"
-76/texture = ExtResource( 2 )
+76/texture = ExtResource( 1 )
 76/tex_offset = Vector2( 0, 0 )
 76/modulate = Color( 1, 1, 1, 1 )
 76/region = Rect2( 64, 640, 48, 48 )
@@ -1088,7 +1086,7 @@
 76/shapes = [  ]
 76/z_index = 0
 77/name = "base_textures.png 77"
-77/texture = ExtResource( 2 )
+77/texture = ExtResource( 1 )
 77/tex_offset = Vector2( 0, 0 )
 77/modulate = Color( 1, 1, 1, 1 )
 77/region = Rect2( 128, 640, 48, 48 )
@@ -1109,7 +1107,7 @@
 77/shapes = [  ]
 77/z_index = 0
 78/name = "base_textures.png 78"
-78/texture = ExtResource( 2 )
+78/texture = ExtResource( 1 )
 78/tex_offset = Vector2( 0, 0 )
 78/modulate = Color( 1, 1, 1, 1 )
 78/region = Rect2( 192, 640, 48, 48 )
@@ -1130,7 +1128,7 @@
 78/shapes = [  ]
 78/z_index = 0
 79/name = "base_textures.png 79"
-79/texture = ExtResource( 2 )
+79/texture = ExtResource( 1 )
 79/tex_offset = Vector2( 0, 0 )
 79/modulate = Color( 1, 1, 1, 1 )
 79/region = Rect2( 256, 640, 48, 48 )
@@ -1151,7 +1149,7 @@
 79/shapes = [  ]
 79/z_index = 0
 80/name = "base_textures.png 80"
-80/texture = ExtResource( 2 )
+80/texture = ExtResource( 1 )
 80/tex_offset = Vector2( 0, 0 )
 80/modulate = Color( 1, 1, 1, 1 )
 80/region = Rect2( 320, 640, 48, 48 )
@@ -1172,7 +1170,7 @@
 80/shapes = [  ]
 80/z_index = 0
 81/name = "base_textures.png 81"
-81/texture = ExtResource( 2 )
+81/texture = ExtResource( 1 )
 81/tex_offset = Vector2( 0, 0 )
 81/modulate = Color( 1, 1, 1, 1 )
 81/region = Rect2( 384, 640, 48, 48 )
@@ -1193,7 +1191,7 @@
 81/shapes = [  ]
 81/z_index = 0
 82/name = "base_textures.png 82"
-82/texture = ExtResource( 2 )
+82/texture = ExtResource( 1 )
 82/tex_offset = Vector2( 0, 0 )
 82/modulate = Color( 1, 1, 1, 1 )
 82/region = Rect2( 448, 640, 48, 48 )
@@ -1214,7 +1212,7 @@
 82/shapes = [  ]
 82/z_index = 0
 83/name = "base_textures.png 83"
-83/texture = ExtResource( 2 )
+83/texture = ExtResource( 1 )
 83/tex_offset = Vector2( 0, 0 )
 83/modulate = Color( 1, 1, 1, 1 )
 83/region = Rect2( 0, 704, 48, 48 )
@@ -1235,7 +1233,7 @@
 83/shapes = [  ]
 83/z_index = 0
 84/name = "base_textures.png 84"
-84/texture = ExtResource( 2 )
+84/texture = ExtResource( 1 )
 84/tex_offset = Vector2( 0, 0 )
 84/modulate = Color( 1, 1, 1, 1 )
 84/region = Rect2( 64, 704, 48, 48 )
@@ -1256,7 +1254,7 @@
 84/shapes = [  ]
 84/z_index = 0
 85/name = "base_textures.png 85"
-85/texture = ExtResource( 2 )
+85/texture = ExtResource( 1 )
 85/tex_offset = Vector2( 0, 0 )
 85/modulate = Color( 1, 1, 1, 1 )
 85/region = Rect2( 128, 704, 48, 48 )
@@ -1277,7 +1275,7 @@
 85/shapes = [  ]
 85/z_index = 0
 86/name = "base_textures.png 86"
-86/texture = ExtResource( 2 )
+86/texture = ExtResource( 1 )
 86/tex_offset = Vector2( 0, 0 )
 86/modulate = Color( 1, 1, 1, 1 )
 86/region = Rect2( 192, 704, 48, 48 )
@@ -1298,7 +1296,7 @@
 86/shapes = [  ]
 86/z_index = 0
 87/name = "base_textures.png 87"
-87/texture = ExtResource( 2 )
+87/texture = ExtResource( 1 )
 87/tex_offset = Vector2( 0, 0 )
 87/modulate = Color( 1, 1, 1, 1 )
 87/region = Rect2( 256, 704, 48, 48 )
@@ -1319,7 +1317,7 @@
 87/shapes = [  ]
 87/z_index = 0
 88/name = "base_textures.png 88"
-88/texture = ExtResource( 2 )
+88/texture = ExtResource( 1 )
 88/tex_offset = Vector2( 0, 0 )
 88/modulate = Color( 1, 1, 1, 1 )
 88/region = Rect2( 320, 704, 48, 48 )
@@ -1340,7 +1338,7 @@
 88/shapes = [  ]
 88/z_index = 0
 89/name = "base_textures.png 89"
-89/texture = ExtResource( 2 )
+89/texture = ExtResource( 1 )
 89/tex_offset = Vector2( 0, 0 )
 89/modulate = Color( 1, 1, 1, 1 )
 89/region = Rect2( 384, 704, 48, 48 )
@@ -1361,7 +1359,7 @@
 89/shapes = [  ]
 89/z_index = 0
 90/name = "base_textures.png 90"
-90/texture = ExtResource( 2 )
+90/texture = ExtResource( 1 )
 90/tex_offset = Vector2( 0, 0 )
 90/modulate = Color( 1, 1, 1, 1 )
 90/region = Rect2( 448, 704, 48, 48 )
@@ -1382,7 +1380,7 @@
 90/shapes = [  ]
 90/z_index = 0
 91/name = "base_textures.png 91"
-91/texture = ExtResource( 2 )
+91/texture = ExtResource( 1 )
 91/tex_offset = Vector2( 0, 0 )
 91/modulate = Color( 1, 1, 1, 1 )
 91/region = Rect2( 0, 768, 48, 48 )
@@ -1403,7 +1401,7 @@
 91/shapes = [  ]
 91/z_index = 0
 92/name = "base_textures.png 92"
-92/texture = ExtResource( 2 )
+92/texture = ExtResource( 1 )
 92/tex_offset = Vector2( 0, 0 )
 92/modulate = Color( 1, 1, 1, 1 )
 92/region = Rect2( 64, 768, 48, 48 )
@@ -1424,7 +1422,7 @@
 92/shapes = [  ]
 92/z_index = 0
 93/name = "base_textures.png 93"
-93/texture = ExtResource( 2 )
+93/texture = ExtResource( 1 )
 93/tex_offset = Vector2( 0, 0 )
 93/modulate = Color( 1, 1, 1, 1 )
 93/region = Rect2( 128, 768, 48, 48 )
@@ -1445,7 +1443,7 @@
 93/shapes = [  ]
 93/z_index = 0
 94/name = "base_textures.png 94"
-94/texture = ExtResource( 2 )
+94/texture = ExtResource( 1 )
 94/tex_offset = Vector2( 0, 0 )
 94/modulate = Color( 1, 1, 1, 1 )
 94/region = Rect2( 192, 768, 48, 48 )
@@ -1466,7 +1464,7 @@
 94/shapes = [  ]
 94/z_index = 0
 95/name = "base_textures.png 95"
-95/texture = ExtResource( 2 )
+95/texture = ExtResource( 1 )
 95/tex_offset = Vector2( 0, 0 )
 95/modulate = Color( 1, 1, 1, 1 )
 95/region = Rect2( 256, 768, 48, 48 )
@@ -1487,7 +1485,7 @@
 95/shapes = [  ]
 95/z_index = 0
 96/name = "base_textures.png 96"
-96/texture = ExtResource( 2 )
+96/texture = ExtResource( 1 )
 96/tex_offset = Vector2( 0, 0 )
 96/modulate = Color( 1, 1, 1, 1 )
 96/region = Rect2( 320, 768, 48, 48 )
@@ -1508,7 +1506,7 @@
 96/shapes = [  ]
 96/z_index = 0
 97/name = "base_textures.png 97"
-97/texture = ExtResource( 2 )
+97/texture = ExtResource( 1 )
 97/tex_offset = Vector2( 0, 0 )
 97/modulate = Color( 1, 1, 1, 1 )
 97/region = Rect2( 384, 768, 48, 48 )
@@ -1529,7 +1527,7 @@
 97/shapes = [  ]
 97/z_index = 0
 98/name = "base_textures.png 98"
-98/texture = ExtResource( 2 )
+98/texture = ExtResource( 1 )
 98/tex_offset = Vector2( 0, 0 )
 98/modulate = Color( 1, 1, 1, 1 )
 98/region = Rect2( 448, 768, 48, 48 )
@@ -1550,7 +1548,7 @@
 98/shapes = [  ]
 98/z_index = 0
 99/name = "base_textures.png 99"
-99/texture = ExtResource( 2 )
+99/texture = ExtResource( 1 )
 99/tex_offset = Vector2( 0, 0 )
 99/modulate = Color( 1, 1, 1, 1 )
 99/region = Rect2( 0, 832, 32, 48 )
@@ -1571,7 +1569,7 @@
 99/shapes = [  ]
 99/z_index = 0
 100/name = "base_textures.png 100"
-100/texture = ExtResource( 2 )
+100/texture = ExtResource( 1 )
 100/tex_offset = Vector2( 0, 0 )
 100/modulate = Color( 1, 1, 1, 1 )
 100/region = Rect2( 0, 832, 48, 48 )
@@ -1592,7 +1590,7 @@
 100/shapes = [  ]
 100/z_index = 0
 101/name = "base_textures.png 101"
-101/texture = ExtResource( 2 )
+101/texture = ExtResource( 1 )
 101/tex_offset = Vector2( 0, 0 )
 101/modulate = Color( 1, 1, 1, 1 )
 101/region = Rect2( 64, 832, 48, 48 )
@@ -1613,7 +1611,7 @@
 101/shapes = [  ]
 101/z_index = 0
 102/name = "base_textures.png 102"
-102/texture = ExtResource( 2 )
+102/texture = ExtResource( 1 )
 102/tex_offset = Vector2( 0, 0 )
 102/modulate = Color( 1, 1, 1, 1 )
 102/region = Rect2( 128, 832, 48, 48 )
@@ -1634,7 +1632,7 @@
 102/shapes = [  ]
 102/z_index = 0
 103/name = "base_textures.png 103"
-103/texture = ExtResource( 2 )
+103/texture = ExtResource( 1 )
 103/tex_offset = Vector2( 0, 0 )
 103/modulate = Color( 1, 1, 1, 1 )
 103/region = Rect2( 192, 832, 48, 48 )
@@ -1655,7 +1653,7 @@
 103/shapes = [  ]
 103/z_index = 0
 104/name = "base_textures.png 104"
-104/texture = ExtResource( 2 )
+104/texture = ExtResource( 1 )
 104/tex_offset = Vector2( 0, 0 )
 104/modulate = Color( 1, 1, 1, 1 )
 104/region = Rect2( 256, 832, 48, 48 )
@@ -1676,7 +1674,7 @@
 104/shapes = [  ]
 104/z_index = 0
 105/name = "base_textures.png 105"
-105/texture = ExtResource( 2 )
+105/texture = ExtResource( 1 )
 105/tex_offset = Vector2( 0, 0 )
 105/modulate = Color( 1, 1, 1, 1 )
 105/region = Rect2( 320, 832, 48, 48 )
@@ -1697,7 +1695,7 @@
 105/shapes = [  ]
 105/z_index = 0
 106/name = "base_textures.png 106"
-106/texture = ExtResource( 2 )
+106/texture = ExtResource( 1 )
 106/tex_offset = Vector2( 0, 0 )
 106/modulate = Color( 1, 1, 1, 1 )
 106/region = Rect2( 384, 832, 48, 48 )
@@ -1718,7 +1716,7 @@
 106/shapes = [  ]
 106/z_index = 0
 107/name = "base_textures.png 107"
-107/texture = ExtResource( 2 )
+107/texture = ExtResource( 1 )
 107/tex_offset = Vector2( 0, 0 )
 107/modulate = Color( 1, 1, 1, 1 )
 107/region = Rect2( 448, 832, 48, 48 )
@@ -1739,7 +1737,7 @@
 107/shapes = [  ]
 107/z_index = 0
 108/name = "base_textures.png 108"
-108/texture = ExtResource( 2 )
+108/texture = ExtResource( 1 )
 108/tex_offset = Vector2( 0, 0 )
 108/modulate = Color( 1, 1, 1, 1 )
 108/region = Rect2( 0, 896, 48, 48 )
@@ -1760,7 +1758,7 @@
 108/shapes = [  ]
 108/z_index = 0
 109/name = "base_textures.png 109"
-109/texture = ExtResource( 2 )
+109/texture = ExtResource( 1 )
 109/tex_offset = Vector2( 0, 0 )
 109/modulate = Color( 1, 1, 1, 1 )
 109/region = Rect2( 64, 896, 48, 48 )
@@ -1781,7 +1779,7 @@
 109/shapes = [  ]
 109/z_index = 0
 110/name = "base_textures.png 110"
-110/texture = ExtResource( 2 )
+110/texture = ExtResource( 1 )
 110/tex_offset = Vector2( 0, 0 )
 110/modulate = Color( 1, 1, 1, 1 )
 110/region = Rect2( 128, 896, 48, 48 )
@@ -1802,7 +1800,7 @@
 110/shapes = [  ]
 110/z_index = 0
 111/name = "base_textures.png 111"
-111/texture = ExtResource( 2 )
+111/texture = ExtResource( 1 )
 111/tex_offset = Vector2( 0, 0 )
 111/modulate = Color( 1, 1, 1, 1 )
 111/region = Rect2( 192, 896, 48, 48 )
@@ -1823,7 +1821,7 @@
 111/shapes = [  ]
 111/z_index = 0
 112/name = "base_textures.png 112"
-112/texture = ExtResource( 2 )
+112/texture = ExtResource( 1 )
 112/tex_offset = Vector2( 0, 0 )
 112/modulate = Color( 1, 1, 1, 1 )
 112/region = Rect2( 256, 896, 48, 48 )
@@ -1844,7 +1842,7 @@
 112/shapes = [  ]
 112/z_index = 0
 113/name = "base_textures.png 113"
-113/texture = ExtResource( 2 )
+113/texture = ExtResource( 1 )
 113/tex_offset = Vector2( 0, 0 )
 113/modulate = Color( 1, 1, 1, 1 )
 113/region = Rect2( 384, 896, 48, 48 )
@@ -1865,7 +1863,7 @@
 113/shapes = [  ]
 113/z_index = 0
 114/name = "base_textures.png 114"
-114/texture = ExtResource( 2 )
+114/texture = ExtResource( 1 )
 114/tex_offset = Vector2( 0, 0 )
 114/modulate = Color( 1, 1, 1, 1 )
 114/region = Rect2( 448, 896, 48, 48 )
@@ -1886,7 +1884,7 @@
 114/shapes = [  ]
 114/z_index = 0
 115/name = "base_textures.png 115"
-115/texture = ExtResource( 2 )
+115/texture = ExtResource( 1 )
 115/tex_offset = Vector2( 0, 0 )
 115/modulate = Color( 1, 1, 1, 1 )
 115/region = Rect2( 0, 960, 48, 48 )
@@ -1907,7 +1905,7 @@
 115/shapes = [  ]
 115/z_index = 0
 116/name = "base_textures.png 116"
-116/texture = ExtResource( 2 )
+116/texture = ExtResource( 1 )
 116/tex_offset = Vector2( 0, 0 )
 116/modulate = Color( 1, 1, 1, 1 )
 116/region = Rect2( 64, 960, 48, 48 )
@@ -1928,7 +1926,7 @@
 116/shapes = [  ]
 116/z_index = 0
 117/name = "base_textures.png 117"
-117/texture = ExtResource( 2 )
+117/texture = ExtResource( 1 )
 117/tex_offset = Vector2( 0, 0 )
 117/modulate = Color( 1, 1, 1, 1 )
 117/region = Rect2( 128, 960, 48, 48 )
@@ -1949,7 +1947,7 @@
 117/shapes = [  ]
 117/z_index = 0
 118/name = "base_textures.png 118"
-118/texture = ExtResource( 2 )
+118/texture = ExtResource( 1 )
 118/tex_offset = Vector2( 0, 0 )
 118/modulate = Color( 1, 1, 1, 1 )
 118/region = Rect2( 192, 960, 48, 48 )
@@ -1970,7 +1968,7 @@
 118/shapes = [  ]
 118/z_index = 0
 119/name = "base_textures.png 119"
-119/texture = ExtResource( 2 )
+119/texture = ExtResource( 1 )
 119/tex_offset = Vector2( 0, 0 )
 119/modulate = Color( 1, 1, 1, 1 )
 119/region = Rect2( 256, 960, 48, 48 )
@@ -1991,7 +1989,7 @@
 119/shapes = [  ]
 119/z_index = 0
 120/name = "base_textures.png 120"
-120/texture = ExtResource( 2 )
+120/texture = ExtResource( 1 )
 120/tex_offset = Vector2( 0, 0 )
 120/modulate = Color( 1, 1, 1, 1 )
 120/region = Rect2( 320, 960, 48, 48 )
@@ -2012,7 +2010,7 @@
 120/shapes = [  ]
 120/z_index = 0
 121/name = "base_textures.png 121"
-121/texture = ExtResource( 2 )
+121/texture = ExtResource( 1 )
 121/tex_offset = Vector2( 0, 0 )
 121/modulate = Color( 1, 1, 1, 1 )
 121/region = Rect2( 384, 960, 48, 48 )
@@ -2033,7 +2031,7 @@
 121/shapes = [  ]
 121/z_index = 0
 122/name = "base_textures.png 122"
-122/texture = ExtResource( 2 )
+122/texture = ExtResource( 1 )
 122/tex_offset = Vector2( 0, 0 )
 122/modulate = Color( 1, 1, 1, 1 )
 122/region = Rect2( 448, 960, 48, 48 )
@@ -2054,7 +2052,7 @@
 122/shapes = [  ]
 122/z_index = 0
 123/name = "traveler's camp.png 123"
-123/texture = ExtResource( 10 )
+123/texture = ExtResource( 8 )
 123/tex_offset = Vector2( 0, 0 )
 123/modulate = Color( 1, 1, 1, 1 )
 123/region = Rect2( 96, 0, 32, 32 )
@@ -2068,7 +2066,7 @@
 123/shapes = [  ]
 123/z_index = 0
 124/name = "traveler's camp.png 124"
-124/texture = ExtResource( 10 )
+124/texture = ExtResource( 8 )
 124/tex_offset = Vector2( 0, 0 )
 124/modulate = Color( 1, 1, 1, 1 )
 124/region = Rect2( 0, 0, 64, 64 )
@@ -2082,7 +2080,7 @@
 124/shapes = [  ]
 124/z_index = 0
 125/name = "detail.png 125"
-125/texture = ExtResource( 5 )
+125/texture = ExtResource( 3 )
 125/tex_offset = Vector2( 0, 0 )
 125/modulate = Color( 1, 1, 1, 1 )
 125/region = Rect2( 0, 0, 32, 64 )
@@ -2103,7 +2101,7 @@
 125/shapes = [  ]
 125/z_index = 0
 126/name = "detail.png 126"
-126/texture = ExtResource( 5 )
+126/texture = ExtResource( 3 )
 126/tex_offset = Vector2( 0, 0 )
 126/modulate = Color( 1, 1, 1, 1 )
 126/region = Rect2( 48, 0, 48, 48 )
@@ -2124,7 +2122,7 @@
 126/shapes = [  ]
 126/z_index = 0
 127/name = "detail.png 127"
-127/texture = ExtResource( 5 )
+127/texture = ExtResource( 3 )
 127/tex_offset = Vector2( 0, 0 )
 127/modulate = Color( 1, 1, 1, 1 )
 127/region = Rect2( 112, 0, 64, 64 )
@@ -2145,7 +2143,7 @@
 127/shapes = [  ]
 127/z_index = 0
 128/name = "detail.png 128"
-128/texture = ExtResource( 5 )
+128/texture = ExtResource( 3 )
 128/tex_offset = Vector2( 0, 0 )
 128/modulate = Color( 1, 1, 1, 1 )
 128/region = Rect2( 0, 80, 32, 32 )
@@ -2166,7 +2164,7 @@
 128/shapes = [  ]
 128/z_index = 0
 129/name = "detail.png 129"
-129/texture = ExtResource( 5 )
+129/texture = ExtResource( 3 )
 129/tex_offset = Vector2( 0, 0 )
 129/modulate = Color( 1, 1, 1, 1 )
 129/region = Rect2( 48, 80, 32, 32 )
@@ -2187,7 +2185,7 @@
 129/shapes = [  ]
 129/z_index = 0
 130/name = "detail.png 130"
-130/texture = ExtResource( 5 )
+130/texture = ExtResource( 3 )
 130/tex_offset = Vector2( 0, 0 )
 130/modulate = Color( 1, 1, 1, 1 )
 130/region = Rect2( 96, 80, 32, 32 )
@@ -2208,7 +2206,7 @@
 130/shapes = [  ]
 130/z_index = 0
 131/name = "detail.png 131"
-131/texture = ExtResource( 5 )
+131/texture = ExtResource( 3 )
 131/tex_offset = Vector2( 0, 0 )
 131/modulate = Color( 1, 1, 1, 1 )
 131/region = Rect2( 144, 80, 32, 32 )
@@ -2229,7 +2227,7 @@
 131/shapes = [  ]
 131/z_index = 0
 132/name = "detail.png 132"
-132/texture = ExtResource( 5 )
+132/texture = ExtResource( 3 )
 132/tex_offset = Vector2( 0, 0 )
 132/modulate = Color( 1, 1, 1, 1 )
 132/region = Rect2( 192, 80, 32, 32 )
@@ -2250,7 +2248,7 @@
 132/shapes = [  ]
 132/z_index = 0
 133/name = "detail.png 133"
-133/texture = ExtResource( 5 )
+133/texture = ExtResource( 3 )
 133/tex_offset = Vector2( 0, 0 )
 133/modulate = Color( 1, 1, 1, 1 )
 133/region = Rect2( 0, 128, 16, 32 )
@@ -2271,7 +2269,7 @@
 133/shapes = [  ]
 133/z_index = 0
 134/name = "detail.png 134"
-134/texture = ExtResource( 5 )
+134/texture = ExtResource( 3 )
 134/tex_offset = Vector2( 0, 0 )
 134/modulate = Color( 1, 1, 1, 1 )
 134/region = Rect2( 32, 128, 16, 32 )
@@ -2292,7 +2290,7 @@
 134/shapes = [  ]
 134/z_index = 0
 135/name = "detail.png 135"
-135/texture = ExtResource( 5 )
+135/texture = ExtResource( 3 )
 135/tex_offset = Vector2( 0, 0 )
 135/modulate = Color( 1, 1, 1, 1 )
 135/region = Rect2( 64, 128, 16, 32 )
@@ -2313,7 +2311,7 @@
 135/shapes = [  ]
 135/z_index = 0
 136/name = "detail.png 136"
-136/texture = ExtResource( 5 )
+136/texture = ExtResource( 3 )
 136/tex_offset = Vector2( 0, 0 )
 136/modulate = Color( 1, 1, 1, 1 )
 136/region = Rect2( 96, 128, 16, 32 )
@@ -2334,7 +2332,7 @@
 136/shapes = [  ]
 136/z_index = 0
 137/name = "detail.png 137"
-137/texture = ExtResource( 5 )
+137/texture = ExtResource( 3 )
 137/tex_offset = Vector2( 0, 0 )
 137/modulate = Color( 1, 1, 1, 1 )
 137/region = Rect2( 128, 128, 16, 32 )
@@ -2355,7 +2353,7 @@
 137/shapes = [  ]
 137/z_index = 0
 138/name = "detail.png 138"
-138/texture = ExtResource( 5 )
+138/texture = ExtResource( 3 )
 138/tex_offset = Vector2( 0, 0 )
 138/modulate = Color( 1, 1, 1, 1 )
 138/region = Rect2( 0, 176, 16, 16 )
@@ -2369,7 +2367,7 @@
 138/shapes = [  ]
 138/z_index = 0
 139/name = "detail.png 139"
-139/texture = ExtResource( 5 )
+139/texture = ExtResource( 3 )
 139/tex_offset = Vector2( 0, 0 )
 139/modulate = Color( 1, 1, 1, 1 )
 139/region = Rect2( 16, 176, 16, 16 )
@@ -2383,7 +2381,7 @@
 139/shapes = [  ]
 139/z_index = 0
 140/name = "detail.png 140"
-140/texture = ExtResource( 5 )
+140/texture = ExtResource( 3 )
 140/tex_offset = Vector2( 0, 0 )
 140/modulate = Color( 1, 1, 1, 1 )
 140/region = Rect2( 0, 192, 16, 16 )
@@ -2397,7 +2395,7 @@
 140/shapes = [  ]
 140/z_index = 0
 141/name = "detail.png 141"
-141/texture = ExtResource( 5 )
+141/texture = ExtResource( 3 )
 141/tex_offset = Vector2( 0, 0 )
 141/modulate = Color( 1, 1, 1, 1 )
 141/region = Rect2( 32, 176, 16, 16 )
@@ -2411,7 +2409,7 @@
 141/shapes = [  ]
 141/z_index = 0
 142/name = "detail.png 142"
-142/texture = ExtResource( 5 )
+142/texture = ExtResource( 3 )
 142/tex_offset = Vector2( 0, 0 )
 142/modulate = Color( 1, 1, 1, 1 )
 142/region = Rect2( 48, 176, 16, 16 )
@@ -2425,7 +2423,7 @@
 142/shapes = [  ]
 142/z_index = 0
 143/name = "detail.png 143"
-143/texture = ExtResource( 5 )
+143/texture = ExtResource( 3 )
 143/tex_offset = Vector2( 0, 0 )
 143/modulate = Color( 1, 1, 1, 1 )
 143/region = Rect2( 32, 192, 16, 16 )
@@ -2439,7 +2437,7 @@
 143/shapes = [  ]
 143/z_index = 0
 144/name = "detail.png 144"
-144/texture = ExtResource( 5 )
+144/texture = ExtResource( 3 )
 144/tex_offset = Vector2( 0, 0 )
 144/modulate = Color( 1, 1, 1, 1 )
 144/region = Rect2( 64, 176, 16, 16 )
@@ -2453,7 +2451,7 @@
 144/shapes = [  ]
 144/z_index = 0
 145/name = "detail.png 145"
-145/texture = ExtResource( 5 )
+145/texture = ExtResource( 3 )
 145/tex_offset = Vector2( 0, 0 )
 145/modulate = Color( 1, 1, 1, 1 )
 145/region = Rect2( 80, 176, 16, 16 )
@@ -2467,7 +2465,7 @@
 145/shapes = [  ]
 145/z_index = 0
 146/name = "detail.png 146"
-146/texture = ExtResource( 5 )
+146/texture = ExtResource( 3 )
 146/tex_offset = Vector2( 0, 0 )
 146/modulate = Color( 1, 1, 1, 1 )
 146/region = Rect2( 64, 192, 16, 16 )
@@ -2481,7 +2479,7 @@
 146/shapes = [  ]
 146/z_index = 0
 147/name = "detail.png 147"
-147/texture = ExtResource( 5 )
+147/texture = ExtResource( 3 )
 147/tex_offset = Vector2( 0, 0 )
 147/modulate = Color( 1, 1, 1, 1 )
 147/region = Rect2( 96, 176, 16, 16 )
@@ -2495,7 +2493,7 @@
 147/shapes = [  ]
 147/z_index = 0
 148/name = "detail.png 148"
-148/texture = ExtResource( 5 )
+148/texture = ExtResource( 3 )
 148/tex_offset = Vector2( 0, 0 )
 148/modulate = Color( 1, 1, 1, 1 )
 148/region = Rect2( 112, 176, 16, 16 )
@@ -2509,7 +2507,7 @@
 148/shapes = [  ]
 148/z_index = 0
 149/name = "detail.png 149"
-149/texture = ExtResource( 5 )
+149/texture = ExtResource( 3 )
 149/tex_offset = Vector2( 0, 0 )
 149/modulate = Color( 1, 1, 1, 1 )
 149/region = Rect2( 96, 192, 16, 16 )
@@ -2523,7 +2521,7 @@
 149/shapes = [  ]
 149/z_index = 0
 150/name = "detail.png 150"
-150/texture = ExtResource( 5 )
+150/texture = ExtResource( 3 )
 150/tex_offset = Vector2( 0, 0 )
 150/modulate = Color( 1, 1, 1, 1 )
 150/region = Rect2( 0, 256, 16, 16 )
@@ -2537,7 +2535,7 @@
 150/shapes = [  ]
 150/z_index = 0
 151/name = "detail.png 151"
-151/texture = ExtResource( 5 )
+151/texture = ExtResource( 3 )
 151/tex_offset = Vector2( 0, 0 )
 151/modulate = Color( 1, 1, 1, 1 )
 151/region = Rect2( 128, 256, 32, 16 )
@@ -2551,7 +2549,7 @@
 151/shapes = [  ]
 151/z_index = 0
 152/name = "detail.png 152"
-152/texture = ExtResource( 5 )
+152/texture = ExtResource( 3 )
 152/tex_offset = Vector2( 0, 0 )
 152/modulate = Color( 1, 1, 1, 1 )
 152/region = Rect2( 64, 256, 16, 16 )
@@ -2565,7 +2563,7 @@
 152/shapes = [  ]
 152/z_index = 0
 153/name = "detail.png 153"
-153/texture = ExtResource( 5 )
+153/texture = ExtResource( 3 )
 153/tex_offset = Vector2( 0, 0 )
 153/modulate = Color( 1, 1, 1, 1 )
 153/region = Rect2( 96, 256, 16, 16 )
@@ -2579,7 +2577,7 @@
 153/shapes = [  ]
 153/z_index = 0
 154/name = "detail.png 154"
-154/texture = ExtResource( 5 )
+154/texture = ExtResource( 3 )
 154/tex_offset = Vector2( 0, 0 )
 154/modulate = Color( 1, 1, 1, 1 )
 154/region = Rect2( 32, 432, 16, 16 )
@@ -2593,7 +2591,7 @@
 154/shapes = [  ]
 154/z_index = 0
 155/name = "detail.png 155"
-155/texture = ExtResource( 5 )
+155/texture = ExtResource( 3 )
 155/tex_offset = Vector2( 0, 0 )
 155/modulate = Color( 1, 1, 1, 1 )
 155/region = Rect2( 0, 432, 16, 16 )
@@ -2607,7 +2605,7 @@
 155/shapes = [  ]
 155/z_index = 0
 156/name = "detail.png 156"
-156/texture = ExtResource( 5 )
+156/texture = ExtResource( 3 )
 156/tex_offset = Vector2( 0, 0 )
 156/modulate = Color( 1, 1, 1, 1 )
 156/region = Rect2( 0, 528, 16, 16 )
@@ -2621,7 +2619,7 @@
 156/shapes = [  ]
 156/z_index = 0
 157/name = "big_rocks.png 157"
-157/texture = ExtResource( 6 )
+157/texture = ExtResource( 4 )
 157/tex_offset = Vector2( 0, 0 )
 157/modulate = Color( 1, 1, 1, 1 )
 157/region = Rect2( 0, 0, 32, 32 )
@@ -2635,7 +2633,7 @@
 157/shapes = [  ]
 157/z_index = 0
 158/name = "big_rocks.png 158"
-158/texture = ExtResource( 6 )
+158/texture = ExtResource( 4 )
 158/tex_offset = Vector2( 0, 0 )
 158/modulate = Color( 1, 1, 1, 1 )
 158/region = Rect2( 64, 0, 32, 32 )
@@ -2649,7 +2647,7 @@
 158/shapes = [  ]
 158/z_index = 0
 159/name = "big_rocks.png 159"
-159/texture = ExtResource( 6 )
+159/texture = ExtResource( 4 )
 159/tex_offset = Vector2( 0, 0 )
 159/modulate = Color( 1, 1, 1, 1 )
 159/region = Rect2( 128, 0, 32, 32 )
@@ -2663,7 +2661,7 @@
 159/shapes = [  ]
 159/z_index = 0
 160/name = "big_rocks.png 160"
-160/texture = ExtResource( 6 )
+160/texture = ExtResource( 4 )
 160/tex_offset = Vector2( 0, 0 )
 160/modulate = Color( 1, 1, 1, 1 )
 160/region = Rect2( 0, 64, 32, 32 )
@@ -2677,7 +2675,7 @@
 160/shapes = [  ]
 160/z_index = 0
 161/name = "big_rocks.png 161"
-161/texture = ExtResource( 6 )
+161/texture = ExtResource( 4 )
 161/tex_offset = Vector2( 0, 0 )
 161/modulate = Color( 1, 1, 1, 1 )
 161/region = Rect2( 0, 128, 32, 32 )
@@ -2691,7 +2689,7 @@
 161/shapes = [  ]
 161/z_index = 0
 162/name = "big_rocks.png 162"
-162/texture = ExtResource( 6 )
+162/texture = ExtResource( 4 )
 162/tex_offset = Vector2( 0, 0 )
 162/modulate = Color( 1, 1, 1, 1 )
 162/region = Rect2( 0, 192, 32, 32 )
@@ -2705,7 +2703,7 @@
 162/shapes = [  ]
 162/z_index = 0
 163/name = "Houses.png 163"
-163/texture = ExtResource( 11 )
+163/texture = ExtResource( 9 )
 163/tex_offset = Vector2( 0, 0 )
 163/modulate = Color( 1, 1, 1, 1 )
 163/region = Rect2( 64, 320, 96, 128 )
@@ -2719,7 +2717,7 @@
 163/shapes = [  ]
 163/z_index = 0
 164/name = "Houses.png 164"
-164/texture = ExtResource( 11 )
+164/texture = ExtResource( 9 )
 164/tex_offset = Vector2( 0, 0 )
 164/modulate = Color( 1, 1, 1, 1 )
 164/region = Rect2( 480, 240, 160, 208 )
@@ -2733,7 +2731,7 @@
 164/shapes = [  ]
 164/z_index = 0
 165/name = "Houses.png 165"
-165/texture = ExtResource( 11 )
+165/texture = ExtResource( 9 )
 165/tex_offset = Vector2( 0, 0 )
 165/modulate = Color( 1, 1, 1, 1 )
 165/region = Rect2( 256, 336, 144, 112 )
@@ -2747,7 +2745,7 @@
 165/shapes = [  ]
 165/z_index = 0
 166/name = "Houses.png 166"
-166/texture = ExtResource( 11 )
+166/texture = ExtResource( 9 )
 166/tex_offset = Vector2( 0, 0 )
 166/modulate = Color( 1, 1, 1, 1 )
 166/region = Rect2( 0, 0, 224, 224 )
@@ -2761,7 +2759,7 @@
 166/shapes = [  ]
 166/z_index = 0
 167/name = "Houses.png 167"
-167/texture = ExtResource( 11 )
+167/texture = ExtResource( 9 )
 167/tex_offset = Vector2( 0, 0 )
 167/modulate = Color( 1, 1, 1, 1 )
 167/region = Rect2( 288, 96, 112, 128 )
@@ -2775,7 +2773,7 @@
 167/shapes = [  ]
 167/z_index = 0
 168/name = "Houses.png 168"
-168/texture = ExtResource( 11 )
+168/texture = ExtResource( 9 )
 168/tex_offset = Vector2( 0, 0 )
 168/modulate = Color( 1, 1, 1, 1 )
 168/region = Rect2( 480, 112, 160, 112 )
@@ -2789,7 +2787,7 @@
 168/shapes = [  ]
 168/z_index = 0
 169/name = "Houses.png 169"
-169/texture = ExtResource( 11 )
+169/texture = ExtResource( 9 )
 169/tex_offset = Vector2( 0, 0 )
 169/modulate = Color( 1, 1, 1, 1 )
 169/region = Rect2( 704, 32, 160, 192 )
@@ -2803,7 +2801,7 @@
 169/shapes = [  ]
 169/z_index = 0
 170/name = "Houses.png 170"
-170/texture = ExtResource( 11 )
+170/texture = ExtResource( 9 )
 170/tex_offset = Vector2( 0, 0 )
 170/modulate = Color( 1, 1, 1, 1 )
 170/region = Rect2( 928, 48, 176, 176 )
@@ -2817,7 +2815,7 @@
 170/shapes = [  ]
 170/z_index = 0
 171/name = "trees.png 171"
-171/texture = ExtResource( 8 )
+171/texture = ExtResource( 6 )
 171/tex_offset = Vector2( 0, 0 )
 171/modulate = Color( 1, 1, 1, 1 )
 171/region = Rect2( 0, 0, 80, 112 )
@@ -2831,7 +2829,7 @@
 171/shapes = [  ]
 171/z_index = 0
 172/name = "trees.png 172"
-172/texture = ExtResource( 8 )
+172/texture = ExtResource( 6 )
 172/tex_offset = Vector2( 0, 0 )
 172/modulate = Color( 1, 1, 1, 1 )
 172/region = Rect2( 80, 0, 80, 112 )
@@ -2845,7 +2843,7 @@
 172/shapes = [  ]
 172/z_index = 0
 173/name = "trees.png 173"
-173/texture = ExtResource( 8 )
+173/texture = ExtResource( 6 )
 173/tex_offset = Vector2( 0, 0 )
 173/modulate = Color( 1, 1, 1, 1 )
 173/region = Rect2( 160, 16, 80, 96 )
@@ -2859,7 +2857,7 @@
 173/shapes = [  ]
 173/z_index = 0
 174/name = "trees.png 174"
-174/texture = ExtResource( 8 )
+174/texture = ExtResource( 6 )
 174/tex_offset = Vector2( 0, 0 )
 174/modulate = Color( 1, 1, 1, 1 )
 174/region = Rect2( 240, 16, 80, 96 )
@@ -2873,7 +2871,7 @@
 174/shapes = [  ]
 174/z_index = 0
 175/name = "trees.png 175"
-175/texture = ExtResource( 8 )
+175/texture = ExtResource( 6 )
 175/tex_offset = Vector2( 0, 0 )
 175/modulate = Color( 1, 1, 1, 1 )
 175/region = Rect2( 336, 16, 48, 96 )
@@ -2887,7 +2885,7 @@
 175/shapes = [  ]
 175/z_index = 0
 176/name = "trees.png 176"
-176/texture = ExtResource( 8 )
+176/texture = ExtResource( 6 )
 176/tex_offset = Vector2( 0, 0 )
 176/modulate = Color( 1, 1, 1, 1 )
 176/region = Rect2( 16, 192, 48, 32 )
@@ -2901,7 +2899,7 @@
 176/shapes = [  ]
 176/z_index = 0
 177/name = "trees.png 177"
-177/texture = ExtResource( 8 )
+177/texture = ExtResource( 6 )
 177/tex_offset = Vector2( 0, 0 )
 177/modulate = Color( 1, 1, 1, 1 )
 177/region = Rect2( 96, 192, 48, 32 )
@@ -2915,7 +2913,7 @@
 177/shapes = [  ]
 177/z_index = 0
 178/name = "trees.png 178"
-178/texture = ExtResource( 8 )
+178/texture = ExtResource( 6 )
 178/tex_offset = Vector2( 0, 0 )
 178/modulate = Color( 1, 1, 1, 1 )
 178/region = Rect2( 176, 192, 48, 32 )
@@ -2929,7 +2927,7 @@
 178/shapes = [  ]
 178/z_index = 0
 179/name = "trees.png 179"
-179/texture = ExtResource( 8 )
+179/texture = ExtResource( 6 )
 179/tex_offset = Vector2( 0, 0 )
 179/modulate = Color( 1, 1, 1, 1 )
 179/region = Rect2( 256, 192, 48, 32 )
@@ -2943,7 +2941,7 @@
 179/shapes = [  ]
 179/z_index = 0
 180/name = "trees.png 180"
-180/texture = ExtResource( 8 )
+180/texture = ExtResource( 6 )
 180/tex_offset = Vector2( 0, 0 )
 180/modulate = Color( 1, 1, 1, 1 )
 180/region = Rect2( 432, 208, 16, 16 )
@@ -2957,7 +2955,7 @@
 180/shapes = [  ]
 180/z_index = 0
 181/name = "trees.png 181"
-181/texture = ExtResource( 8 )
+181/texture = ExtResource( 6 )
 181/tex_offset = Vector2( 0, 0 )
 181/modulate = Color( 1, 1, 1, 1 )
 181/region = Rect2( 352, 208, 16, 16 )
@@ -2971,7 +2969,7 @@
 181/shapes = [  ]
 181/z_index = 0
 182/name = "trees.png 182"
-182/texture = ExtResource( 8 )
+182/texture = ExtResource( 6 )
 182/tex_offset = Vector2( 0, 0 )
 182/modulate = Color( 1, 1, 1, 1 )
 182/region = Rect2( 16, 304, 48, 32 )
@@ -2985,7 +2983,7 @@
 182/shapes = [  ]
 182/z_index = 0
 183/name = "trees.png 183"
-183/texture = ExtResource( 8 )
+183/texture = ExtResource( 6 )
 183/tex_offset = Vector2( 0, 0 )
 183/modulate = Color( 1, 1, 1, 1 )
 183/region = Rect2( 96, 304, 48, 32 )
@@ -2999,7 +2997,7 @@
 183/shapes = [  ]
 183/z_index = 0
 184/name = "trees.png 184"
-184/texture = ExtResource( 8 )
+184/texture = ExtResource( 6 )
 184/tex_offset = Vector2( 0, 0 )
 184/modulate = Color( 1, 1, 1, 1 )
 184/region = Rect2( 176, 304, 48, 32 )
@@ -3013,7 +3011,7 @@
 184/shapes = [  ]
 184/z_index = 0
 185/name = "trees.png 185"
-185/texture = ExtResource( 8 )
+185/texture = ExtResource( 6 )
 185/tex_offset = Vector2( 0, 0 )
 185/modulate = Color( 1, 1, 1, 1 )
 185/region = Rect2( 256, 304, 48, 32 )
@@ -3027,7 +3025,7 @@
 185/shapes = [  ]
 185/z_index = 0
 186/name = "trees.png 186"
-186/texture = ExtResource( 8 )
+186/texture = ExtResource( 6 )
 186/tex_offset = Vector2( 0, 0 )
 186/modulate = Color( 1, 1, 1, 1 )
 186/region = Rect2( 336, 320, 48, 16 )
@@ -3041,7 +3039,7 @@
 186/shapes = [  ]
 186/z_index = 0
 187/name = "trees.png 187"
-187/texture = ExtResource( 8 )
+187/texture = ExtResource( 6 )
 187/tex_offset = Vector2( 0, 0 )
 187/modulate = Color( 1, 1, 1, 1 )
 187/region = Rect2( 416, 320, 48, 16 )
@@ -3055,7 +3053,7 @@
 187/shapes = [  ]
 187/z_index = 0
 188/name = "trees.png 188"
-188/texture = ExtResource( 8 )
+188/texture = ExtResource( 6 )
 188/tex_offset = Vector2( 0, 0 )
 188/modulate = Color( 1, 1, 1, 1 )
 188/region = Rect2( 16, 448, 48, 112 )
@@ -3069,7 +3067,7 @@
 188/shapes = [  ]
 188/z_index = 0
 189/name = "trees.png 189"
-189/texture = ExtResource( 8 )
+189/texture = ExtResource( 6 )
 189/tex_offset = Vector2( 0, 0 )
 189/modulate = Color( 1, 1, 1, 1 )
 189/region = Rect2( 80, 464, 80, 96 )
@@ -3083,7 +3081,7 @@
 189/shapes = [  ]
 189/z_index = 0
 190/name = "trees.png 190"
-190/texture = ExtResource( 8 )
+190/texture = ExtResource( 6 )
 190/tex_offset = Vector2( 0, 0 )
 190/modulate = Color( 1, 1, 1, 1 )
 190/region = Rect2( 176, 496, 48, 64 )
@@ -3097,7 +3095,7 @@
 190/shapes = [  ]
 190/z_index = 0
 191/name = "trees.png 191"
-191/texture = ExtResource( 8 )
+191/texture = ExtResource( 6 )
 191/tex_offset = Vector2( 0, 0 )
 191/modulate = Color( 1, 1, 1, 1 )
 191/region = Rect2( 256, 496, 48, 64 )
@@ -3111,7 +3109,7 @@
 191/shapes = [  ]
 191/z_index = 0
 192/name = "trees.png 192"
-192/texture = ExtResource( 8 )
+192/texture = ExtResource( 6 )
 192/tex_offset = Vector2( 0, 0 )
 192/modulate = Color( 1, 1, 1, 1 )
 192/region = Rect2( 336, 512, 48, 48 )
@@ -3125,7 +3123,7 @@
 192/shapes = [  ]
 192/z_index = 0
 193/name = "trees.png 193"
-193/texture = ExtResource( 8 )
+193/texture = ExtResource( 6 )
 193/tex_offset = Vector2( 0, 0 )
 193/modulate = Color( 1, 1, 1, 1 )
 193/region = Rect2( 96, 752, 48, 32 )
@@ -3139,7 +3137,7 @@
 193/shapes = [  ]
 193/z_index = 0
 194/name = "trees.png 194"
-194/texture = ExtResource( 8 )
+194/texture = ExtResource( 6 )
 194/tex_offset = Vector2( 0, 0 )
 194/modulate = Color( 1, 1, 1, 1 )
 194/region = Rect2( 192, 752, 16, 32 )
@@ -3153,7 +3151,7 @@
 194/shapes = [  ]
 194/z_index = 0
 195/name = "bridges & more v1.png 195"
-195/texture = ExtResource( 13 )
+195/texture = ExtResource( 11 )
 195/tex_offset = Vector2( 0, 0 )
 195/modulate = Color( 1, 1, 1, 1 )
 195/region = Rect2( 352, 112, 80, 64 )
@@ -3174,7 +3172,7 @@
 195/shapes = [  ]
 195/z_index = 0
 196/name = "bridges & more v1.png 196"
-196/texture = ExtResource( 13 )
+196/texture = ExtResource( 11 )
 196/tex_offset = Vector2( 0, 0 )
 196/modulate = Color( 1, 1, 1, 1 )
 196/region = Rect2( 352, 176, 80, 32 )
@@ -3195,7 +3193,7 @@
 196/shapes = [  ]
 196/z_index = 0
 197/name = "bridges & more v1.png 197"
-197/texture = ExtResource( 13 )
+197/texture = ExtResource( 11 )
 197/tex_offset = Vector2( 0, 0 )
 197/modulate = Color( 1, 1, 1, 1 )
 197/region = Rect2( 352, 208, 80, 48 )
@@ -3216,7 +3214,7 @@
 197/shapes = [  ]
 197/z_index = 0
 198/name = "bridges & more v1.png 198"
-198/texture = ExtResource( 13 )
+198/texture = ExtResource( 11 )
 198/tex_offset = Vector2( 0, 0 )
 198/modulate = Color( 1, 1, 1, 1 )
 198/region = Rect2( 208, 0, 112, 64 )
@@ -3237,7 +3235,7 @@
 198/shapes = [  ]
 198/z_index = 0
 199/name = "bridges & more v1.png 199"
-199/texture = ExtResource( 13 )
+199/texture = ExtResource( 11 )
 199/tex_offset = Vector2( 0, 0 )
 199/modulate = Color( 1, 1, 1, 1 )
 199/region = Rect2( 288, 64, 64, 48 )
@@ -3258,7 +3256,7 @@
 199/shapes = [  ]
 199/z_index = 0
 200/name = "bridges & more v1.png 200"
-200/texture = ExtResource( 13 )
+200/texture = ExtResource( 11 )
 200/tex_offset = Vector2( 0, 0 )
 200/modulate = Color( 1, 1, 1, 1 )
 200/region = Rect2( 80, 160, 256, 144 )
@@ -3279,7 +3277,7 @@
 200/shapes = [  ]
 200/z_index = 0
 201/name = "bridges & more v1.png 201"
-201/texture = ExtResource( 13 )
+201/texture = ExtResource( 11 )
 201/tex_offset = Vector2( 0, 0 )
 201/modulate = Color( 1, 1, 1, 1 )
 201/region = Rect2( 160, 304, 48, 32 )
@@ -3300,7 +3298,7 @@
 201/shapes = [  ]
 201/z_index = 0
 202/name = "bridges & more v1.png 202"
-202/texture = ExtResource( 13 )
+202/texture = ExtResource( 11 )
 202/tex_offset = Vector2( 0, 0 )
 202/modulate = Color( 1, 1, 1, 1 )
 202/region = Rect2( 112, 304, 48, 32 )
@@ -3321,7 +3319,7 @@
 202/shapes = [  ]
 202/z_index = 0
 203/name = "bridges & more v1.png 203"
-203/texture = ExtResource( 13 )
+203/texture = ExtResource( 11 )
 203/tex_offset = Vector2( 0, 0 )
 203/modulate = Color( 1, 1, 1, 1 )
 203/region = Rect2( 0, 304, 48, 32 )
@@ -3342,7 +3340,7 @@
 203/shapes = [  ]
 203/z_index = 0
 204/name = "bridges & more v1.png 204"
-204/texture = ExtResource( 13 )
+204/texture = ExtResource( 11 )
 204/tex_offset = Vector2( 0, 0 )
 204/modulate = Color( 1, 1, 1, 1 )
 204/region = Rect2( 48, 304, 48, 32 )
@@ -3363,7 +3361,7 @@
 204/shapes = [  ]
 204/z_index = 0
 205/name = "bridges & more v1.png 205"
-205/texture = ExtResource( 13 )
+205/texture = ExtResource( 11 )
 205/tex_offset = Vector2( 0, 0 )
 205/modulate = Color( 1, 1, 1, 1 )
 205/region = Rect2( 208, 384, 16, 16 )
@@ -3384,7 +3382,7 @@
 205/shapes = [  ]
 205/z_index = 0
 206/name = "bridges & more v1.png 206"
-206/texture = ExtResource( 13 )
+206/texture = ExtResource( 11 )
 206/tex_offset = Vector2( 0, 0 )
 206/modulate = Color( 1, 1, 1, 1 )
 206/region = Rect2( 0, 352, 208, 48 )
@@ -3405,7 +3403,7 @@
 206/shapes = [  ]
 206/z_index = 0
 207/name = "cliffs.png 207"
-207/texture = ExtResource( 9 )
+207/texture = ExtResource( 7 )
 207/tex_offset = Vector2( 0, 0 )
 207/modulate = Color( 1, 1, 1, 1 )
 207/region = Rect2( 0, 0, 96, 128 )
@@ -3426,7 +3424,7 @@
 207/shapes = [  ]
 207/z_index = 0
 208/name = "cliffs.png 208"
-208/texture = ExtResource( 9 )
+208/texture = ExtResource( 7 )
 208/tex_offset = Vector2( 0, 0 )
 208/modulate = Color( 1, 1, 1, 1 )
 208/region = Rect2( 112, 0, 320, 176 )
@@ -3447,7 +3445,7 @@
 208/shapes = [  ]
 208/z_index = 0
 209/name = "cliffs.png 209"
-209/texture = ExtResource( 9 )
+209/texture = ExtResource( 7 )
 209/tex_offset = Vector2( 0, 0 )
 209/modulate = Color( 1, 1, 1, 1 )
 209/region = Rect2( 0, 144, 96, 96 )
@@ -3468,7 +3466,7 @@
 209/shapes = [  ]
 209/z_index = 0
 210/name = "cliffs.png 210"
-210/texture = ExtResource( 9 )
+210/texture = ExtResource( 7 )
 210/tex_offset = Vector2( 0, 0 )
 210/modulate = Color( 1, 1, 1, 1 )
 210/region = Rect2( 0, 256, 48, 48 )
@@ -3489,7 +3487,7 @@
 210/shapes = [  ]
 210/z_index = 0
 211/name = "cliffs.png 211"
-211/texture = ExtResource( 9 )
+211/texture = ExtResource( 7 )
 211/tex_offset = Vector2( 0, 0 )
 211/modulate = Color( 1, 1, 1, 1 )
 211/region = Rect2( 64, 256, 48, 48 )
@@ -3510,7 +3508,7 @@
 211/shapes = [  ]
 211/z_index = 0
 212/name = "cliffs.png 212"
-212/texture = ExtResource( 9 )
+212/texture = ExtResource( 7 )
 212/tex_offset = Vector2( 0, 0 )
 212/modulate = Color( 1, 1, 1, 1 )
 212/region = Rect2( 128, 256, 32, 48 )
@@ -3531,7 +3529,7 @@
 212/shapes = [  ]
 212/z_index = 0
 213/name = "cliffs.png 213"
-213/texture = ExtResource( 9 )
+213/texture = ExtResource( 7 )
 213/tex_offset = Vector2( 0, 0 )
 213/modulate = Color( 1, 1, 1, 1 )
 213/region = Rect2( 176, 256, 32, 48 )
@@ -3552,7 +3550,7 @@
 213/shapes = [  ]
 213/z_index = 0
 214/name = "cliffs.png 214"
-214/texture = ExtResource( 9 )
+214/texture = ExtResource( 7 )
 214/tex_offset = Vector2( 0, 0 )
 214/modulate = Color( 1, 1, 1, 1 )
 214/region = Rect2( 96, 320, 80, 96 )
@@ -3573,7 +3571,7 @@
 214/shapes = [  ]
 214/z_index = 0
 215/name = "cliffs.png 215"
-215/texture = ExtResource( 9 )
+215/texture = ExtResource( 7 )
 215/tex_offset = Vector2( 0, 0 )
 215/modulate = Color( 1, 1, 1, 1 )
 215/region = Rect2( 0, 320, 80, 96 )
@@ -3594,7 +3592,7 @@
 215/shapes = [  ]
 215/z_index = 0
 216/name = "cliffs.png 216"
-216/texture = ExtResource( 9 )
+216/texture = ExtResource( 7 )
 216/tex_offset = Vector2( 0, 0 )
 216/modulate = Color( 1, 1, 1, 1 )
 216/region = Rect2( 208, 320, 80, 96 )
@@ -3615,7 +3613,7 @@
 216/shapes = [  ]
 216/z_index = 0
 217/name = "cliffs.png 217"
-217/texture = ExtResource( 9 )
+217/texture = ExtResource( 7 )
 217/tex_offset = Vector2( 0, 0 )
 217/modulate = Color( 1, 1, 1, 1 )
 217/region = Rect2( 320, 320, 80, 96 )
@@ -3636,7 +3634,7 @@
 217/shapes = [  ]
 217/z_index = 0
 218/name = "cliffs.png 218"
-218/texture = ExtResource( 9 )
+218/texture = ExtResource( 7 )
 218/tex_offset = Vector2( 0, 0 )
 218/modulate = Color( 1, 1, 1, 1 )
 218/region = Rect2( 96, 432, 80, 96 )
@@ -3657,7 +3655,7 @@
 218/shapes = [  ]
 218/z_index = 0
 219/name = "cliffs.png 219"
-219/texture = ExtResource( 9 )
+219/texture = ExtResource( 7 )
 219/tex_offset = Vector2( 0, 0 )
 219/modulate = Color( 1, 1, 1, 1 )
 219/region = Rect2( 208, 432, 80, 96 )
@@ -3678,7 +3676,7 @@
 219/shapes = [  ]
 219/z_index = 0
 220/name = "cliffs.png 220"
-220/texture = ExtResource( 9 )
+220/texture = ExtResource( 7 )
 220/tex_offset = Vector2( 0, 0 )
 220/modulate = Color( 1, 1, 1, 1 )
 220/region = Rect2( 320, 432, 80, 96 )
@@ -3699,7 +3697,7 @@
 220/shapes = [  ]
 220/z_index = 0
 221/name = "cliffs.png 221"
-221/texture = ExtResource( 9 )
+221/texture = ExtResource( 7 )
 221/tex_offset = Vector2( 0, 0 )
 221/modulate = Color( 1, 1, 1, 1 )
 221/region = Rect2( 0, 544, 80, 80 )
@@ -3720,7 +3718,7 @@
 221/shapes = [  ]
 221/z_index = 0
 222/name = "cliffs.png 222"
-222/texture = ExtResource( 9 )
+222/texture = ExtResource( 7 )
 222/tex_offset = Vector2( 0, 0 )
 222/modulate = Color( 1, 1, 1, 1 )
 222/region = Rect2( 96, 544, 80, 80 )
@@ -3741,7 +3739,7 @@
 222/shapes = [  ]
 222/z_index = 0
 223/name = "cliffs.png 223"
-223/texture = ExtResource( 9 )
+223/texture = ExtResource( 7 )
 223/tex_offset = Vector2( 0, 0 )
 223/modulate = Color( 1, 1, 1, 1 )
 223/region = Rect2( 208, 544, 80, 80 )
@@ -3762,7 +3760,7 @@
 223/shapes = [  ]
 223/z_index = 0
 224/name = "cliffs.png 224"
-224/texture = ExtResource( 9 )
+224/texture = ExtResource( 7 )
 224/tex_offset = Vector2( 0, 0 )
 224/modulate = Color( 1, 1, 1, 1 )
 224/region = Rect2( 320, 544, 80, 80 )
@@ -3783,7 +3781,7 @@
 224/shapes = [  ]
 224/z_index = 0
 225/name = "cliffs.png 225"
-225/texture = ExtResource( 9 )
+225/texture = ExtResource( 7 )
 225/tex_offset = Vector2( 0, 0 )
 225/modulate = Color( 1, 1, 1, 1 )
 225/region = Rect2( 320, 640, 80, 80 )
@@ -3804,7 +3802,7 @@
 225/shapes = [  ]
 225/z_index = 0
 226/name = "cliffs.png 226"
-226/texture = ExtResource( 9 )
+226/texture = ExtResource( 7 )
 226/tex_offset = Vector2( 0, 0 )
 226/modulate = Color( 1, 1, 1, 1 )
 226/region = Rect2( 208, 640, 80, 80 )
@@ -3825,7 +3823,7 @@
 226/shapes = [  ]
 226/z_index = 0
 227/name = "cliffs.png 227"
-227/texture = ExtResource( 9 )
+227/texture = ExtResource( 7 )
 227/tex_offset = Vector2( 0, 0 )
 227/modulate = Color( 1, 1, 1, 1 )
 227/region = Rect2( 96, 640, 80, 80 )
@@ -3846,7 +3844,7 @@
 227/shapes = [  ]
 227/z_index = 0
 228/name = "cliffs.png 228"
-228/texture = ExtResource( 9 )
+228/texture = ExtResource( 7 )
 228/tex_offset = Vector2( 0, 0 )
 228/modulate = Color( 1, 1, 1, 1 )
 228/region = Rect2( 0, 736, 560, 48 )
@@ -3867,7 +3865,7 @@
 228/shapes = [  ]
 228/z_index = 0
 229/name = "small_rocks.png 229"
-229/texture = ExtResource( 3 )
+229/texture = ExtResource( 2 )
 229/tex_offset = Vector2( 0, 0 )
 229/modulate = Color( 1, 1, 1, 1 )
 229/region = Rect2( 0, 0, 16, 16 )
@@ -3881,7 +3879,7 @@
 229/shapes = [  ]
 229/z_index = 0
 230/name = "small_rocks.png 230"
-230/texture = ExtResource( 3 )
+230/texture = ExtResource( 2 )
 230/tex_offset = Vector2( 0, 0 )
 230/modulate = Color( 1, 1, 1, 1 )
 230/region = Rect2( 32, 0, 16, 16 )
@@ -3895,7 +3893,7 @@
 230/shapes = [  ]
 230/z_index = 0
 231/name = "small_rocks.png 231"
-231/texture = ExtResource( 3 )
+231/texture = ExtResource( 2 )
 231/tex_offset = Vector2( 0, 0 )
 231/modulate = Color( 1, 1, 1, 1 )
 231/region = Rect2( 64, 0, 16, 16 )
@@ -3909,7 +3907,7 @@
 231/shapes = [  ]
 231/z_index = 0
 232/name = "small_rocks.png 232"
-232/texture = ExtResource( 3 )
+232/texture = ExtResource( 2 )
 232/tex_offset = Vector2( 0, 0 )
 232/modulate = Color( 1, 1, 1, 1 )
 232/region = Rect2( 0, 32, 16, 16 )
@@ -3923,7 +3921,7 @@
 232/shapes = [  ]
 232/z_index = 0
 233/name = "small_rocks.png 233"
-233/texture = ExtResource( 3 )
+233/texture = ExtResource( 2 )
 233/tex_offset = Vector2( 0, 0 )
 233/modulate = Color( 1, 1, 1, 1 )
 233/region = Rect2( 0, 64, 16, 16 )
@@ -3937,7 +3935,7 @@
 233/shapes = [  ]
 233/z_index = 0
 234/name = "small_rocks.png 234"
-234/texture = ExtResource( 3 )
+234/texture = ExtResource( 2 )
 234/tex_offset = Vector2( 0, 0 )
 234/modulate = Color( 1, 1, 1, 1 )
 234/region = Rect2( 0, 96, 16, 16 )
@@ -3951,7 +3949,7 @@
 234/shapes = [  ]
 234/z_index = 0
 235/name = "small_rocks.png 235"
-235/texture = ExtResource( 3 )
+235/texture = ExtResource( 2 )
 235/tex_offset = Vector2( 0, 0 )
 235/modulate = Color( 1, 1, 1, 1 )
 235/region = Rect2( 0, 208, 16, 16 )
@@ -3965,7 +3963,7 @@
 235/shapes = [  ]
 235/z_index = 0
 236/name = "small_rocks.png 236"
-236/texture = ExtResource( 3 )
+236/texture = ExtResource( 2 )
 236/tex_offset = Vector2( 0, 0 )
 236/modulate = Color( 1, 1, 1, 1 )
 236/region = Rect2( 32, 208, 16, 16 )
@@ -3979,7 +3977,7 @@
 236/shapes = [  ]
 236/z_index = 0
 237/name = "small_rocks.png 237"
-237/texture = ExtResource( 3 )
+237/texture = ExtResource( 2 )
 237/tex_offset = Vector2( 0, 0 )
 237/modulate = Color( 1, 1, 1, 1 )
 237/region = Rect2( 64, 208, 16, 16 )
@@ -3993,7 +3991,7 @@
 237/shapes = [  ]
 237/z_index = 0
 238/name = "small_rocks.png 238"
-238/texture = ExtResource( 3 )
+238/texture = ExtResource( 2 )
 238/tex_offset = Vector2( 0, 0 )
 238/modulate = Color( 1, 1, 1, 1 )
 238/region = Rect2( 64, 240, 16, 16 )
@@ -4007,7 +4005,7 @@
 238/shapes = [  ]
 238/z_index = 0
 239/name = "small_rocks.png 239"
-239/texture = ExtResource( 3 )
+239/texture = ExtResource( 2 )
 239/tex_offset = Vector2( 0, 0 )
 239/modulate = Color( 1, 1, 1, 1 )
 239/region = Rect2( 32, 240, 16, 16 )
@@ -4021,7 +4019,7 @@
 239/shapes = [  ]
 239/z_index = 0
 240/name = "small_rocks.png 240"
-240/texture = ExtResource( 3 )
+240/texture = ExtResource( 2 )
 240/tex_offset = Vector2( 0, 0 )
 240/modulate = Color( 1, 1, 1, 1 )
 240/region = Rect2( 64, 272, 16, 16 )
@@ -4035,7 +4033,7 @@
 240/shapes = [  ]
 240/z_index = 0
 241/name = "small_rocks.png 241"
-241/texture = ExtResource( 3 )
+241/texture = ExtResource( 2 )
 241/tex_offset = Vector2( 0, 0 )
 241/modulate = Color( 1, 1, 1, 1 )
 241/region = Rect2( 32, 272, 16, 16 )
@@ -4049,7 +4047,7 @@
 241/shapes = [  ]
 241/z_index = 0
 242/name = "small_rocks.png 242"
-242/texture = ExtResource( 3 )
+242/texture = ExtResource( 2 )
 242/tex_offset = Vector2( 0, 0 )
 242/modulate = Color( 1, 1, 1, 1 )
 242/region = Rect2( 0, 240, 16, 16 )
@@ -4063,7 +4061,7 @@
 242/shapes = [  ]
 242/z_index = 0
 243/name = "small_rocks.png 243"
-243/texture = ExtResource( 3 )
+243/texture = ExtResource( 2 )
 243/tex_offset = Vector2( 0, 0 )
 243/modulate = Color( 1, 1, 1, 1 )
 243/region = Rect2( 0, 272, 16, 16 )
@@ -4077,7 +4075,7 @@
 243/shapes = [  ]
 243/z_index = 0
 244/name = "small_rocks.png 244"
-244/texture = ExtResource( 3 )
+244/texture = ExtResource( 2 )
 244/tex_offset = Vector2( 0, 0 )
 244/modulate = Color( 1, 1, 1, 1 )
 244/region = Rect2( 64, 304, 16, 16 )
@@ -4091,7 +4089,7 @@
 244/shapes = [  ]
 244/z_index = 0
 245/name = "small_rocks.png 245"
-245/texture = ExtResource( 3 )
+245/texture = ExtResource( 2 )
 245/tex_offset = Vector2( 0, 0 )
 245/modulate = Color( 1, 1, 1, 1 )
 245/region = Rect2( 32, 304, 16, 16 )
@@ -4105,7 +4103,7 @@
 245/shapes = [  ]
 245/z_index = 0
 246/name = "small_rocks.png 246"
-246/texture = ExtResource( 3 )
+246/texture = ExtResource( 2 )
 246/tex_offset = Vector2( 0, 0 )
 246/modulate = Color( 1, 1, 1, 1 )
 246/region = Rect2( 0, 304, 16, 16 )
@@ -4119,7 +4117,7 @@
 246/shapes = [  ]
 246/z_index = 0
 247/name = "small_rocks.png 247"
-247/texture = ExtResource( 3 )
+247/texture = ExtResource( 2 )
 247/tex_offset = Vector2( 0, 0 )
 247/modulate = Color( 1, 1, 1, 1 )
 247/region = Rect2( 64, 336, 16, 16 )
@@ -4133,7 +4131,7 @@
 247/shapes = [  ]
 247/z_index = 0
 248/name = "small_rocks.png 248"
-248/texture = ExtResource( 3 )
+248/texture = ExtResource( 2 )
 248/tex_offset = Vector2( 0, 0 )
 248/modulate = Color( 1, 1, 1, 1 )
 248/region = Rect2( 32, 336, 16, 16 )
@@ -4147,7 +4145,7 @@
 248/shapes = [  ]
 248/z_index = 0
 249/name = "small_rocks.png 249"
-249/texture = ExtResource( 3 )
+249/texture = ExtResource( 2 )
 249/tex_offset = Vector2( 0, 0 )
 249/modulate = Color( 1, 1, 1, 1 )
 249/region = Rect2( 0, 336, 16, 16 )
@@ -4161,7 +4159,7 @@
 249/shapes = [  ]
 249/z_index = 0
 250/name = "village-objects-large.png 250"
-250/texture = ExtResource( 14 )
+250/texture = ExtResource( 12 )
 250/tex_offset = Vector2( 0, 0 )
 250/modulate = Color( 1, 1, 1, 1 )
 250/region = Rect2( 16, 16, 48, 80 )
@@ -4175,7 +4173,7 @@
 250/shapes = [  ]
 250/z_index = 0
 251/name = "village-objects-large.png 251"
-251/texture = ExtResource( 14 )
+251/texture = ExtResource( 12 )
 251/tex_offset = Vector2( 0, 0 )
 251/modulate = Color( 1, 1, 1, 1 )
 251/region = Rect2( 96, 0, 80, 96 )
@@ -4189,7 +4187,7 @@
 251/shapes = [  ]
 251/z_index = 0
 252/name = "village-objects-large.png 252"
-252/texture = ExtResource( 14 )
+252/texture = ExtResource( 12 )
 252/tex_offset = Vector2( 0, 0 )
 252/modulate = Color( 1, 1, 1, 1 )
 252/region = Rect2( 96, 96, 80, 96 )
@@ -4203,7 +4201,7 @@
 252/shapes = [  ]
 252/z_index = 0
 253/name = "village-objects-large.png 253"
-253/texture = ExtResource( 14 )
+253/texture = ExtResource( 12 )
 253/tex_offset = Vector2( 0, 0 )
 253/modulate = Color( 1, 1, 1, 1 )
 253/region = Rect2( 112, 240, 48, 48 )
@@ -4217,7 +4215,7 @@
 253/shapes = [  ]
 253/z_index = 0
 254/name = "village-objects-large.png 254"
-254/texture = ExtResource( 14 )
+254/texture = ExtResource( 12 )
 254/tex_offset = Vector2( 0, 0 )
 254/modulate = Color( 1, 1, 1, 1 )
 254/region = Rect2( 0, 416, 80, 64 )
@@ -4231,7 +4229,7 @@
 254/shapes = [  ]
 254/z_index = 0
 255/name = "village-objects-large.png 255"
-255/texture = ExtResource( 14 )
+255/texture = ExtResource( 12 )
 255/tex_offset = Vector2( 0, 0 )
 255/modulate = Color( 1, 1, 1, 1 )
 255/region = Rect2( 208, 448, 48, 32 )
@@ -4245,7 +4243,7 @@
 255/shapes = [  ]
 255/z_index = 0
 256/name = "village-objects-large.png 256"
-256/texture = ExtResource( 14 )
+256/texture = ExtResource( 12 )
 256/tex_offset = Vector2( 0, 0 )
 256/modulate = Color( 1, 1, 1, 1 )
 256/region = Rect2( 16, 608, 64, 64 )
@@ -4259,7 +4257,7 @@
 256/shapes = [  ]
 256/z_index = 0
 257/name = "village-objects-large.png 257"
-257/texture = ExtResource( 14 )
+257/texture = ExtResource( 12 )
 257/tex_offset = Vector2( 0, 0 )
 257/modulate = Color( 1, 1, 1, 1 )
 257/region = Rect2( 32, 528, 32, 48 )
@@ -4273,7 +4271,7 @@
 257/shapes = [  ]
 257/z_index = 0
 258/name = "village-objects-large.png 258"
-258/texture = ExtResource( 14 )
+258/texture = ExtResource( 12 )
 258/tex_offset = Vector2( 0, 0 )
 258/modulate = Color( 1, 1, 1, 1 )
 258/region = Rect2( 16, 720, 64, 48 )
@@ -4287,7 +4285,7 @@
 258/shapes = [  ]
 258/z_index = 0
 259/name = "village-objects-large.png 259"
-259/texture = ExtResource( 14 )
+259/texture = ExtResource( 12 )
 259/tex_offset = Vector2( 0, 0 )
 259/modulate = Color( 1, 1, 1, 1 )
 259/region = Rect2( 112, 720, 64, 48 )
@@ -4301,7 +4299,7 @@
 259/shapes = [  ]
 259/z_index = 0
 260/name = "village-objects-large.png 260"
-260/texture = ExtResource( 14 )
+260/texture = ExtResource( 12 )
 260/tex_offset = Vector2( 0, 0 )
 260/modulate = Color( 1, 1, 1, 1 )
 260/region = Rect2( 208, 720, 64, 48 )
@@ -4315,7 +4313,7 @@
 260/shapes = [  ]
 260/z_index = 0
 261/name = "village-objects-large.png 261"
-261/texture = ExtResource( 14 )
+261/texture = ExtResource( 12 )
 261/tex_offset = Vector2( 0, 0 )
 261/modulate = Color( 1, 1, 1, 1 )
 261/region = Rect2( 304, 704, 48, 64 )
@@ -4329,7 +4327,7 @@
 261/shapes = [  ]
 261/z_index = 0
 262/name = "fences and walls.png 262"
-262/texture = ExtResource( 12 )
+262/texture = ExtResource( 10 )
 262/tex_offset = Vector2( 0, 0 )
 262/modulate = Color( 1, 1, 1, 1 )
 262/region = Rect2( 0, 0, 560, 208 )
@@ -4350,7 +4348,7 @@
 262/shapes = [  ]
 262/z_index = 0
 263/name = "fences and walls.png 263"
-263/texture = ExtResource( 12 )
+263/texture = ExtResource( 10 )
 263/tex_offset = Vector2( 0, 0 )
 263/modulate = Color( 1, 1, 1, 1 )
 263/region = Rect2( 0, 192, 368, 128 )
@@ -4371,7 +4369,7 @@
 263/shapes = [  ]
 263/z_index = 0
 264/name = "fences and walls.png 264"
-264/texture = ExtResource( 12 )
+264/texture = ExtResource( 10 )
 264/tex_offset = Vector2( 0, 0 )
 264/modulate = Color( 1, 1, 1, 1 )
 264/region = Rect2( 0, 320, 496, 368 )
@@ -4392,7 +4390,7 @@
 264/shapes = [  ]
 264/z_index = 0
 265/name = "village-objects-small.png 265"
-265/texture = ExtResource( 7 )
+265/texture = ExtResource( 5 )
 265/tex_offset = Vector2( 0, 0 )
 265/modulate = Color( 1, 1, 1, 1 )
 265/region = Rect2( 0, 0, 32, 32 )
@@ -4406,7 +4404,7 @@
 265/shapes = [  ]
 265/z_index = 0
 266/name = "village-objects-small.png 266"
-266/texture = ExtResource( 7 )
+266/texture = ExtResource( 5 )
 266/tex_offset = Vector2( 0, 0 )
 266/modulate = Color( 1, 1, 1, 1 )
 266/region = Rect2( 0, 32, 32, 32 )
@@ -4420,7 +4418,7 @@
 266/shapes = [  ]
 266/z_index = 0
 267/name = "village-objects-small.png 267"
-267/texture = ExtResource( 7 )
+267/texture = ExtResource( 5 )
 267/tex_offset = Vector2( 0, 0 )
 267/modulate = Color( 1, 1, 1, 1 )
 267/region = Rect2( 0, 64, 32, 32 )
@@ -4434,7 +4432,7 @@
 267/shapes = [  ]
 267/z_index = 0
 268/name = "village-objects-small.png 268"
-268/texture = ExtResource( 7 )
+268/texture = ExtResource( 5 )
 268/tex_offset = Vector2( 0, 0 )
 268/modulate = Color( 1, 1, 1, 1 )
 268/region = Rect2( 0, 96, 32, 32 )
@@ -4448,7 +4446,7 @@
 268/shapes = [  ]
 268/z_index = 0
 269/name = "village-objects-small.png 269"
-269/texture = ExtResource( 7 )
+269/texture = ExtResource( 5 )
 269/tex_offset = Vector2( 0, 0 )
 269/modulate = Color( 1, 1, 1, 1 )
 269/region = Rect2( 0, 160, 32, 32 )
@@ -4462,7 +4460,7 @@
 269/shapes = [  ]
 269/z_index = 0
 270/name = "village-objects-small.png 270"
-270/texture = ExtResource( 7 )
+270/texture = ExtResource( 5 )
 270/tex_offset = Vector2( 0, 0 )
 270/modulate = Color( 1, 1, 1, 1 )
 270/region = Rect2( 0, 192, 32, 32 )
@@ -4476,7 +4474,7 @@
 270/shapes = [  ]
 270/z_index = 0
 271/name = "village-objects-small.png 271"
-271/texture = ExtResource( 7 )
+271/texture = ExtResource( 5 )
 271/tex_offset = Vector2( 0, 0 )
 271/modulate = Color( 1, 1, 1, 1 )
 271/region = Rect2( 0, 240, 16, 16 )
@@ -4490,7 +4488,7 @@
 271/shapes = [  ]
 271/z_index = 0
 272/name = "village-objects-small.png 272"
-272/texture = ExtResource( 7 )
+272/texture = ExtResource( 5 )
 272/tex_offset = Vector2( 0, 0 )
 272/modulate = Color( 1, 1, 1, 1 )
 272/region = Rect2( 32, 240, 16, 16 )
@@ -4504,7 +4502,7 @@
 272/shapes = [  ]
 272/z_index = 0
 273/name = "village-objects-small.png 273"
-273/texture = ExtResource( 7 )
+273/texture = ExtResource( 5 )
 273/tex_offset = Vector2( 0, 0 )
 273/modulate = Color( 1, 1, 1, 1 )
 273/region = Rect2( 64, 240, 16, 16 )
@@ -4518,7 +4516,7 @@
 273/shapes = [  ]
 273/z_index = 0
 274/name = "village-objects-small.png 274"
-274/texture = ExtResource( 7 )
+274/texture = ExtResource( 5 )
 274/tex_offset = Vector2( 0, 0 )
 274/modulate = Color( 1, 1, 1, 1 )
 274/region = Rect2( 96, 240, 16, 16 )
@@ -4532,7 +4530,7 @@
 274/shapes = [  ]
 274/z_index = 0
 275/name = "village-objects-small.png 275"
-275/texture = ExtResource( 7 )
+275/texture = ExtResource( 5 )
 275/tex_offset = Vector2( 0, 0 )
 275/modulate = Color( 1, 1, 1, 1 )
 275/region = Rect2( 0, 288, 32, 32 )
@@ -4545,34 +4543,3 @@
 275/shape_one_way_margin = 0.0
 275/shapes = [  ]
 275/z_index = 0
-
-[node name="ServerMap" type="Node2D"]
-script = ExtResource( 1 )
-
-[node name="Water" type="TileMap" parent="."]
-mode = 2
-tile_set = SubResource( 1 )
-cell_size = Vector2( 32, 32 )
-cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
-format = 1
-
-[node name="YSort" type="YSort" parent="."]
-
-[node name="Players" type="YSort" parent="YSort"]
-
-[node name="Enemies" type="YSort" parent="YSort"]
-
-[node name="Ores" type="YSort" parent="YSort"]
-
-[node name="O1" parent="YSort/Ores" instance=ExtResource( 4 )]
-position = Vector2( 601.428, 488.088 )
-
-[node name="O2" parent="YSort/Ores" instance=ExtResource( 4 )]
-position = Vector2( 686.832, 488.088 )
-
-[node name="O3" parent="YSort/Ores" instance=ExtResource( 4 )]
-position = Vector2( 779.727, 488.088 )
-
-[node name="Items" type="YSort" parent="YSort"]
-
-[node name="PlayerAttacks" type="YSort" parent="."]

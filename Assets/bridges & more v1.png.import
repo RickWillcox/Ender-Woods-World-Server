@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/grass.png-46bb554aade75a091da98570239d1507.stex"
+path="res://.import/bridges & more v1.png-721d478ff7db9d6d09c902144e32195f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/grass.png"
-dest_files=[ "res://.import/grass.png-46bb554aade75a091da98570239d1507.stex" ]
+source_file="res://Assets/bridges & more v1.png"
+dest_files=[ "res://.import/bridges & more v1.png-721d478ff7db9d6d09c902144e32195f.stex" ]
 
 [params]
 
